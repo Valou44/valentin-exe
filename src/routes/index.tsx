@@ -1,29 +1,97 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { BootSequence } from "../components/BootSequence";
+import { Backdrop } from "../components/Noise";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "PM.EXE — Valentin Renard, Product Manager" },
+      {
+        name: "description",
+        content:
+          "Experience Product Management through real decisions. An interactive portfolio by Valentin Renard, Product Manager.",
+      },
+      { property: "og:title", content: "PM.EXE — Valentin Renard" },
+      {
+        property: "og:description",
+        content: "Experience Product Management through real decisions.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [booted, setBooted] = useState(false);
+  const navigate = useNavigate();
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
+      <Backdrop />
+      <AnimatePresence mode="wait">
+        {!booted ? (
+          <BootSequence key="boot" onDone={() => setBooted(true)} />
+        ) : (
+          <motion.section
+            key="welcome"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center px-6 text-center"
+          >
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="font-mono text-xs tracking-[0.3em] text-muted-foreground"
+            >
+              PM.EXE — SIMULATION ENVIRONMENT
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="mt-6 font-[var(--font-display)] text-5xl font-extrabold tracking-tight text-glow sm:text-7xl"
+            >
+              WELCOME.
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45 }}
+              className="mt-6 space-y-1 text-lg text-muted-foreground sm:text-xl"
+            >
+              <p>Today, you're the Product Manager.</p>
+              <p>You have 10 minutes.</p>
+              <p className="text-foreground">Good luck.</p>
+            </motion.div>
+            <motion.button
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.7 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => navigate({ to: "/simulation" })}
+              className="mt-12 rounded-full bg-foreground px-10 py-4 font-mono text-sm font-semibold tracking-[0.2em] text-background transition-shadow hover:shadow-[0_0_40px_rgba(255,255,255,0.25)]"
+            >
+              START SIMULATION
+            </motion.button>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="mt-10 font-mono text-[11px] tracking-widest text-muted-foreground/60"
+            >
+              tip: press <span className="text-muted-foreground">`</span> anytime to open the terminal
+            </motion.p>
+          </motion.section>
+        )}
+      </AnimatePresence>
+    </main>
   );
 }
