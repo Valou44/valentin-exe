@@ -19,6 +19,7 @@ export const PROFILE = {
   tagline: "Vivez le Product Management à travers de vraies décisions.",
   location: "Nantes, France",
   email: "renard.valentin49@gmail.com",
+  photo: "",
   phone: "06 88 84 05 18",
   linkedin: "https://www.linkedin.com/in/valentin-renard-149200a9/",
   bio: [
