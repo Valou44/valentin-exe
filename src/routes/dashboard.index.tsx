@@ -6,6 +6,11 @@ export const Route = createFileRoute("/dashboard/")({
 });
 
 function About() {
+  const contacts = [
+    { label: "Email", value: PROFILE.email, href: `mailto:${PROFILE.email}` },
+    { label: "Téléphone", value: PROFILE.phone, href: `tel:${PROFILE.phone.replace(/\s/g, "")}` },
+    { label: "LinkedIn", value: "valentin-renard", href: PROFILE.linkedin },
+  ];
   return (
     <div className="space-y-12">
       <section>
@@ -30,22 +35,46 @@ function About() {
           <span className="text-muted-foreground">Actuellement :</span>
           <span>{PROFILE.currentFocus}</span>
         </div>
+
+        {/* contacts */}
+        <div className="mt-6 flex flex-wrap gap-2">
+          {contacts.map((c) => (
+            <a
+              key={c.label}
+              href={c.href}
+              target={c.href.startsWith("http") ? "_blank" : undefined}
+              rel="noreferrer"
+              className="group inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm transition-colors hover:border-foreground/40 hover:bg-foreground/5"
+            >
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                {c.label}
+              </span>
+              <span>{c.value}</span>
+              <span className="text-muted-foreground transition-transform group-hover:translate-x-0.5">
+                →
+              </span>
+            </a>
+          ))}
+        </div>
       </section>
 
       <section>
         <p className="mb-5 font-mono text-xs tracking-widest text-muted-foreground">
           PARCOURS
         </p>
-        <div className="space-y-4">
+        <div className="relative space-y-4 border-l border-border/60 pl-6">
           {TIMELINE.map((t) => (
-            <div key={t.title} className="glass rounded-xl p-5">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h2 className="font-semibold">
-                  {t.title} · <span className="text-muted-foreground">{t.company}</span>
-                </h2>
-                <span className="font-mono text-xs text-muted-foreground">{t.period}</span>
+            <div key={t.title} className="relative">
+              <span className="absolute -left-[1.65rem] top-1.5 h-2.5 w-2.5 rounded-full border border-foreground/40 bg-background" />
+              <div className="glass rounded-xl p-5 transition-colors hover:border-foreground/30">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h2 className="font-semibold">
+                    {t.title} · <span className="text-muted-foreground">{t.company}</span>
+                  </h2>
+                  <span className="font-mono text-xs text-muted-foreground">{t.period}</span>
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">{t.description}</p>
               </div>
-              <p className="mt-2 text-sm text-muted-foreground">{t.description}</p>
             </div>
           ))}
         </div>
