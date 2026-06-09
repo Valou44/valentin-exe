@@ -143,18 +143,43 @@ function Admin() {
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
           <div>
             <p className="font-mono text-xs tracking-widest text-muted-foreground">ÉDITEUR DU SIMULATEUR</p>
-            <h1 className="font-[var(--font-display)] text-xl font-bold">Contenu des branches</h1>
+            <h1 className="font-[var(--font-display)] text-xl font-bold">Espace admin</h1>
+            <div className="mt-3 flex gap-2">
+              <button
+                onClick={() => setTab("sim")}
+                className={`rounded-full px-3 py-1.5 font-mono text-xs tracking-widest ${tab === "sim" ? "bg-foreground text-background" : "border border-border text-muted-foreground"}`}
+              >
+                SIMULATEUR
+              </button>
+              <button
+                onClick={() => setTab("cases")}
+                className={`rounded-full px-3 py-1.5 font-mono text-xs tracking-widest ${tab === "cases" ? "bg-foreground text-background" : "border border-border text-muted-foreground"}`}
+              >
+                ÉTUDES DE CAS
+              </button>
+            </div>
           </div>
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="rounded-full bg-foreground px-6 py-2.5 font-mono text-sm font-semibold tracking-widest text-background disabled:opacity-50"
-          >
-            {saving ? "ENREGISTREMENT…" : "ENREGISTRER"}
-          </button>
+          {tab === "sim" ? (
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="rounded-full bg-foreground px-6 py-2.5 font-mono text-sm font-semibold tracking-widest text-background disabled:opacity-50"
+            >
+              {saving ? "ENREGISTREMENT…" : "ENREGISTRER"}
+            </button>
+          ) : (
+            <button
+              onClick={handleSaveCaseStudies}
+              disabled={savingCs}
+              className="rounded-full bg-foreground px-6 py-2.5 font-mono text-sm font-semibold tracking-widest text-background disabled:opacity-50"
+            >
+              {savingCs ? "ENREGISTREMENT…" : "ENREGISTRER"}
+            </button>
+          )}
         </div>
       </div>
 
+      {tab === "sim" && (
       <div className="mx-auto max-w-4xl space-y-10 px-6 py-10">
         {draft.map((s, si) => (
           <section key={s.id} className="glass rounded-2xl border border-border p-6">
@@ -209,6 +234,28 @@ function Admin() {
           </button>
         </div>
       </div>
+      )}
+
+      {tab === "cases" && (
+        <div className="mx-auto max-w-4xl space-y-10 px-6 py-10">
+          {csDraft.map((c, ci) => (
+            <CaseStudyEditor
+              key={c.slug}
+              cs={c}
+              onChange={(patch) => updateCaseStudy(ci, patch)}
+            />
+          ))}
+          <div className="flex justify-end pb-16">
+            <button
+              onClick={handleSaveCaseStudies}
+              disabled={savingCs}
+              className="rounded-full bg-foreground px-8 py-3 font-mono text-sm font-semibold tracking-widest text-background disabled:opacity-50"
+            >
+              {savingCs ? "ENREGISTREMENT…" : "ENREGISTRER LES MODIFICATIONS"}
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
