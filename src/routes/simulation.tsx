@@ -26,6 +26,7 @@ function Simulation() {
   const scenarioId = useSimStore((s) => s.scenarioId);
   const setScenario = useSimStore((s) => s.setScenario);
   const setChoice = useSimStore((s) => s.setChoice);
+  const reset = useSimStore((s) => s.reset);
   const [step, setStep] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -59,6 +60,7 @@ function Simulation() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <Backdrop />
+      <div className="pointer-events-none absolute inset-0 grid-bg opacity-30" />
       <div className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-10">
         {/* progress */}
         <div className="mb-10">
@@ -66,7 +68,17 @@ function Simulation() {
             <span>
               <span className={scenario.accent}>{scenario.project.toUpperCase()}</span> · ÉTAPE {chapter.index}/{chapters.length}
             </span>
-            <span>{Math.round(progress)}%</span>
+            <button
+              onClick={() => {
+                reset();
+                setStep(0);
+                setSelected(null);
+                setRevealed(false);
+              }}
+              className="rounded-full border border-border px-3 py-1 text-[10px] tracking-widest text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
+            >
+              ← CHANGER DE PARCOURS
+            </button>
           </div>
           <div className="mt-3 h-px w-full bg-border">
             <motion.div
@@ -74,6 +86,9 @@ function Simulation() {
               animate={{ width: `${progress}%` }}
               transition={{ type: "spring", stiffness: 120, damping: 20 }}
             />
+          </div>
+          <div className="mt-2 text-right font-mono text-[10px] tracking-widest text-muted-foreground">
+            {Math.round(progress)}%
           </div>
         </div>
 
@@ -86,17 +101,19 @@ function Simulation() {
             transition={{ duration: 0.4 }}
             className="flex flex-1 flex-col"
           >
-            <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">
+            <p className={`font-mono text-xs tracking-[0.25em] ${scenario.accent}`}>
               {chapter.tag}
             </p>
             <h1 className="mt-3 font-[var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
               {chapter.title}
             </h1>
-            <p className="mt-5 whitespace-pre-line text-base leading-relaxed text-muted-foreground sm:text-lg">
-              {chapter.situation}
-            </p>
+            <div className="mt-6 rounded-2xl border border-border bg-card/40 p-5 backdrop-blur">
+              <p className="whitespace-pre-line text-base leading-relaxed text-foreground/85 sm:text-lg">
+                {chapter.situation}
+              </p>
+            </div>
 
-            <p className="mt-8 font-medium text-foreground">{chapter.prompt}</p>
+            <p className="mt-8 text-lg font-semibold text-foreground">{chapter.prompt}</p>
 
             <div className="mt-4 grid gap-3">
               {chapter.options.map((opt, i) => {
@@ -108,22 +125,41 @@ function Simulation() {
                     disabled={revealed}
                     onClick={() => pick(i)}
                     className={[
-                      "group flex items-center justify-between rounded-xl border px-5 py-4 text-left transition-all",
-                      isSel
-                        ? "border-foreground bg-foreground/10"
-                        : "border-border glass hover:border-foreground/40",
+                      "group flex items-center justify-between gap-4 rounded-xl border px-5 py-4 text-left transition-all",
+                      isValentin
+                        ? "border-emerald-400/60 bg-emerald-400/10"
+                        : isSel
+                          ? "border-foreground bg-foreground/10"
+                          : "border-border glass hover:border-foreground/40 hover:bg-foreground/5",
                       revealed && !isSel && !isValentin ? "opacity-40" : "",
                     ].join(" ")}
                   >
-                    <span>
-                      <span className="block font-medium">{opt.label}</span>
-                      {opt.hint && (
-                        <span className="text-sm text-muted-foreground">{opt.hint}</span>
-                      )}
+                    <span className="flex items-start gap-3">
+                      <span
+                        className={[
+                          "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border font-mono text-xs",
+                          isSel || isValentin ? "border-foreground/40 text-foreground" : "border-border text-muted-foreground",
+                        ].join(" ")}
+                      >
+                        {String.fromCharCode(65 + i)}
+                      </span>
+                      <span>
+                        <span className="block font-medium leading-snug">{opt.label}</span>
+                        {opt.hint && (
+                          <span className="text-sm text-muted-foreground">{opt.hint}</span>
+                        )}
+                      </span>
                     </span>
-                    <span className="ml-4 font-mono text-xs text-muted-foreground">
-                      {isValentin ? "CHOIX DE VALENTIN" : isSel ? "VOUS" : ""}
-                    </span>
+                    {(isValentin || isSel) && (
+                      <span
+                        className={[
+                          "ml-2 shrink-0 rounded-full px-2.5 py-1 font-mono text-[10px] tracking-widest",
+                          isValentin ? "bg-emerald-400/15 text-emerald-300" : "bg-foreground/10 text-foreground",
+                        ].join(" ")}
+                      >
+                        {isValentin ? "VALENTIN" : "VOUS"}
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -136,25 +172,28 @@ function Simulation() {
                   animate={{ opacity: 1, height: "auto" }}
                   className="mt-8 overflow-hidden"
                 >
-                  <div className="glass rounded-2xl p-6">
-                    <p className="font-mono text-xs tracking-widest text-muted-foreground">
+                  <div className="relative overflow-hidden rounded-2xl border border-border bg-card/70 p-6 backdrop-blur">
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/40 to-transparent" />
+                    <p className={`flex items-center gap-2 font-mono text-xs tracking-widest ${scenario.accent}`}>
+                      <span className="h-1.5 w-1.5 rounded-full bg-current" />
                       {chapter.revealTitle.toUpperCase()}
                     </p>
-                    <div className="mt-4 space-y-3 text-muted-foreground">
+                    <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-foreground/80">
                       {chapter.revealBody.map((p, i) => (
-                        <p key={i} className="leading-relaxed">
-                          {p}
-                        </p>
+                        <p key={i}>{p}</p>
                       ))}
                     </div>
                     {chapter.meta && (
                       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
                         {chapter.meta.map((m) => (
-                          <div key={m.label} className="rounded-lg border border-border p-3">
+                          <div
+                            key={m.label}
+                            className="rounded-xl border border-border bg-background/40 p-4"
+                          >
                             <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                               {m.label}
                             </div>
-                            <div className="mt-1 font-semibold">{m.value}</div>
+                            <div className={`mt-1.5 text-base font-semibold ${scenario.accent}`}>{m.value}</div>
                           </div>
                         ))}
                       </div>
