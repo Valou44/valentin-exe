@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Backdrop } from "../components/Noise";
-import { CHAPTERS } from "../lib/sim-content";
+import { SCENARIOS, getScenario } from "../lib/sim-content";
 import { useSimStore } from "../lib/sim-store";
 
 export const Route = createFileRoute("/simulation")({
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/simulation")({
       { title: "Simulation — Valentin.EXE" },
       {
         name: "description",
-        content: "Prenez 5 vraies décisions produit et découvrez la façon de penser de Valentin Renard.",
+        content: "Choisissez une problématique produit et prenez 5 vraies décisions face à Valentin Renard.",
       },
     ],
   }),
@@ -20,13 +20,21 @@ export const Route = createFileRoute("/simulation")({
 
 function Simulation() {
   const navigate = useNavigate();
+  const scenarioId = useSimStore((s) => s.scenarioId);
+  const setScenario = useSimStore((s) => s.setScenario);
   const setChoice = useSimStore((s) => s.setChoice);
   const [step, setStep] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
 
-  const chapter = CHAPTERS[step];
-  const progress = ((step + (revealed ? 1 : 0.5)) / CHAPTERS.length) * 100;
+  if (!scenarioId) {
+    return <ScenarioPicker onPick={(id) => setScenario(id)} />;
+  }
+
+  const scenario = getScenario(scenarioId);
+  const chapters = scenario.chapters;
+  const chapter = chapters[step];
+  const progress = ((step + (revealed ? 1 : 0.5)) / chapters.length) * 100;
 
   function pick(i: number) {
     if (revealed) return;
@@ -36,7 +44,7 @@ function Simulation() {
   }
 
   function next() {
-    if (step + 1 >= CHAPTERS.length) {
+    if (step + 1 >= chapters.length) {
       navigate({ to: "/result" });
       return;
     }
@@ -52,7 +60,9 @@ function Simulation() {
         {/* progress */}
         <div className="mb-10">
           <div className="flex items-center justify-between font-mono text-xs tracking-widest text-muted-foreground">
-            <span>MISSION {chapter.index}/{CHAPTERS.length}</span>
+            <span>
+              <span className={scenario.accent}>{scenario.project.toUpperCase()}</span> · ÉTAPE {chapter.index}/{chapters.length}
+            </span>
             <span>{Math.round(progress)}%</span>
           </div>
           <div className="mt-3 h-px w-full bg-border">
@@ -152,7 +162,7 @@ function Simulation() {
                       onClick={next}
                       className="rounded-full bg-foreground px-8 py-3 font-mono text-sm font-semibold tracking-widest text-background transition-shadow hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
                     >
-                      {step + 1 >= CHAPTERS.length ? "VOIR MON SCORE" : "MISSION SUIVANTE"}
+                      {step + 1 >= chapters.length ? "VOIR MON SCORE" : "ÉTAPE SUIVANTE"}
                     </button>
                   </div>
                 </motion.div>
@@ -160,6 +170,58 @@ function Simulation() {
             </AnimatePresence>
           </motion.div>
         </AnimatePresence>
+      </div>
+    </main>
+  );
+}
+
+function ScenarioPicker({ onPick }: { onPick: (id: string) => void }) {
+  return (
+    <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
+      <Backdrop />
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-16">
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="font-mono text-xs tracking-[0.3em] text-muted-foreground"
+        >
+          CHOISISSEZ VOTRE MISSION
+        </motion.p>
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="mt-4 font-[var(--font-display)] text-3xl font-extrabold tracking-tight sm:text-4xl"
+        >
+          Quelle problématique voulez-vous résoudre&nbsp;?
+        </motion.h1>
+        <p className="mt-4 text-muted-foreground">
+          Vous prendrez ensuite 5 décisions produit, puis comparerez vos choix à ceux de Valentin sur un vrai projet.
+        </p>
+
+        <div className="mt-10 grid gap-4">
+          {SCENARIOS.map((s, i) => (
+            <motion.button
+              key={s.id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 + i * 0.1 }}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              onClick={() => onPick(s.id)}
+              className="group glass flex flex-col rounded-2xl border border-border p-6 text-left transition-colors hover:border-foreground/40"
+            >
+              <span className={`font-mono text-[11px] uppercase tracking-widest ${s.accent}`}>
+                {s.inspiration}
+              </span>
+              <span className="mt-3 text-lg font-semibold leading-snug">{s.question}</span>
+              <span className="mt-2 text-sm text-muted-foreground">{s.intro}</span>
+              <span className="mt-4 inline-flex items-center font-mono text-xs tracking-widest text-muted-foreground transition-transform group-hover:translate-x-1">
+                DÉMARRER →
+              </span>
+            </motion.button>
+          ))}
+        </div>
       </div>
     </main>
   );

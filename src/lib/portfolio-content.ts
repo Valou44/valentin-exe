@@ -11,6 +11,7 @@ import kitMetiersImg from "../assets/projects/kitmetiers.png.asset.json";
 import premierPasImg from "../assets/projects/premierpas.webp.asset.json";
 import monRetabImg from "../assets/projects/monretab.jpg.asset.json";
 import saltoImg from "../assets/projects/salto.jpg.asset.json";
+import valentinPhoto from "../assets/valentin-photo.avif.asset.json";
 
 export const PROFILE = {
   name: "Valentin Renard",
@@ -19,7 +20,7 @@ export const PROFILE = {
   tagline: "Vivez le Product Management à travers de vraies décisions.",
   location: "Nantes, France",
   email: "renard.valentin49@gmail.com",
-  photo: "",
+  photo: valentinPhoto.url,
   phone: "06 88 84 05 18",
   linkedin: "https://www.linkedin.com/in/valentin-renard-149200a9/",
   bio: [
