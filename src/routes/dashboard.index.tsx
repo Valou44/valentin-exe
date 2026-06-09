@@ -17,19 +17,48 @@ function About() {
         <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">
           // À PROPOS
         </p>
-        <h1 className="mt-4 font-[var(--font-display)] text-4xl font-extrabold tracking-tight sm:text-5xl">
-          {PROFILE.name}
-        </h1>
-        <p className="mt-2 text-lg text-muted-foreground">
-          {PROFILE.role} · {PROFILE.years} ans d'expérience · {PROFILE.location}
-        </p>
-        <div className="mt-6 max-w-2xl space-y-4 text-muted-foreground">
-          {PROFILE.bio.map((p, i) => (
-            <p key={i} className="leading-relaxed">
-              {p}
+        <div className="mt-6 grid gap-8 md:grid-cols-[260px_1fr] md:items-start">
+          {/* Portrait */}
+          <div className="relative mx-auto w-full max-w-[260px]">
+            <div className="absolute -inset-2 rounded-3xl bg-[var(--gradient-primary,linear-gradient(135deg,var(--primary),transparent))] opacity-20 blur-xl" />
+            <div className="glass relative aspect-[4/5] overflow-hidden rounded-3xl">
+              {PROFILE.photo ? (
+                <img
+                  src={PROFILE.photo}
+                  alt={`Portrait de ${PROFILE.name}`}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className="flex h-full w-full flex-col items-center justify-center bg-foreground/5">
+                  <span className="font-[var(--font-display)] text-5xl font-extrabold tracking-tight text-muted-foreground">
+                    VR
+                  </span>
+                  <span className="mt-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                    Photo à venir
+                  </span>
+                </div>
+              )}
+              <span className="pointer-events-none absolute left-3 top-3 font-mono text-[10px] uppercase tracking-widest text-foreground/70">
+                ./portrait.png
+              </span>
+            </div>
+          </div>
+
+          {/* Intro */}
+          <div>
+            <h1 className="font-[var(--font-display)] text-4xl font-extrabold tracking-tight sm:text-5xl">
+              {PROFILE.name}
+            </h1>
+            <p className="mt-2 text-lg text-muted-foreground">
+              {PROFILE.role} · {PROFILE.years} ans d'expérience · {PROFILE.location}
             </p>
-          ))}
-        </div>
+            <div className="mt-6 max-w-2xl space-y-4 text-muted-foreground">
+              {PROFILE.bio.map((p, i) => (
+                <p key={i} className="leading-relaxed">
+                  {p}
+                </p>
+              ))}
+            </div>
         <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm">
           <span className="h-2 w-2 rounded-full bg-emerald-400" />
           <span className="text-muted-foreground">Actuellement :</span>
@@ -55,6 +84,8 @@ function About() {
               </span>
             </a>
           ))}
+        </div>
+          </div>
         </div>
       </section>
 
