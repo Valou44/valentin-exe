@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { PROJECTS } from "../lib/portfolio-content";
+import { useQuery } from "@tanstack/react-query";
+import { caseStudiesQueryOptions, DEFAULT_CASE_STUDIES } from "../lib/case-studies";
 
 export const Route = createFileRoute("/dashboard/projects")({
   head: () => ({
@@ -25,7 +26,10 @@ const SECTIONS: { key: StringKey; label: string }[] = [
 
 function Projects() {
   const [active, setActive] = useState(0);
-  const p = PROJECTS[active];
+  const { data: PROJECTS = DEFAULT_CASE_STUDIES } = useQuery(caseStudiesQueryOptions);
+  const p = PROJECTS[active] ?? PROJECTS[0];
+
+  if (!p) return null;
 
   return (
     <div>
