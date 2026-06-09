@@ -28,32 +28,59 @@ function Thinking() {
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         {FRAMEWORKS.map((f, i) => {
           const isOpen = open === i;
+          const num = String(i + 1).padStart(2, "0");
           return (
             <motion.button
               key={f.name}
               layout
               onClick={() => setOpen(isOpen ? null : i)}
-              className="glass rounded-2xl p-6 text-left"
+              className={`group glass relative overflow-hidden rounded-2xl p-6 text-left transition-colors ${
+                isOpen ? "border-foreground/40" : "hover:border-foreground/25"
+              }`}
             >
-              <div className="flex items-center justify-between">
-                <h2 className="font-[var(--font-display)] text-lg font-semibold">{f.name}</h2>
-                <span className="font-mono text-xs text-muted-foreground">{isOpen ? "−" : "+"}</span>
-              </div>
-              <p className="mt-2 text-sm text-muted-foreground">{f.summary}</p>
-              {isOpen && (
-                <motion.ul
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="mt-4 space-y-2"
+              {/* accent bar */}
+              <span
+                className={`absolute inset-y-0 left-0 w-1 origin-top bg-foreground/60 transition-transform duration-300 ${
+                  isOpen ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100"
+                }`}
+              />
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-xs text-muted-foreground/70">{num}</span>
+                  <h2 className="font-[var(--font-display)] text-lg font-semibold">{f.name}</h2>
+                </div>
+                <span
+                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border font-mono text-xs text-muted-foreground transition-transform duration-300 ${
+                    isOpen ? "rotate-45 border-foreground/40 text-foreground" : ""
+                  }`}
                 >
-                  {f.points.map((pt) => (
-                    <li key={pt} className="flex items-center gap-2 text-sm">
-                      <span className="h-1 w-1 rounded-full bg-foreground" />
-                      {pt}
-                    </li>
-                  ))}
-                </motion.ul>
-              )}
+                  +
+                </span>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.summary}</p>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <ul className="mt-4 flex flex-wrap gap-2">
+                      {f.points.map((pt) => (
+                        <li
+                          key={pt}
+                          className="rounded-full border border-border bg-foreground/5 px-3 py-1 font-mono text-xs text-muted-foreground"
+                        >
+                          {pt}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.button>
           );
         })}
