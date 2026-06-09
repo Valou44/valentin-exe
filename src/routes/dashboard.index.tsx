@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "motion/react";
 import { PROFILE, TIMELINE } from "../lib/portfolio-content";
 
 export const Route = createFileRoute("/dashboard/")({
@@ -38,14 +37,8 @@ function About() {
           PARCOURS
         </p>
         <div className="space-y-4">
-          {TIMELINE.map((t, i) => (
-            <motion.div
-              key={t.title}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className="glass rounded-xl p-5"
-            >
+          {TIMELINE.map((t) => (
+            <div key={t.title} className="glass rounded-xl p-5">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h2 className="font-semibold">
                   {t.title} · <span className="text-muted-foreground">{t.company}</span>
@@ -53,7 +46,7 @@ function About() {
                 <span className="font-mono text-xs text-muted-foreground">{t.period}</span>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">{t.description}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
