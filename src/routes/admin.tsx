@@ -11,7 +11,9 @@ import {
   type SimOption,
 } from "../lib/sim-content";
 import { scenariosQueryOptions } from "../lib/scenarios";
-import { verifyAdminCode, saveScenarios } from "../lib/admin.functions";
+import { caseStudiesQueryOptions, DEFAULT_CASE_STUDIES } from "../lib/case-studies";
+import type { CaseStudy } from "../lib/portfolio-content";
+import { verifyAdminCode, saveScenarios, saveCaseStudies } from "../lib/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -29,14 +31,19 @@ function clone<T>(v: T): T {
 
 function Admin() {
   const { data: scenarios = DEFAULT_SCENARIOS } = useQuery(scenariosQueryOptions);
+  const { data: caseStudies = DEFAULT_CASE_STUDIES } = useQuery(caseStudiesQueryOptions);
   const verify = useServerFn(verifyAdminCode);
   const save = useServerFn(saveScenarios);
+  const saveCs = useServerFn(saveCaseStudies);
 
   const [code, setCode] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [checking, setChecking] = useState(false);
   const [saving, setSaving] = useState(false);
   const [draft, setDraft] = useState<Scenario[]>([]);
+  const [savingCs, setSavingCs] = useState(false);
+  const [csDraft, setCsDraft] = useState<CaseStudy[]>([]);
+  const [tab, setTab] = useState<"sim" | "cases">("sim");
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
@@ -45,6 +52,7 @@ function Admin() {
       const res = await verify({ data: { code } });
       if (res.ok) {
         setDraft(clone(scenarios));
+        setCsDraft(clone(caseStudies));
         setUnlocked(true);
       } else {
         toast.error("Code d'accès invalide");
@@ -66,6 +74,22 @@ function Admin() {
     } finally {
       setSaving(false);
     }
+  }
+
+  async function handleSaveCaseStudies() {
+    setSavingCs(true);
+    try {
+      await saveCs({ data: { code, caseStudies: csDraft } });
+      toast.success("Études de cas enregistrées ✓");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Échec de l'enregistrement");
+    } finally {
+      setSavingCs(false);
+    }
+  }
+
+  function updateCaseStudy(i: number, patch: Partial<CaseStudy>) {
+    setCsDraft((d) => d.map((c, idx) => (idx === i ? { ...c, ...patch } : c)));
   }
 
   function updateScenario(i: number, patch: Partial<Scenario>) {
@@ -119,18 +143,43 @@ function Admin() {
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
           <div>
             <p className="font-mono text-xs tracking-widest text-muted-foreground">ÉDITEUR DU SIMULATEUR</p>
-            <h1 className="font-[var(--font-display)] text-xl font-bold">Contenu des branches</h1>
+            <h1 className="font-[var(--font-display)] text-xl font-bold">Espace admin</h1>
+            <div className="mt-3 flex gap-2">
+              <button
+                onClick={() => setTab("sim")}
+                className={`rounded-full px-3 py-1.5 font-mono text-xs tracking-widest ${tab === "sim" ? "bg-foreground text-background" : "border border-border text-muted-foreground"}`}
+              >
+                SIMULATEUR
+              </button>
+              <button
+                onClick={() => setTab("cases")}
+                className={`rounded-full px-3 py-1.5 font-mono text-xs tracking-widest ${tab === "cases" ? "bg-foreground text-background" : "border border-border text-muted-foreground"}`}
+              >
+                ÉTUDES DE CAS
+              </button>
+            </div>
           </div>
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="rounded-full bg-foreground px-6 py-2.5 font-mono text-sm font-semibold tracking-widest text-background disabled:opacity-50"
-          >
-            {saving ? "ENREGISTREMENT…" : "ENREGISTRER"}
-          </button>
+          {tab === "sim" ? (
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="rounded-full bg-foreground px-6 py-2.5 font-mono text-sm font-semibold tracking-widest text-background disabled:opacity-50"
+            >
+              {saving ? "ENREGISTREMENT…" : "ENREGISTRER"}
+            </button>
+          ) : (
+            <button
+              onClick={handleSaveCaseStudies}
+              disabled={savingCs}
+              className="rounded-full bg-foreground px-6 py-2.5 font-mono text-sm font-semibold tracking-widest text-background disabled:opacity-50"
+            >
+              {savingCs ? "ENREGISTREMENT…" : "ENREGISTRER"}
+            </button>
+          )}
         </div>
       </div>
 
+      {tab === "sim" && (
       <div className="mx-auto max-w-4xl space-y-10 px-6 py-10">
         {draft.map((s, si) => (
           <section key={s.id} className="glass rounded-2xl border border-border p-6">
@@ -185,6 +234,28 @@ function Admin() {
           </button>
         </div>
       </div>
+      )}
+
+      {tab === "cases" && (
+        <div className="mx-auto max-w-4xl space-y-10 px-6 py-10">
+          {csDraft.map((c, ci) => (
+            <CaseStudyEditor
+              key={c.slug}
+              cs={c}
+              onChange={(patch) => updateCaseStudy(ci, patch)}
+            />
+          ))}
+          <div className="flex justify-end pb-16">
+            <button
+              onClick={handleSaveCaseStudies}
+              disabled={savingCs}
+              className="rounded-full bg-foreground px-8 py-3 font-mono text-sm font-semibold tracking-widest text-background disabled:opacity-50"
+            >
+              {savingCs ? "ENREGISTREMENT…" : "ENREGISTRER LES MODIFICATIONS"}
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
@@ -200,6 +271,207 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       </span>
       {children}
     </label>
+  );
+}
+
+function fileToDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function ImageField({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div className="mt-4">
+      <span className="mb-1 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+        {label}
+      </span>
+      <div className="flex items-center gap-3">
+        <div className="h-16 w-24 shrink-0 overflow-hidden rounded-lg border border-border bg-secondary">
+          {value ? (
+            <img src={value} alt="" className="h-full w-full object-cover" />
+          ) : null}
+        </div>
+        <div className="flex-1 space-y-2">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={async (e) => {
+              const file = e.target.files?.[0];
+              if (file) onChange(await fileToDataUrl(file));
+            }}
+            className="block w-full text-xs text-muted-foreground file:mr-3 file:rounded-md file:border-0 file:bg-foreground file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-background"
+          />
+          <input
+            value={value.startsWith("data:") ? "" : value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="…ou collez une URL d'image"
+            className={inputCls}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CaseStudyEditor({
+  cs,
+  onChange,
+}: {
+  cs: CaseStudy;
+  onChange: (patch: Partial<CaseStudy>) => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  function setGallery(i: number, v: string) {
+    onChange({ gallery: (cs.gallery ?? []).map((g, idx) => (idx === i ? v : g)) });
+  }
+
+  return (
+    <section className="glass rounded-2xl border border-border">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex w-full items-center justify-between px-6 py-4 text-left"
+      >
+        <span className="font-[var(--font-display)] font-semibold">
+          {cs.name} <span className="font-mono text-xs text-muted-foreground">· {cs.year}</span>
+        </span>
+        <span className="font-mono text-muted-foreground">{open ? "−" : "+"}</span>
+      </button>
+
+      {open && (
+        <div className="border-t border-border px-6 py-5">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Nom du projet">
+              <input value={cs.name} onChange={(e) => onChange({ name: e.target.value })} className={inputCls} />
+            </Field>
+            <Field label="Année">
+              <input value={cs.year} onChange={(e) => onChange({ year: e.target.value })} className={inputCls} />
+            </Field>
+          </div>
+          <Field label="Accroche (one-liner)">
+            <textarea
+              value={cs.oneLiner}
+              onChange={(e) => onChange({ oneLiner: e.target.value })}
+              className={inputCls + " min-h-[60px]"}
+            />
+          </Field>
+          <Field label="Lien externe (optionnel)">
+            <input value={cs.link ?? ""} onChange={(e) => onChange({ link: e.target.value })} className={inputCls} />
+          </Field>
+          <Field label="Étiquettes (séparées par des virgules)">
+            <input
+              value={cs.tags.join(", ")}
+              onChange={(e) => onChange({ tags: e.target.value.split(",").map((t) => t.trim()).filter(Boolean) })}
+              className={inputCls}
+            />
+          </Field>
+
+          <ImageField
+            label="Image de couverture"
+            value={cs.image}
+            onChange={(v) => onChange({ image: v })}
+          />
+
+          <div className="mt-5">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                Galerie d'images
+              </span>
+              <button
+                onClick={() => onChange({ gallery: [...(cs.gallery ?? []), ""] })}
+                className="font-mono text-xs text-muted-foreground hover:text-foreground"
+              >
+                + ajouter une image
+              </button>
+            </div>
+            {(cs.gallery ?? []).map((g, i) => (
+              <div key={i} className="mt-2 flex items-start gap-2">
+                <div className="flex-1">
+                  <ImageField label={`Image ${i + 1}`} value={g} onChange={(v) => setGallery(i, v)} />
+                </div>
+                <button
+                  onClick={() => onChange({ gallery: (cs.gallery ?? []).filter((_, idx) => idx !== i) })}
+                  className="mt-8 font-mono text-xs text-rose-400/80 hover:text-rose-400"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <Field label="Le problème">
+            <textarea value={cs.problem} onChange={(e) => onChange({ problem: e.target.value })} className={inputCls + " min-h-[80px]"} />
+          </Field>
+          <Field label="Discovery">
+            <textarea value={cs.discovery} onChange={(e) => onChange({ discovery: e.target.value })} className={inputCls + " min-h-[80px]"} />
+          </Field>
+          <Field label="Prise de décision">
+            <textarea value={cs.decision} onChange={(e) => onChange({ decision: e.target.value })} className={inputCls + " min-h-[80px]"} />
+          </Field>
+          <Field label="Solution">
+            <textarea value={cs.solution} onChange={(e) => onChange({ solution: e.target.value })} className={inputCls + " min-h-[80px]"} />
+          </Field>
+          <Field label="Ce que j'en retiens">
+            <textarea value={cs.lessons} onChange={(e) => onChange({ lessons: e.target.value })} className={inputCls + " min-h-[60px]"} />
+          </Field>
+          <Field label="Ce que je ferais différemment">
+            <textarea value={cs.differently} onChange={(e) => onChange({ differently: e.target.value })} className={inputCls + " min-h-[60px]"} />
+          </Field>
+
+          <div className="mt-5">
+            <span className="mb-1 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              Indicateurs d'impact — label : valeur
+            </span>
+            <div className="space-y-2">
+              {cs.impact.map((m, i) => (
+                <div key={i} className="grid grid-cols-[1fr_1fr_32px] gap-2">
+                  <input
+                    value={m.label}
+                    onChange={(e) =>
+                      onChange({ impact: cs.impact.map((x, idx) => (idx === i ? { ...x, label: e.target.value } : x)) })
+                    }
+                    placeholder="Label"
+                    className={inputCls}
+                  />
+                  <input
+                    value={m.value}
+                    onChange={(e) =>
+                      onChange({ impact: cs.impact.map((x, idx) => (idx === i ? { ...x, value: e.target.value } : x)) })
+                    }
+                    placeholder="Valeur"
+                    className={inputCls}
+                  />
+                  <button
+                    onClick={() => onChange({ impact: cs.impact.filter((_, idx) => idx !== i) })}
+                    className="font-mono text-xs text-rose-400/80 hover:text-rose-400"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+              <button
+                onClick={() => onChange({ impact: [...cs.impact, { label: "", value: "" }] })}
+                className="font-mono text-xs text-muted-foreground hover:text-foreground"
+              >
+                + ajouter un indicateur
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   );
 }
 
