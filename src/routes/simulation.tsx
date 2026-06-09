@@ -173,7 +173,7 @@ function Simulation() {
                   className="mt-8 overflow-hidden"
                 >
                   <div className="relative overflow-hidden rounded-2xl border border-border bg-card/70 p-6 backdrop-blur">
-                    <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent ${scenario.accent.replace("text-", "via-")} to-transparent`} />
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/40 to-transparent" />
                     <p className={`flex items-center gap-2 font-mono text-xs tracking-widest ${scenario.accent}`}>
                       <span className="h-1.5 w-1.5 rounded-full bg-current" />
                       {chapter.revealTitle.toUpperCase()}
