@@ -7,7 +7,7 @@ export const Route = createFileRoute("/dashboard/thinking")({
   head: () => ({
     meta: [
       { title: "Product Thinking — Valentin Renard" },
-      { name: "description", content: "Frameworks and methods Valentin Renard uses to build products." },
+      { name: "description", content: "Les méthodes et approches que Valentin Renard utilise pour concevoir des produits." },
     ],
   }),
   component: Thinking,
@@ -19,10 +19,10 @@ function Thinking() {
     <div>
       <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// PRODUCT THINKING</p>
       <h1 className="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight">
-        Frameworks & Methods
+        Méthodes & approches
       </h1>
       <p className="mt-2 max-w-xl text-muted-foreground">
-        How I approach building products. Tap a card to expand.
+        Ma façon d'aborder la conception produit. Cliquez sur une carte pour la déplier.
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">

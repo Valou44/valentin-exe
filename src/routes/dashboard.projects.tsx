@@ -6,8 +6,8 @@ import { PROJECTS } from "../lib/portfolio-content";
 export const Route = createFileRoute("/dashboard/projects")({
   head: () => ({
     meta: [
-      { title: "Projects — Valentin Renard" },
-      { name: "description", content: "Selected product case studies by Valentin Renard." },
+      { title: "Projets — Valentin Renard" },
+      { name: "description", content: "Études de cas produit sélectionnées par Valentin Renard." },
     ],
   }),
   component: Projects,
@@ -15,12 +15,12 @@ export const Route = createFileRoute("/dashboard/projects")({
 
 type StringKey = "problem" | "discovery" | "decision" | "solution" | "lessons" | "differently";
 const SECTIONS: { key: StringKey; label: string }[] = [
-  { key: "problem", label: "The Problem" },
+  { key: "problem", label: "Le problème" },
   { key: "discovery", label: "Discovery" },
-  { key: "decision", label: "Decision Making" },
+  { key: "decision", label: "Prise de décision" },
   { key: "solution", label: "Solution" },
-  { key: "lessons", label: "Lessons Learned" },
-  { key: "differently", label: "What I'd Do Differently Today" },
+  { key: "lessons", label: "Ce que j'en retiens" },
+  { key: "differently", label: "Ce que je ferais différemment" },
 ];
 
 function Projects() {
@@ -29,9 +29,9 @@ function Projects() {
 
   return (
     <div>
-      <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// PROJECTS</p>
+      <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// PROJETS</p>
       <h1 className="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight">
-        Case Studies
+        Études de cas
       </h1>
 
       <div className="mt-6 flex flex-wrap gap-2">
