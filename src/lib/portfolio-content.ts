@@ -332,8 +332,8 @@ export const TERMINAL_RESPONSES: Record<string, string[]> = {
     "Je conçois, pilote et optimise des produits digitaux que les gens utilisent.",
   ],
   projects: [
-    "naonair    evapp    kit-metiers",
-    "myklub     mon-retab    salto",
+    "cibli      naonair    premier-pas",
+    "mon-retab  evapp      kit-metiers    salto",
     "Tape un nom ou ouvre la section Projets pour explorer.",
   ],
   current_focus: ["Product Manager chez Lonestone, à Nantes — du cadrage jusqu'à la mise en production."],
