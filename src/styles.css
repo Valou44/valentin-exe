@@ -61,6 +61,12 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
