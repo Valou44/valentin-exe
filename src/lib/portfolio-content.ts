@@ -68,118 +68,148 @@ export interface CaseStudy {
 
 export const PROJECTS: CaseStudy[] = [
   {
-    slug: "guided-journeys",
-    name: "Guided Journeys",
-    oneLiner: "Helping young adults complete administrative procedures with confidence.",
-    year: "2024",
-    tags: ["0→1", "Consumer", "Onboarding"],
+    slug: "naonair",
+    name: "Naonair",
+    oneLiner: "Application mobile d'analyse de la qualité de l'air, conçue avec Air Pays de la Loire.",
+    year: "2023",
+    tags: ["App mobile", "Géodonnées", "Santé"],
     problem:
-      "70% of young adults abandoned administrative procedures because they didn't know where to start.",
+      "Offrir aux citoyens et aux décideurs nantais des informations précises et géolocalisées pour comprendre et agir face à la pollution urbaine, en temps réel.",
     discovery:
-      "12 interviews revealed the real blocker wasn't features — it was orientation and confidence.",
+      "Immersion métier avec Air Pays de la Loire et travail avancé de géocoding pour ajuster les données de pollution en temps réel et concevoir des parcours utilisateurs clairs.",
     decision:
-      "Bet on guided step-by-step journeys over an AI assistant, prioritizing trust and clarity over novelty.",
+      "Prioriser la cartographie et les itinéraires « air sain » plutôt qu'un simple tableau de mesures, pour rendre la donnée directement actionnable au quotidien.",
     solution:
-      "A focused MVP: one complete, plain-language guided journey with a progress bar and a reassuring tone.",
+      "Une app mobile (iOS & Android) de visualisation des zones de pollution et de calcul d'itinéraires, livrée en sprints de deux semaines avec démos et ajustements continus.",
     impact: [
-      { label: "Completion", value: "30% → 58%" },
-      { label: "Users reached", value: "8,400" },
-      { label: "Support tickets", value: "-41%" },
+      { label: "Lancement", value: "Oct. 2023" },
+      { label: "Stores", value: "iOS + Android" },
+      { label: "Évolutions", value: "Suivi pollens" },
     ],
     lessons:
-      "Tone and clarity moved the metric more than any UI redesign would have.",
+      "Une donnée complexe ne crée de la valeur que si elle est rendue actionnable dans le geste quotidien de l'utilisateur.",
     differently:
-      "I'd build the content-editing workflow on day one instead of treating it as an afterthought.",
+      "J'anticiperais encore plus tôt les évolutions (pollens, alertes) pour les intégrer à l'architecture dès le départ.",
   },
   {
-    slug: "activation-engine",
-    name: "Activation Engine",
-    oneLiner: "Rebuilding onboarding to get new users to their first win faster.",
-    year: "2023",
-    tags: ["Growth", "Activation", "B2C"],
-    problem: "New users signed up but never reached the product's core value moment.",
-    discovery: "Funnel analysis + 8 interviews isolated a single confusing step mid-onboarding.",
-    decision: "Cut the step entirely instead of decorating it; measured the counterfactual.",
-    solution: "A streamlined 3-step onboarding with contextual nudges.",
-    impact: [
-      { label: "Activation", value: "+22%" },
-      { label: "Time to value", value: "-35%" },
-      { label: "D7 retention", value: "+9 pts" },
-    ],
-    lessons: "Removing friction beat adding guidance.",
-    differently: "I'd instrument the funnel before redesigning, not after.",
-  },
-  {
-    slug: "pricing-revamp",
-    name: "Pricing Revamp",
-    oneLiner: "Repackaging plans to align price with perceived value.",
-    year: "2023",
-    tags: ["Monetization", "Strategy"],
-    problem: "Conversion stalled; users couldn't tell the plans apart.",
-    discovery: "Willingness-to-pay research and plan-comparison testing.",
-    decision: "Moved from 4 confusing tiers to 3 clear ones with a clear default.",
-    solution: "A redesigned pricing page with value-based naming and anchoring.",
-    impact: [
-      { label: "Conversion", value: "+18%" },
-      { label: "ARPU", value: "+12%" },
-      { label: "Refunds", value: "-6%" },
-    ],
-    lessons: "Clarity converts better than discounts.",
-    differently: "I'd run the WTP study a quarter earlier.",
-  },
-  {
-    slug: "mobile-companion",
-    name: "Mobile Companion",
-    oneLiner: "Extending a web product into a focused mobile experience.",
-    year: "2022",
-    tags: ["Mobile", "0→1"],
-    problem: "Power users wanted to act on the go but the web app was desktop-first.",
-    discovery: "Diary study revealed only 3 tasks mattered on mobile.",
-    decision: "Built a lean companion app, not a full port.",
-    solution: "An app focused on the 3 highest-frequency mobile jobs.",
-    impact: [
-      { label: "DAU", value: "+27%" },
-      { label: "App rating", value: "4.7★" },
-      { label: "Sessions", value: "+1.8x" },
-    ],
-    lessons: "Scope discipline made a small team feel large.",
-    differently: "I'd ship the notification strategy alongside v1.",
-  },
-  {
-    slug: "data-trust",
-    name: "Data Trust Layer",
-    oneLiner: "Giving users transparency and control over their data.",
-    year: "2021",
-    tags: ["Trust", "Compliance", "Platform"],
-    problem: "Users distrusted how their data was used, hurting engagement.",
-    discovery: "Surveys + support analysis surfaced consistent privacy anxiety.",
-    decision: "Prioritized a visible trust center over silent backend compliance.",
-    solution: "A privacy dashboard with plain-language controls.",
-    impact: [
-      { label: "Opt-in rate", value: "+31%" },
-      { label: "Trust score", value: "+14 pts" },
-      { label: "Churn", value: "-5%" },
-    ],
-    lessons: "Transparency is a feature, not overhead.",
-    differently: "I'd co-design the controls with legal from the start.",
-  },
-  {
-    slug: "internal-tooling",
-    name: "Ops Tooling",
-    oneLiner: "An internal tool that gave the ops team back their week.",
+    slug: "evapp",
+    name: "Evapp.io",
+    oneLiner: "SaaS de création et de gestion d'événements en ligne, hybrides et interactifs.",
     year: "2020",
-    tags: ["Internal", "Efficiency"],
-    problem: "The ops team spent hours on manual, error-prone workflows.",
-    discovery: "Shadowed the team for two days to map the real workflow.",
-    decision: "Automated the two steps causing 80% of the pain first.",
-    solution: "A focused internal dashboard replacing spreadsheets.",
+    tags: ["SaaS", "0→1", "Événementiel"],
+    problem:
+      "Répondre à la demande croissante de solutions pour organiser webinaires, conférences interactives, émissions en direct et événements hybrides depuis une plateforme unique.",
+    discovery:
+      "Travail étroit avec la direction, les utilisateurs et les clients clés de LiveE pour définir les fonctionnalités prioritaires : webinaire, webcast et conférences interactives.",
+    decision:
+      "Construire une roadmap basée sur les retours utilisateurs et miser sur l'interactivité (votes, sondages, quiz, questions modérées) comme différenciateur.",
+    solution:
+      "Une plateforme tout-en-un avec modules personnalisables et branding client, pilotée en sprints de 3 semaines avec une équipe de 10 développeurs et 2 designers.",
     impact: [
-      { label: "Time saved", value: "12h / week" },
-      { label: "Errors", value: "-90%" },
-      { label: "Adoption", value: "100%" },
+      { label: "Équipe", value: "10 dev · 2 design" },
+      { label: "Clients", value: "SNCF, Ouest France" },
+      { label: "Périmètre", value: "Bout en bout" },
     ],
-    lessons: "Internal users deserve real product thinking too.",
-    differently: "I'd set up usage analytics from day one.",
+    lessons:
+      "L'interactivité bien dosée est ce qui transforme un outil de diffusion en véritable expérience d'événement.",
+    differently:
+      "Je structurerais plus tôt l'onboarding client pour accélérer l'autonomie des organisateurs.",
+  },
+  {
+    slug: "kit-metiers",
+    name: "Kit Métiers — UIMM",
+    oneLiner: "Refonte de l'outil de promotion des métiers de la métallurgie, utilisé partout en France.",
+    year: "2021",
+    tags: ["Webapp", "Refonte", "UX"],
+    problem:
+      "Moderniser un outil basé sur Flash, obsolète et difficile à maintenir, dont la mise à jour manuelle des données était chronophage et source d'erreurs.",
+    discovery:
+      "Ateliers d'immersion avec les prescripteurs (conseillers Pôle Emploi, missions locales) pour redéfinir les parcours et prioriser les fonctionnalités à garder ou supprimer.",
+    decision:
+      "Refondre entièrement la plateforme autour d'une bibliothèque de contenus multimédias permettant aux utilisateurs de créer des présentations personnalisées.",
+    solution:
+      "Une webapp moderne, accessible et évolutive, avec gestion fine des droits et suivi des KPI, livrée en sprints de deux semaines puis maintenue de façon évolutive.",
+    impact: [
+      { label: "Utilisateurs", value: "400+ réguliers" },
+      { label: "Présentations", value: "2 000+" },
+      { label: "Mise en ligne", value: "Juil. 2021" },
+    ],
+    lessons:
+      "Remplacer un outil obsolète, c'est d'abord comprendre le quotidien des utilisateurs avant de toucher à la techno.",
+    differently:
+      "J'investirais encore davantage dans l'outillage de mise à jour de contenu dès la première version.",
+  },
+  {
+    slug: "myklub",
+    name: "MyKlub",
+    oneLiner: "Plateforme e-learning pour les formateurs agréés QUALIOPI.",
+    year: "2022",
+    tags: ["SaaS", "E-learning", "B2B"],
+    problem:
+      "Donner aux organismes de formation un outil conforme aux exigences QUALIOPI pour créer et diffuser leurs parcours pédagogiques.",
+    discovery:
+      "Cadrage produit avec les formateurs pour comprendre leurs contraintes réglementaires et leurs usages réels du quotidien.",
+    decision:
+      "Prioriser la conformité et la simplicité de création de parcours plutôt que la multiplication de fonctionnalités secondaires.",
+    solution:
+      "Une plateforme SaaS de création, diffusion et suivi de formations, conçue et pilotée du cadrage jusqu'au suivi des performances.",
+    impact: [
+      { label: "Domaine", value: "E-learning" },
+      { label: "Conformité", value: "QUALIOPI" },
+      { label: "Rôle", value: "PM bout en bout" },
+    ],
+    lessons:
+      "Dans un produit contraint par la réglementation, la valeur vient de la fluidité offerte malgré les contraintes.",
+    differently:
+      "Je formaliserais plus tôt les retours terrain des formateurs dans une boucle de discovery continue.",
+  },
+  {
+    slug: "mon-retab",
+    name: "Mon Retab d'abord",
+    oneLiner: "Plateforme e-santé d'accompagnement au rétablissement en santé mentale.",
+    year: "2022",
+    tags: ["E-santé", "Impact", "Webapp"],
+    problem:
+      "Accompagner les personnes dans leur parcours de rétablissement en santé mentale avec un outil digital adapté et bienveillant.",
+    discovery:
+      "Compréhension fine des besoins des usagers et des professionnels de santé, dans un contexte sensible où la confiance est centrale.",
+    decision:
+      "Concevoir une expérience rassurante et accessible plutôt qu'un outil clinique complexe, en plaçant l'usager au centre.",
+    solution:
+      "Une plateforme e-santé d'accompagnement, cadrée et pilotée pour répondre à un enjeu d'impact social réel.",
+    impact: [
+      { label: "Domaine", value: "E-santé" },
+      { label: "Public", value: "Santé mentale" },
+      { label: "Enjeu", value: "Impact social" },
+    ],
+    lessons:
+      "Sur un sujet sensible, le ton et la posture du produit comptent autant que les fonctionnalités.",
+    differently:
+      "J'impliquerais encore plus tôt les usagers et les soignants dans la co-conception.",
+  },
+  {
+    slug: "salto",
+    name: "Salto.run",
+    oneLiner: "Outil interne d'analyse financière et de suivi d'acquisition du parc audiovisuel.",
+    year: "2022",
+    tags: ["Outil interne", "Data", "Efficacité"],
+    problem:
+      "Donner aux équipes un outil fiable pour analyser la performance financière et suivre l'acquisition du parc audiovisuel.",
+    discovery:
+      "Cartographie des workflows réels des équipes internes pour identifier les analyses les plus coûteuses en temps.",
+    decision:
+      "Concentrer l'effort sur les analyses à plus forte valeur plutôt que de répliquer tous les tableurs existants.",
+    solution:
+      "Un outil interne d'analyse et de suivi, conçu pour fiabiliser la prise de décision financière.",
+    impact: [
+      { label: "Type", value: "Outil interne" },
+      { label: "Domaine", value: "Analyse financière" },
+      { label: "Cible", value: "Équipes internes" },
+    ],
+    lessons:
+      "Les utilisateurs internes méritent autant de soin produit que les utilisateurs finaux.",
+    differently:
+      "Je mettrais en place le suivi d'usage de l'outil dès le premier jour.",
   },
 ];
 
