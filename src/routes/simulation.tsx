@@ -1,8 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "motion/react";
 import { Backdrop } from "../components/Noise";
-import { SCENARIOS, getScenario } from "../lib/sim-content";
+import { findScenario, DEFAULT_SCENARIOS, type Scenario } from "../lib/sim-content";
+import { scenariosQueryOptions } from "../lib/scenarios";
 import { useSimStore } from "../lib/sim-store";
 
 export const Route = createFileRoute("/simulation")({
@@ -20,6 +22,7 @@ export const Route = createFileRoute("/simulation")({
 
 function Simulation() {
   const navigate = useNavigate();
+  const { data: scenarios = DEFAULT_SCENARIOS } = useQuery(scenariosQueryOptions);
   const scenarioId = useSimStore((s) => s.scenarioId);
   const setScenario = useSimStore((s) => s.setScenario);
   const setChoice = useSimStore((s) => s.setChoice);
@@ -28,10 +31,10 @@ function Simulation() {
   const [revealed, setRevealed] = useState(false);
 
   if (!scenarioId) {
-    return <ScenarioPicker onPick={(id) => setScenario(id)} />;
+    return <ScenarioPicker scenarios={scenarios} onPick={(id) => setScenario(id)} />;
   }
 
-  const scenario = getScenario(scenarioId);
+  const scenario = findScenario(scenarios, scenarioId);
   const chapters = scenario.chapters;
   const chapter = chapters[step];
   const progress = ((step + (revealed ? 1 : 0.5)) / chapters.length) * 100;
@@ -175,7 +178,13 @@ function Simulation() {
   );
 }
 
-function ScenarioPicker({ onPick }: { onPick: (id: string) => void }) {
+function ScenarioPicker({
+  scenarios,
+  onPick,
+}: {
+  scenarios: Scenario[];
+  onPick: (id: string) => void;
+}) {
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <Backdrop />
@@ -200,7 +209,7 @@ function ScenarioPicker({ onPick }: { onPick: (id: string) => void }) {
         </p>
 
         <div className="mt-10 grid gap-4">
-          {SCENARIOS.map((s, i) => (
+          {scenarios.map((s, i) => (
             <motion.button
               key={s.id}
               initial={{ opacity: 0, y: 16 }}
