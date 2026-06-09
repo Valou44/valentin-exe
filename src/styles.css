@@ -149,3 +149,49 @@
     color: var(--color-foreground);
   }
 }
+
+/* PM.EXE custom utilities */
+@utility glass {
+  background: color-mix(in oklab, var(--card) 60%, transparent);
+  backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid var(--border);
+}
+
+@utility text-glow {
+  text-shadow: 0 0 24px color-mix(in oklab, var(--foreground) 35%, transparent);
+}
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--foreground) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 4%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@keyframes pm-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@utility caret-blink {
+  animation: pm-blink 1s step-end infinite;
+}
+
+@keyframes pm-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  94% { opacity: 0.6; }
+  96% { opacity: 1; }
+}
+@utility flicker {
+  animation: pm-flicker 4s linear infinite;
+}
+
+html, body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--foreground) 85%, transparent);
+  color: var(--background);
+}
