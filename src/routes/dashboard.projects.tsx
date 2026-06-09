@@ -51,7 +51,7 @@ function Projects() {
         ))}
       </div>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         <motion.article
           key={p.slug}
           initial={{ opacity: 0, y: 16 }}
