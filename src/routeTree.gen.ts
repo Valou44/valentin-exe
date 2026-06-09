@@ -9,38 +9,160 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SimulationRouteImport } from './routes/simulation'
+import { Route as ResultRouteImport } from './routes/result'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardThinkingRouteImport } from './routes/dashboard.thinking'
+import { Route as DashboardProjectsRouteImport } from './routes/dashboard.projects'
+import { Route as DashboardExperimentsRouteImport } from './routes/dashboard.experiments'
+import { Route as DashboardContactRouteImport } from './routes/dashboard.contact'
 
+const SimulationRoute = SimulationRouteImport.update({
+  id: '/simulation',
+  path: '/simulation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultRoute = ResultRouteImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardThinkingRoute = DashboardThinkingRouteImport.update({
+  id: '/thinking',
+  path: '/thinking',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProjectsRoute = DashboardProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardExperimentsRoute = DashboardExperimentsRouteImport.update({
+  id: '/experiments',
+  path: '/experiments',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardContactRoute = DashboardContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/result': typeof ResultRoute
+  '/simulation': typeof SimulationRoute
+  '/dashboard/contact': typeof DashboardContactRoute
+  '/dashboard/experiments': typeof DashboardExperimentsRoute
+  '/dashboard/projects': typeof DashboardProjectsRoute
+  '/dashboard/thinking': typeof DashboardThinkingRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/result': typeof ResultRoute
+  '/simulation': typeof SimulationRoute
+  '/dashboard/contact': typeof DashboardContactRoute
+  '/dashboard/experiments': typeof DashboardExperimentsRoute
+  '/dashboard/projects': typeof DashboardProjectsRoute
+  '/dashboard/thinking': typeof DashboardThinkingRoute
+  '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/result': typeof ResultRoute
+  '/simulation': typeof SimulationRoute
+  '/dashboard/contact': typeof DashboardContactRoute
+  '/dashboard/experiments': typeof DashboardExperimentsRoute
+  '/dashboard/projects': typeof DashboardProjectsRoute
+  '/dashboard/thinking': typeof DashboardThinkingRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/result'
+    | '/simulation'
+    | '/dashboard/contact'
+    | '/dashboard/experiments'
+    | '/dashboard/projects'
+    | '/dashboard/thinking'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/result'
+    | '/simulation'
+    | '/dashboard/contact'
+    | '/dashboard/experiments'
+    | '/dashboard/projects'
+    | '/dashboard/thinking'
+    | '/dashboard'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/result'
+    | '/simulation'
+    | '/dashboard/contact'
+    | '/dashboard/experiments'
+    | '/dashboard/projects'
+    | '/dashboard/thinking'
+    | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  ResultRoute: typeof ResultRoute
+  SimulationRoute: typeof SimulationRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/simulation': {
+      id: '/simulation'
+      path: '/simulation'
+      fullPath: '/simulation'
+      preLoaderRoute: typeof SimulationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/result': {
+      id: '/result'
+      path: '/result'
+      fullPath: '/result'
+      preLoaderRoute: typeof ResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +170,70 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/thinking': {
+      id: '/dashboard/thinking'
+      path: '/thinking'
+      fullPath: '/dashboard/thinking'
+      preLoaderRoute: typeof DashboardThinkingRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/projects': {
+      id: '/dashboard/projects'
+      path: '/projects'
+      fullPath: '/dashboard/projects'
+      preLoaderRoute: typeof DashboardProjectsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/experiments': {
+      id: '/dashboard/experiments'
+      path: '/experiments'
+      fullPath: '/dashboard/experiments'
+      preLoaderRoute: typeof DashboardExperimentsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/contact': {
+      id: '/dashboard/contact'
+      path: '/contact'
+      fullPath: '/dashboard/contact'
+      preLoaderRoute: typeof DashboardContactRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
+interface DashboardRouteChildren {
+  DashboardContactRoute: typeof DashboardContactRoute
+  DashboardExperimentsRoute: typeof DashboardExperimentsRoute
+  DashboardProjectsRoute: typeof DashboardProjectsRoute
+  DashboardThinkingRoute: typeof DashboardThinkingRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardContactRoute: DashboardContactRoute,
+  DashboardExperimentsRoute: DashboardExperimentsRoute,
+  DashboardProjectsRoute: DashboardProjectsRoute,
+  DashboardThinkingRoute: DashboardThinkingRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  ResultRoute: ResultRoute,
+  SimulationRoute: SimulationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
