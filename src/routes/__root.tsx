@@ -78,10 +78,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PM.EXE — Valentin Renard, Product Manager" },
+      { title: "Valentin.EXE — Valentin Renard, Product Manager" },
       { name: "description", content: "Le portfolio interactif de Valentin Renard, Product Manager à Nantes." },
       { name: "author", content: "Valentin Renard" },
-      { property: "og:title", content: "PM.EXE — Valentin Renard" },
+      { property: "og:title", content: "Valentin.EXE — Valentin Renard" },
       { property: "og:description", content: "Vivez le Product Management à travers de vraies décisions." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

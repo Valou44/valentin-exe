@@ -8,7 +8,7 @@ interface Line {
 }
 
 const INTRO: Line[] = [
-  { type: "out", text: "Terminal PM.EXE — tapez 'help' pour la liste des commandes." },
+  { type: "out", text: "Terminal Valentin.EXE — tapez 'help' pour la liste des commandes." },
 ];
 
 export function Terminal() {

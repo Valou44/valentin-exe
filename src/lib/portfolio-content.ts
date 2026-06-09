@@ -1,5 +1,5 @@
 // ============================================================================
-// PM.EXE — CONTENU DU PORTFOLIO
+// Valentin.EXE — CONTENU DU PORTFOLIO
 // Contenu réel de Valentin Renard, extrait de son CV et de son ancien site.
 // ============================================================================
 

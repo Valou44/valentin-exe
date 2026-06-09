@@ -1,5 +1,5 @@
 // ============================================================================
-// PM.EXE — CONTENU DE LA SIMULATION
+// Valentin.EXE — CONTENU DE LA SIMULATION
 // Basé sur un vrai projet de Valentin : Naonair, l'app mobile d'analyse de la
 // qualité de l'air conçue avec Air Pays de la Loire.
 // Les 5 chapitres suivent une seule et même trame projet.
