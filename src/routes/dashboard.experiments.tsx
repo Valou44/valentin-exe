@@ -4,28 +4,28 @@ import { EXPERIMENTS } from "../lib/portfolio-content";
 export const Route = createFileRoute("/dashboard/experiments")({
   head: () => ({
     meta: [
-      { title: "Experiments — Valentin Renard" },
-      { name: "description", content: "Small product bets, wins and failures by Valentin Renard." },
+      { title: "Expérimentations — Valentin Renard" },
+      { name: "description", content: "Les paris produit de Valentin Renard : réussites, échecs et apprentissages." },
     ],
   }),
   component: Experiments,
 });
 
 const STYLE = {
-  win: { label: "WIN", cls: "text-emerald-400 border-emerald-400/30" },
-  fail: { label: "FAIL", cls: "text-rose-400 border-rose-400/30" },
-  mixed: { label: "MIXED", cls: "text-amber-400 border-amber-400/30" },
+  win: { label: "RÉUSSI", cls: "text-emerald-400 border-emerald-400/30" },
+  fail: { label: "ÉCHEC", cls: "text-rose-400 border-rose-400/30" },
+  mixed: { label: "MITIGÉ", cls: "text-amber-400 border-amber-400/30" },
 } as const;
 
 function Experiments() {
   return (
     <div>
-      <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// EXPERIMENTS</p>
+      <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// EXPÉRIMENTATIONS</p>
       <h1 className="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight">
-        Bets & Learnings
+        Paris & apprentissages
       </h1>
       <p className="mt-2 max-w-xl text-muted-foreground">
-        Not everything works. Here's what I tried and what it taught me.
+        Tout ne fonctionne pas. Voici ce que j'ai tenté et ce que j'en ai appris.
       </p>
 
       <div className="mt-8 space-y-4">
