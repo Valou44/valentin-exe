@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      case_studies: {
+        Row: {
+          content: Json
+          created_at: string
+          id: string
+          position: number
+          updated_at: string
+        }
+        Insert: {
+          content: Json
+          created_at?: string
+          id: string
+          position?: number
+          updated_at?: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          id?: string
+          position?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       sim_scenarios: {
         Row: {
           content: Json
