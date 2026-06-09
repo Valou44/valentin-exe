@@ -11,7 +11,9 @@ import {
   type SimOption,
 } from "../lib/sim-content";
 import { scenariosQueryOptions } from "../lib/scenarios";
-import { verifyAdminCode, saveScenarios } from "../lib/admin.functions";
+import { caseStudiesQueryOptions, DEFAULT_CASE_STUDIES } from "../lib/case-studies";
+import type { CaseStudy } from "../lib/portfolio-content";
+import { verifyAdminCode, saveScenarios, saveCaseStudies } from "../lib/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -29,14 +31,19 @@ function clone<T>(v: T): T {
 
 function Admin() {
   const { data: scenarios = DEFAULT_SCENARIOS } = useQuery(scenariosQueryOptions);
+  const { data: caseStudies = DEFAULT_CASE_STUDIES } = useQuery(caseStudiesQueryOptions);
   const verify = useServerFn(verifyAdminCode);
   const save = useServerFn(saveScenarios);
+  const saveCs = useServerFn(saveCaseStudies);
 
   const [code, setCode] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [checking, setChecking] = useState(false);
   const [saving, setSaving] = useState(false);
   const [draft, setDraft] = useState<Scenario[]>([]);
+  const [savingCs, setSavingCs] = useState(false);
+  const [csDraft, setCsDraft] = useState<CaseStudy[]>([]);
+  const [tab, setTab] = useState<"sim" | "cases">("sim");
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
@@ -45,6 +52,7 @@ function Admin() {
       const res = await verify({ data: { code } });
       if (res.ok) {
         setDraft(clone(scenarios));
+        setCsDraft(clone(caseStudies));
         setUnlocked(true);
       } else {
         toast.error("Code d'accès invalide");
@@ -66,6 +74,22 @@ function Admin() {
     } finally {
       setSaving(false);
     }
+  }
+
+  async function handleSaveCaseStudies() {
+    setSavingCs(true);
+    try {
+      await saveCs({ data: { code, caseStudies: csDraft } });
+      toast.success("Études de cas enregistrées ✓");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Échec de l'enregistrement");
+    } finally {
+      setSavingCs(false);
+    }
+  }
+
+  function updateCaseStudy(i: number, patch: Partial<CaseStudy>) {
+    setCsDraft((d) => d.map((c, idx) => (idx === i ? { ...c, ...patch } : c)));
   }
 
   function updateScenario(i: number, patch: Partial<Scenario>) {
