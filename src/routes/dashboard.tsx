@@ -32,7 +32,7 @@ function DashboardLayout() {
         {/* top bar */}
         <header className="flex items-center justify-between border-b border-border py-4">
           <Link to="/" className="font-mono text-sm font-semibold tracking-[0.2em]">
-            PM<span className="text-muted-foreground">.EXE</span>
+            Valentin<span className="text-muted-foreground">.EXE</span>
           </Link>
           <span className="font-mono text-[11px] text-muted-foreground">
             {PROFILE.name} · {PROFILE.role}

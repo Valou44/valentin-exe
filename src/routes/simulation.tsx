@@ -8,7 +8,7 @@ import { useSimStore } from "../lib/sim-store";
 export const Route = createFileRoute("/simulation")({
   head: () => ({
     meta: [
-      { title: "Simulation — PM.EXE" },
+      { title: "Simulation — Valentin.EXE" },
       {
         name: "description",
         content: "Prenez 5 vraies décisions produit et découvrez la façon de penser de Valentin Renard.",

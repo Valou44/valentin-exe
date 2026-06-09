@@ -8,13 +8,13 @@ import { Backdrop } from "../components/Noise";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PM.EXE — Valentin Renard, Product Manager" },
+      { title: "Valentin.EXE — Valentin Renard, Product Manager" },
       {
         name: "description",
         content:
           "Vivez le Product Management à travers de vraies décisions. Le portfolio interactif de Valentin Renard, Product Manager à Nantes.",
       },
-      { property: "og:title", content: "PM.EXE — Valentin Renard" },
+      { property: "og:title", content: "Valentin.EXE — Valentin Renard" },
       {
         property: "og:description",
         content: "Vivez le Product Management à travers de vraies décisions.",
@@ -50,7 +50,7 @@ function Index() {
               transition={{ delay: 0.1 }}
               className="font-mono text-xs tracking-[0.3em] text-muted-foreground"
             >
-              PM.EXE — ENVIRONNEMENT DE SIMULATION
+              Valentin.EXE — ENVIRONNEMENT DE SIMULATION
             </motion.p>
             <motion.h1
               initial={{ opacity: 0, y: 16 }}

@@ -8,7 +8,7 @@ import { computeScore, computeDeltas, valentinScore } from "../lib/sim-content";
 export const Route = createFileRoute("/result")({
   head: () => ({
     meta: [
-      { title: "Votre score de Product Thinking — PM.EXE" },
+      { title: "Votre score de Product Thinking — Valentin.EXE" },
       { name: "description", content: "Votre score de product thinking, comparé à celui de Valentin Renard." },
     ],
   }),
