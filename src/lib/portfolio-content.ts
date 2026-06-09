@@ -221,29 +221,29 @@ export interface Framework {
 
 export const FRAMEWORKS: Framework[] = [
   {
-    name: "Product Discovery",
-    summary: "Understand the problem deeply before committing to a solution.",
-    points: ["Continuous interviews", "Opportunity solution trees", "Assumption mapping"],
+    name: "Discovery produit",
+    summary: "Comprendre le problème en profondeur avant de s'engager sur une solution.",
+    points: ["Interviews & tests utilisateurs", "Immersion métier terrain", "Cartographie des besoins"],
   },
   {
-    name: "Prioritization",
-    summary: "Spend scarce capacity on the highest impact / lowest regret bets.",
-    points: ["Impact vs effort", "RICE when useful", "One bet per cycle"],
+    name: "Cadrage & priorisation",
+    summary: "Investir la capacité limitée sur les paris à plus fort impact.",
+    points: ["Cadrage produit", "Priorisation fonctionnelle", "Impact vs effort"],
   },
   {
-    name: "User Research",
-    summary: "Let real behavior, not opinions, drive decisions.",
-    points: ["Qualitative + quantitative", "Jobs to be done", "Diary studies"],
+    name: "Conception UX",
+    summary: "Traduire les besoins en parcours clairs et en wireframes.",
+    points: ["Wireframing (Figma)", "Parcours utilisateurs", "A/B testing"],
   },
   {
-    name: "Roadmapping",
-    summary: "Communicate direction without faking certainty.",
-    points: ["Now / Next / Later", "Outcome over output", "Tied to strategy"],
+    name: "Pilotage agile",
+    summary: "Tenir les délais et le budget avec une équipe alignée.",
+    points: ["Gestion de backlog & sprints", "JIRA / ClickUp / Notion / Linear", "Démos & recettage"],
   },
   {
-    name: "Metrics",
-    summary: "Measure what matters and resist vanity metrics.",
-    points: ["North star + guardrails", "Funnel instrumentation", "Counterfactual thinking"],
+    name: "Suivi & performance",
+    summary: "Mesurer ce qui compte et documenter pour durer.",
+    points: ["Analyse de performance (KPI)", "Suivi de production", "Documentation produit"],
   },
 ];
 
@@ -254,32 +254,48 @@ export interface Experiment {
 }
 
 export const EXPERIMENTS: Experiment[] = [
-  { name: "Empty-state nudges", result: "win", description: "Contextual tips raised feature discovery by 14%." },
-  { name: "Gamified streaks", result: "fail", description: "Boosted short-term use, hurt long-term trust. Killed it." },
-  { name: "Referral loop v2", result: "mixed", description: "More invites, lower quality. Iterating on targeting." },
-  { name: "AI summary beta", result: "win", description: "Saved users ~3 min per session in early tests." },
+  {
+    name: "Itinéraires « air sain » (Naonair)",
+    result: "win",
+    description: "Calculer des trajets optimisés selon la pollution a rendu la donnée actionnable au quotidien.",
+  },
+  {
+    name: "Interactivité temps réel (Evapp.io)",
+    result: "win",
+    description: "Votes, sondages et quiz modérés ont nettement renforcé l'engagement des participants.",
+  },
+  {
+    name: "Création de présentations libre (Kit Métiers)",
+    result: "mixed",
+    description: "Forte adoption, mais l'outillage de mise à jour de contenu a sous-estimé l'effort de maintenance.",
+  },
+  {
+    name: "Refonte d'un outil Flash legacy",
+    result: "win",
+    description: "Migration d'un socle obsolète vers une webapp moderne, évolutive et déployée nationalement.",
+  },
 ];
 
 export const TERMINAL_RESPONSES: Record<string, string[]> = {
   whoami: [
-    "Valentin Renard — Product Manager, 10 years.",
-    "I turn fuzzy problems into products people use.",
+    "Valentin Renard — Product Manager, bientôt 10 ans d'expérience.",
+    "Je conçois, pilote et optimise des produits digitaux que les gens utilisent.",
   ],
   projects: [
-    "guided-journeys   activation-engine   pricing-revamp",
-    "mobile-companion  data-trust          internal-tooling",
-    "Type a name or open the Projects section to dive in.",
+    "naonair    evapp    kit-metiers",
+    "myklub     mon-retab    salto",
+    "Tape un nom ou ouvre la section Projets pour explorer.",
   ],
-  current_focus: ["Building products that remove uncertainty for everyday users."],
+  current_focus: ["Product Manager chez Lonestone, à Nantes — du cadrage jusqu'à la mise en production."],
   biggest_failure: [
-    "Gamified streaks: I optimized engagement and eroded trust.",
-    "Lesson: never let a metric override the user relationship.",
+    "Sous-estimer l'outillage de mise à jour de contenu sur une plateforme riche.",
+    "Leçon : la maintenabilité se conçoit dès le jour 1, pas après le lancement.",
   ],
   future: [
-    "More 0→1. More honest products. Less feature theater.",
+    "Plus de produits à impact, plus d'honnêteté, moins de fonctionnalités gadgets.",
   ],
   help: [
-    "Available commands:",
+    "Commandes disponibles :",
     "  whoami           biggest_failure",
     "  projects         future",
     "  current_focus    clear",
