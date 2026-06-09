@@ -64,7 +64,7 @@ function Simulation() {
           </div>
         </div>
 
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={chapter.id}
             initial={{ opacity: 0, y: 20 }}
