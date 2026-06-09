@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { FRAMEWORKS } from "../lib/portfolio-content";
 
 export const Route = createFileRoute("/dashboard/thinking")({
