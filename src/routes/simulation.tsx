@@ -11,7 +11,7 @@ export const Route = createFileRoute("/simulation")({
       { title: "Simulation — PM.EXE" },
       {
         name: "description",
-        content: "Step into 5 real product decisions and discover how Valentin Renard thinks.",
+        content: "Prenez 5 vraies décisions produit et découvrez la façon de penser de Valentin Renard.",
       },
     ],
   }),
@@ -109,7 +109,7 @@ function Simulation() {
                       )}
                     </span>
                     <span className="ml-4 font-mono text-xs text-muted-foreground">
-                      {isValentin ? "VALENTIN'S PICK" : isSel ? "YOU" : ""}
+                      {isValentin ? "CHOIX DE VALENTIN" : isSel ? "VOUS" : ""}
                     </span>
                   </button>
                 );
@@ -152,7 +152,7 @@ function Simulation() {
                       onClick={next}
                       className="rounded-full bg-foreground px-8 py-3 font-mono text-sm font-semibold tracking-widest text-background transition-shadow hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
                     >
-                      {step + 1 >= CHAPTERS.length ? "SEE YOUR SCORE" : "NEXT MISSION"}
+                      {step + 1 >= CHAPTERS.length ? "VOIR MON SCORE" : "MISSION SUIVANTE"}
                     </button>
                   </div>
                 </motion.div>
