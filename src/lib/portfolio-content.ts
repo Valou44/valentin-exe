@@ -1,22 +1,23 @@
 // ============================================================================
-// PM.EXE — PORTFOLIO CONTENT
-// PLACEHOLDER CONTENT — replace every field with Valentin Renard's real data.
+// PM.EXE — CONTENU DU PORTFOLIO
+// Contenu réel de Valentin Renard, extrait de son CV et de son ancien site.
 // ============================================================================
 
 export const PROFILE = {
   name: "Valentin Renard",
   role: "Product Manager",
   years: 10,
-  tagline: "Experience Product Management through real decisions.",
-  location: "Paris, France", // PLACEHOLDER
-  email: "hello@valentinrenard.com", // PLACEHOLDER
+  tagline: "Vivez le Product Management à travers de vraies décisions.",
+  location: "Nantes, France",
+  email: "renard.valentin49@gmail.com",
+  phone: "06 88 84 05 18",
   linkedin: "https://www.linkedin.com/in/valentin-renard-149200a9/",
   bio: [
-    "I'm a Product Manager with 10 years of experience turning fuzzy problems into products people actually use.", // PLACEHOLDER
-    "I care about discovery, sharp prioritization and shipping the smallest thing that creates real impact — then being honest about what worked and what didn't.", // PLACEHOLDER
+    "Ma passion : concevoir les expériences de demain. Depuis bientôt 10 ans, je suis spécialisé dans la conception, le pilotage et l'optimisation de produits digitaux.",
+    "Travail d'équipe, analyse produit et recherche de ce qui fera mouche auprès des utilisateurs… c'est mon quotidien. La pluralité de mon profil me permet d'avoir une vision autant technique que business sur l'ensemble des produits dont j'ai la charge.",
   ],
   currentFocus:
-    "Building products that remove uncertainty for everyday users.", // PLACEHOLDER
+    "Product Manager chez Lonestone, à Nantes — du cadrage produit jusqu'à la mise en production.",
 };
 
 export interface TimelineItem {
@@ -28,22 +29,25 @@ export interface TimelineItem {
 
 export const TIMELINE: TimelineItem[] = [
   {
-    period: "2021 — Now",
-    title: "Senior Product Manager",
-    company: "Company A", // PLACEHOLDER
-    description: "Leading discovery and delivery for a flagship consumer product.",
-  },
-  {
-    period: "2018 — 2021",
+    period: "2021 — aujourd'hui",
     title: "Product Manager",
-    company: "Company B", // PLACEHOLDER
-    description: "Owned the activation and onboarding roadmap end to end.",
+    company: "Lonestone",
+    description:
+      "Analyse de marché et compréhension utilisateur, stratégie produit et roadmap, suivi de production et management d'équipes internes et externes (devs & UX/UI). Apps, SaaS, sites institutionnels et webapps.",
   },
   {
-    period: "2015 — 2018",
-    title: "Associate Product Manager",
-    company: "Company C", // PLACEHOLDER
-    description: "Started in product, learned to ship under real constraints.",
+    period: "2017 — 2021",
+    title: "Product Manager / Responsable marketing",
+    company: "LiveE",
+    description:
+      "Pilotage et exécution de projets dans les délais et le budget, rédaction des spécifications, management d'équipe et responsabilité de la stratégie marketing & communication. Conception de la plateforme événementielle Evapp.io.",
+  },
+  {
+    period: "2016 — 2017",
+    title: "Chef de projet digital",
+    company: "37DEUX",
+    description:
+      "Pilotage, coordination et exécution de projets web (WordPress, WooCommerce) et conception d'un CMS de création de plateformes e-commerce d'objets publicitaires (Symfony).",
   },
 ];
 
