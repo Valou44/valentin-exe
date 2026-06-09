@@ -14,6 +14,7 @@ import { Route as ResultRouteImport } from './routes/result'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardThinkingRouteImport } from './routes/dashboard.thinking'
 import { Route as DashboardProjectsRouteImport } from './routes/dashboard.projects'
 
 const SimulationRoute = SimulationRouteImport.update({
@@ -41,6 +42,11 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardThinkingRoute = DashboardThinkingRouteImport.update({
+  id: '/thinking',
+  path: '/thinking',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardProjectsRoute = DashboardProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/result': typeof ResultRoute
   '/simulation': typeof SimulationRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
+  '/dashboard/thinking': typeof DashboardThinkingRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/result': typeof ResultRoute
   '/simulation': typeof SimulationRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
+  '/dashboard/thinking': typeof DashboardThinkingRoute
   '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/result': typeof ResultRoute
   '/simulation': typeof SimulationRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
+  '/dashboard/thinking': typeof DashboardThinkingRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -79,9 +88,16 @@ export interface FileRouteTypes {
     | '/result'
     | '/simulation'
     | '/dashboard/projects'
+    | '/dashboard/thinking'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/result' | '/simulation' | '/dashboard/projects' | '/dashboard'
+  to:
+    | '/'
+    | '/result'
+    | '/simulation'
+    | '/dashboard/projects'
+    | '/dashboard/thinking'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
@@ -89,6 +105,7 @@ export interface FileRouteTypes {
     | '/result'
     | '/simulation'
     | '/dashboard/projects'
+    | '/dashboard/thinking'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -136,6 +153,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/thinking': {
+      id: '/dashboard/thinking'
+      path: '/thinking'
+      fullPath: '/dashboard/thinking'
+      preLoaderRoute: typeof DashboardThinkingRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/projects': {
       id: '/dashboard/projects'
       path: '/projects'
@@ -148,11 +172,13 @@ declare module '@tanstack/react-router' {
 
 interface DashboardRouteChildren {
   DashboardProjectsRoute: typeof DashboardProjectsRoute
+  DashboardThinkingRoute: typeof DashboardThinkingRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardProjectsRoute: DashboardProjectsRoute,
+  DashboardThinkingRoute: DashboardThinkingRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 
@@ -169,3 +195,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
