@@ -5,7 +5,7 @@ export const Route = createFileRoute("/dashboard/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Valentin Renard" },
-      { name: "description", content: "Get in touch with Valentin Renard, Product Manager." },
+      { name: "description", content: "Contactez Valentin Renard, Product Manager à Nantes." },
     ],
   }),
   component: Contact,
@@ -14,16 +14,17 @@ export const Route = createFileRoute("/dashboard/contact")({
 function Contact() {
   const links = [
     { label: "Email", value: PROFILE.email, href: `mailto:${PROFILE.email}` },
+    { label: "Téléphone", value: PROFILE.phone, href: `tel:${PROFILE.phone.replace(/\s/g, "")}` },
     { label: "LinkedIn", value: "valentin-renard", href: PROFILE.linkedin },
   ];
   return (
     <div>
       <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// CONTACT</p>
       <h1 className="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight">
-        Let's talk product
+        Travaillons ensemble
       </h1>
       <p className="mt-2 max-w-xl text-muted-foreground">
-        Open to product roles, advisory and good conversations about building things people use.
+        Ouvert aux opportunités produit, au conseil et aux belles conversations autour de la conception de produits utiles.
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
