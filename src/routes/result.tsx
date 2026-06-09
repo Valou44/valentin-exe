@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Backdrop } from "../components/Noise";
 import { useSimStore } from "../lib/sim-store";
-import { computeScore, computeDeltas, valentinScore } from "../lib/sim-content";
+import { computeScore, computeDeltas, valentinScore, getScenario } from "../lib/sim-content";
 
 export const Route = createFileRoute("/result")({
   head: () => ({
@@ -19,9 +19,11 @@ function Result() {
   const navigate = useNavigate();
   const choices = useSimStore((s) => s.choices);
   const unlock = useSimStore((s) => s.unlock);
-  const target = computeScore(choices);
-  const deltas = computeDeltas(choices);
-  const vScore = valentinScore();
+  const scenarioId = useSimStore((s) => s.scenarioId);
+  const scenario = getScenario(scenarioId);
+  const target = computeScore(scenario.id, choices);
+  const deltas = computeDeltas(scenario.id, choices);
+  const vScore = valentinScore(scenario.id);
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
@@ -57,6 +59,9 @@ function Result() {
         <h1 className="mt-4 font-[var(--font-display)] text-2xl font-bold">
           Score de Product Thinking
         </h1>
+        <p className={`mt-2 font-mono text-xs uppercase tracking-widest ${scenario.accent}`}>
+          {scenario.project}
+        </p>
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
