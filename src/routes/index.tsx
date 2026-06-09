@@ -12,12 +12,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Experience Product Management through real decisions. An interactive portfolio by Valentin Renard, Product Manager.",
+          "Vivez le Product Management à travers de vraies décisions. Le portfolio interactif de Valentin Renard, Product Manager à Nantes.",
       },
       { property: "og:title", content: "PM.EXE — Valentin Renard" },
       {
         property: "og:description",
-        content: "Experience Product Management through real decisions.",
+        content: "Vivez le Product Management à travers de vraies décisions.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -50,7 +50,7 @@ function Index() {
               transition={{ delay: 0.1 }}
               className="font-mono text-xs tracking-[0.3em] text-muted-foreground"
             >
-              PM.EXE — SIMULATION ENVIRONMENT
+              PM.EXE — ENVIRONNEMENT DE SIMULATION
             </motion.p>
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
@@ -58,7 +58,7 @@ function Index() {
               transition={{ delay: 0.25 }}
               className="mt-6 font-[var(--font-display)] text-5xl font-extrabold tracking-tight text-glow sm:text-7xl"
             >
-              WELCOME.
+              BIENVENUE.
             </motion.h1>
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -66,9 +66,9 @@ function Index() {
               transition={{ delay: 0.45 }}
               className="mt-6 space-y-1 text-lg text-muted-foreground sm:text-xl"
             >
-              <p>Today, you're the Product Manager.</p>
-              <p>You have 10 minutes.</p>
-              <p className="text-foreground">Good luck.</p>
+              <p>Aujourd'hui, c'est vous le Product Manager.</p>
+              <p>Vous avez 10 minutes.</p>
+              <p className="text-foreground">Bonne chance.</p>
             </motion.div>
             <motion.button
               initial={{ opacity: 0, scale: 0.96 }}
@@ -79,7 +79,7 @@ function Index() {
               onClick={() => navigate({ to: "/simulation" })}
               className="mt-12 rounded-full bg-foreground px-10 py-4 font-mono text-sm font-semibold tracking-[0.2em] text-background transition-shadow hover:shadow-[0_0_40px_rgba(255,255,255,0.25)]"
             >
-              START SIMULATION
+              DÉMARRER LA SIMULATION
             </motion.button>
             <motion.p
               initial={{ opacity: 0 }}
@@ -87,7 +87,7 @@ function Index() {
               transition={{ delay: 1 }}
               className="mt-10 font-mono text-[11px] tracking-widest text-muted-foreground/60"
             >
-              tip: press <span className="text-muted-foreground">`</span> anytime to open the terminal
+              astuce : appuyez sur <span className="text-muted-foreground">`</span> à tout moment pour ouvrir le terminal
             </motion.p>
           </motion.section>
         )}

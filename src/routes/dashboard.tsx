@@ -9,7 +9,7 @@ export const Route = createFileRoute("/dashboard")({
       {
         name: "description",
         content:
-          "The portfolio of Valentin Renard, Product Manager: projects, product thinking and experiments.",
+          "Le portfolio de Valentin Renard, Product Manager : projets, product thinking et expérimentations.",
       },
     ],
   }),
@@ -17,10 +17,10 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 const NAV = [
-  { to: "/dashboard", label: "About Me", exact: true },
-  { to: "/dashboard/projects", label: "Projects", exact: false },
+  { to: "/dashboard", label: "À propos", exact: true },
+  { to: "/dashboard/projects", label: "Projets", exact: false },
   { to: "/dashboard/thinking", label: "Product Thinking", exact: false },
-  { to: "/dashboard/experiments", label: "Experiments", exact: false },
+  { to: "/dashboard/experiments", label: "Expérimentations", exact: false },
   { to: "/dashboard/contact", label: "Contact", exact: false },
 ] as const;
 

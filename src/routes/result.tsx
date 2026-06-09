@@ -8,8 +8,8 @@ import { computeScore, computeDeltas, valentinScore } from "../lib/sim-content";
 export const Route = createFileRoute("/result")({
   head: () => ({
     meta: [
-      { title: "Your Product Thinking Score — PM.EXE" },
-      { name: "description", content: "Your product thinking score, compared with Valentin Renard." },
+      { title: "Votre score de Product Thinking — PM.EXE" },
+      { name: "description", content: "Votre score de product thinking, comparé à celui de Valentin Renard." },
     ],
   }),
   component: Result,
@@ -52,10 +52,10 @@ function Result() {
           animate={{ opacity: 1 }}
           className="font-mono text-xs tracking-[0.3em] text-muted-foreground"
         >
-          SIMULATION COMPLETE
+          SIMULATION TERMINÉE
         </motion.p>
         <h1 className="mt-4 font-[var(--font-display)] text-2xl font-bold">
-          Product Thinking Score
+          Score de Product Thinking
         </h1>
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
@@ -70,12 +70,12 @@ function Result() {
         </motion.div>
 
         <p className="mt-6 text-muted-foreground">
-          Valentin scored <span className="text-foreground">{vScore}</span> on the same decisions.
+          Valentin a obtenu <span className="text-foreground">{vScore}</span> sur les mêmes décisions.
         </p>
 
         <div className="mt-10 w-full max-w-md">
           <p className="mb-4 font-mono text-xs tracking-widest text-muted-foreground">
-            COMPARISON WITH VALENTIN
+            COMPARAISON AVEC VALENTIN
           </p>
           <div className="space-y-3">
             {deltas.map((d, i) => (
@@ -114,7 +114,7 @@ function Result() {
           onClick={enter}
           className="mt-12 rounded-full bg-foreground px-10 py-4 font-mono text-sm font-semibold tracking-[0.2em] text-background transition-shadow hover:shadow-[0_0_40px_rgba(255,255,255,0.25)]"
         >
-          UNLOCK PORTFOLIO →
+          DÉBLOQUER LE PORTFOLIO →
         </motion.button>
       </div>
     </main>
