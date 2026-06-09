@@ -446,23 +446,28 @@ export const POINTS_PER_CHAPTER = 20;
 export const CHAPTERS_PER_SCENARIO = 5;
 export const MAX_POINTS = CHAPTERS_PER_SCENARIO * POINTS_PER_CHAPTER;
 
-export function getScenario(id: string | null | undefined): Scenario {
-  return SCENARIOS.find((s) => s.id === id) ?? SCENARIOS[0];
+/** Liste par défaut, utilisée comme repli si la base est vide. */
+export const DEFAULT_SCENARIOS = SCENARIOS;
+
+function maxPointsOf(scenario: Scenario): number {
+  return scenario.chapters.length * POINTS_PER_CHAPTER;
 }
 
-export function valentinScore(scenarioId: string): number {
-  const chapters = getScenario(scenarioId).chapters;
-  const pts = chapters.reduce((sum, c) => sum + c.options[c.valentinChoice].points, 0);
-  return Math.round((pts / MAX_POINTS) * 100);
+export function findScenario(list: Scenario[], id: string | null | undefined): Scenario {
+  return list.find((s) => s.id === id) ?? list[0];
 }
 
-export function computeScore(scenarioId: string, choices: Record<string, number>): number {
-  const chapters = getScenario(scenarioId).chapters;
-  const pts = chapters.reduce((sum, c) => {
+export function valentinScore(scenario: Scenario): number {
+  const pts = scenario.chapters.reduce((sum, c) => sum + (c.options[c.valentinChoice]?.points ?? 0), 0);
+  return Math.round((pts / maxPointsOf(scenario)) * 100);
+}
+
+export function computeScore(scenario: Scenario, choices: Record<string, number>): number {
+  const pts = scenario.chapters.reduce((sum, c) => {
     const idx = choices[c.id];
     return sum + (idx != null ? c.options[idx]?.points ?? 0 : 0);
   }, 0);
-  return Math.round((pts / MAX_POINTS) * 100);
+  return Math.round((pts / maxPointsOf(scenario)) * 100);
 }
 
 export interface DimensionDelta {
@@ -470,11 +475,10 @@ export interface DimensionDelta {
   delta: number;
 }
 
-export function computeDeltas(scenarioId: string, choices: Record<string, number>): DimensionDelta[] {
-  const chapters = getScenario(scenarioId).chapters;
-  return chapters.map((c) => {
+export function computeDeltas(scenario: Scenario, choices: Record<string, number>): DimensionDelta[] {
+  return scenario.chapters.map((c) => {
     const userPts = choices[c.id] != null ? c.options[choices[c.id]]?.points ?? 0 : 0;
-    const valPts = c.options[c.valentinChoice].points;
+    const valPts = c.options[c.valentinChoice]?.points ?? 0;
     return { dimension: c.dimension, delta: userPts - valPts };
   });
 }
