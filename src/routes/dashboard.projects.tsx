@@ -13,7 +13,8 @@ export const Route = createFileRoute("/dashboard/projects")({
   component: Projects,
 });
 
-const SECTIONS: { key: keyof (typeof PROJECTS)[number]; label: string }[] = [
+type StringKey = "problem" | "discovery" | "decision" | "solution" | "lessons" | "differently";
+const SECTIONS: { key: StringKey; label: string }[] = [
   { key: "problem", label: "The Problem" },
   { key: "discovery", label: "Discovery" },
   { key: "decision", label: "Decision Making" },
