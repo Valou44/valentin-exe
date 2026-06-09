@@ -66,6 +66,8 @@ export interface CaseStudy {
   oneLiner: string;
   year: string;
   tags: string[];
+  image: string;
+  gallery?: string[];
   problem: string;
   discovery: string;
   decision: string;
@@ -73,15 +75,45 @@ export interface CaseStudy {
   impact: { label: string; value: string }[];
   lessons: string;
   differently: string;
+  link?: string;
 }
 
 export const PROJECTS: CaseStudy[] = [
+  {
+    slug: "cibli",
+    name: "Cibli Jobs",
+    oneLiner:
+      "Cabine de recrutement physique guidée par une IA vocale bienveillante, pour démocratiser l'accès à l'emploi.",
+    year: "2024",
+    tags: ["IA conversationnelle", "0→1", "Emploi", "Hardware"],
+    image: cibliImg.url,
+    gallery: [cibliImg.url, cibli2Img.url],
+    link: "https://lonestone.io/realisations/cibli-job",
+    problem:
+      "Le recrutement traditionnel exclut : CV formatés, processus longs, ghosting massif. Des milliers de profils compétents passent entre les mailles du filet faute de maîtriser les codes du digital.",
+    discovery:
+      "Partir d'une page blanche autour d'une conviction forte de la fondatrice : un bon recrutement, c'est d'abord une bonne rencontre. Cadrage du parcours candidat pour qu'un profil de tout horizon se sente accompagné dès la première minute.",
+    decision:
+      "Miser sur une logique conversationnelle orale plutôt qu'un formulaire : interview guidée par IA, génération automatique d'un CV éditable et matching d'offres en 10 minutes, dans une cabine physique en libre accès.",
+    solution:
+      "Pilotage produit de bout en bout : parcours UX, orchestration de plusieurs modèles IA (speech-to-text, conversationnel, génération de CV), matching via le référentiel ROME, intégrations ATS et notifications Brevo/Twilio, jusqu'au choix du matériel embarqué.",
+    impact: [
+      { label: "Durée", value: "6 mois" },
+      { label: "Parcours", value: "10 min" },
+      { label: "Cabines", value: "Atlantis · La Poste" },
+    ],
+    lessons:
+      "Quand la technologie sert vraiment l'humain, elle disparaît : la valeur perçue, c'est la rencontre, pas l'IA derrière.",
+    differently:
+      "J'industrialiserais plus tôt le suivi d'usage en conditions réelles pour accélérer les itérations sur le prompting.",
+  },
   {
     slug: "naonair",
     name: "Naonair",
     oneLiner: "Application mobile d'analyse de la qualité de l'air, conçue avec Air Pays de la Loire.",
     year: "2023",
     tags: ["App mobile", "Géodonnées", "Santé"],
+    image: naonairImg.url,
     problem:
       "Offrir aux citoyens et aux décideurs nantais des informations précises et géolocalisées pour comprendre et agir face à la pollution urbaine, en temps réel.",
     discovery:
@@ -101,11 +133,66 @@ export const PROJECTS: CaseStudy[] = [
       "J'anticiperais encore plus tôt les évolutions (pollens, alertes) pour les intégrer à l'architecture dès le départ.",
   },
   {
+    slug: "premier-pas",
+    name: "Premier Pas",
+    oneLiner:
+      "Application gamifiée qui apprend aux 16-25 ans les bases de l'autonomie : logement, emploi, budget, santé.",
+    year: "2024",
+    tags: ["App", "Gamification", "Impact social", "Jeunesse"],
+    image: premierPasImg.url,
+    link: "https://premier-pas.app/",
+    problem:
+      "Les jeunes adultes manquent d'outils accessibles et sans jargon pour acquérir les compétences clés de l'indépendance et éviter les galères du quotidien.",
+    discovery:
+      "Co-conception avec et pour des jeunes : un test d'autonomie en 7 questions pour situer chacun, puis identification des parcours prioritaires (logement, emploi, budget, santé, démarches).",
+    decision:
+      "Transformer le savoir en passage à l'action grâce à la gamification (XP, niveaux, avatar évolutif), tout en gardant un contenu 100% sérieux et utile.",
+    solution:
+      "Des parcours interactifs où l'on coche chaque étape réelle accomplie, complétés par des guides synthétiques pour répondre à une question précise sans tout dérouler.",
+    impact: [
+      { label: "Cible", value: "16-25 ans" },
+      { label: "Accès", value: "100% gratuit" },
+      { label: "Format", value: "Parcours + guides" },
+    ],
+    lessons:
+      "La gamification ne remplace pas la valeur du contenu : elle sert uniquement à déclencher le passage à l'action.",
+    differently:
+      "Je mettrais en place plus tôt une boucle de feedback in-app pour prioriser les prochains parcours selon les usages réels.",
+  },
+  {
+    slug: "mon-retab",
+    name: "Mon Retab' d'abord",
+    oneLiner:
+      "Profil numérique partagé entre usager et professionnel, au service du rétablissement en santé mentale.",
+    year: "2022",
+    tags: ["E-santé", "Impact", "Webapp"],
+    image: monRetabImg.url,
+    link: "https://www.monretabdabord.fr/",
+    problem:
+      "Accompagner le rétablissement en santé mentale suppose un outil qui crée la confiance entre l'usager et le professionnel coordonnateur, centré sur le bien-être plutôt que sur la maladie.",
+    discovery:
+      "Cadrage autour de quatre principes phares — rétablissement, espoir, pouvoir d'agir et approche holistique — pour concevoir un outil qui place l'usager en acteur de son parcours.",
+    decision:
+      "Concevoir une expérience rassurante et accessible, partagée entre usager et professionnel, plutôt qu'un outil clinique complexe réservé aux soignants.",
+    solution:
+      "Une application qui aide l'usager à identifier jour après jour ses besoins et priorités, et à s'engager dans des actions signifiantes au regard de ses valeurs, avec le soutien du professionnel.",
+    impact: [
+      { label: "Domaine", value: "E-santé" },
+      { label: "Approche", value: "Rétablissement" },
+      { label: "Partenaire", value: "CH Vauclaire" },
+    ],
+    lessons:
+      "Sur un sujet sensible, le ton et la posture du produit comptent autant que les fonctionnalités.",
+    differently:
+      "J'impliquerais encore plus tôt les usagers et les soignants dans la co-conception.",
+  },
+  {
     slug: "evapp",
     name: "Evapp.io",
     oneLiner: "SaaS de création et de gestion d'événements en ligne, hybrides et interactifs.",
     year: "2020",
     tags: ["SaaS", "0→1", "Événementiel"],
+    image: evappImg.url,
     problem:
       "Répondre à la demande croissante de solutions pour organiser webinaires, conférences interactives, émissions en direct et événements hybrides depuis une plateforme unique.",
     discovery:
@@ -130,6 +217,7 @@ export const PROJECTS: CaseStudy[] = [
     oneLiner: "Refonte de l'outil de promotion des métiers de la métallurgie, utilisé partout en France.",
     year: "2021",
     tags: ["Webapp", "Refonte", "UX"],
+    image: kitMetiersImg.url,
     problem:
       "Moderniser un outil basé sur Flash, obsolète et difficile à maintenir, dont la mise à jour manuelle des données était chronophage et source d'erreurs.",
     discovery:
@@ -149,59 +237,12 @@ export const PROJECTS: CaseStudy[] = [
       "J'investirais encore davantage dans l'outillage de mise à jour de contenu dès la première version.",
   },
   {
-    slug: "myklub",
-    name: "MyKlub",
-    oneLiner: "Plateforme e-learning pour les formateurs agréés QUALIOPI.",
-    year: "2022",
-    tags: ["SaaS", "E-learning", "B2B"],
-    problem:
-      "Donner aux organismes de formation un outil conforme aux exigences QUALIOPI pour créer et diffuser leurs parcours pédagogiques.",
-    discovery:
-      "Cadrage produit avec les formateurs pour comprendre leurs contraintes réglementaires et leurs usages réels du quotidien.",
-    decision:
-      "Prioriser la conformité et la simplicité de création de parcours plutôt que la multiplication de fonctionnalités secondaires.",
-    solution:
-      "Une plateforme SaaS de création, diffusion et suivi de formations, conçue et pilotée du cadrage jusqu'au suivi des performances.",
-    impact: [
-      { label: "Domaine", value: "E-learning" },
-      { label: "Conformité", value: "QUALIOPI" },
-      { label: "Rôle", value: "PM bout en bout" },
-    ],
-    lessons:
-      "Dans un produit contraint par la réglementation, la valeur vient de la fluidité offerte malgré les contraintes.",
-    differently:
-      "Je formaliserais plus tôt les retours terrain des formateurs dans une boucle de discovery continue.",
-  },
-  {
-    slug: "mon-retab",
-    name: "Mon Retab d'abord",
-    oneLiner: "Plateforme e-santé d'accompagnement au rétablissement en santé mentale.",
-    year: "2022",
-    tags: ["E-santé", "Impact", "Webapp"],
-    problem:
-      "Accompagner les personnes dans leur parcours de rétablissement en santé mentale avec un outil digital adapté et bienveillant.",
-    discovery:
-      "Compréhension fine des besoins des usagers et des professionnels de santé, dans un contexte sensible où la confiance est centrale.",
-    decision:
-      "Concevoir une expérience rassurante et accessible plutôt qu'un outil clinique complexe, en plaçant l'usager au centre.",
-    solution:
-      "Une plateforme e-santé d'accompagnement, cadrée et pilotée pour répondre à un enjeu d'impact social réel.",
-    impact: [
-      { label: "Domaine", value: "E-santé" },
-      { label: "Public", value: "Santé mentale" },
-      { label: "Enjeu", value: "Impact social" },
-    ],
-    lessons:
-      "Sur un sujet sensible, le ton et la posture du produit comptent autant que les fonctionnalités.",
-    differently:
-      "J'impliquerais encore plus tôt les usagers et les soignants dans la co-conception.",
-  },
-  {
     slug: "salto",
     name: "Salto.run",
     oneLiner: "Outil interne d'analyse financière et de suivi d'acquisition du parc audiovisuel.",
     year: "2022",
     tags: ["Outil interne", "Data", "Efficacité"],
+    image: saltoImg.url,
     problem:
       "Donner aux équipes un outil fiable pour analyser la performance financière et suivre l'acquisition du parc audiovisuel.",
     discovery:
