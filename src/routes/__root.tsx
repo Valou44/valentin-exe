@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Terminal } from "../components/Terminal";
-import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -82,11 +81,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Valentin.EXE — Valentin Renard, Product Manager" },
       { name: "description", content: "Le portfolio interactif de Valentin Renard, Product Manager à Nantes." },
       { name: "author", content: "Valentin Renard" },
-      { property: "og:title", content: "Valentin.EXE — Valentin Renard" },
-      { property: "og:description", content: "Vivez le Product Management à travers de vraies décisions." },
+      { property: "og:title", content: "Valentin.EXE — Valentin Renard, Product Manager" },
+      { property: "og:description", content: "Le portfolio interactif de Valentin Renard, Product Manager à Nantes." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Valentin.EXE — Valentin Renard, Product Manager" },
+      { name: "twitter:description", content: "Le portfolio interactif de Valentin Renard, Product Manager à Nantes." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3837db1b-8c38-4828-b962-8b3e6dc9576e/id-preview-3c822904--c7ac5a1c-fef6-4ae3-8f8c-fc469e78deba.lovable.app-1780999211901.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3837db1b-8c38-4828-b962-8b3e6dc9576e/id-preview-3c822904--c7ac5a1c-fef6-4ae3-8f8c-fc469e78deba.lovable.app-1780999211901.png" },
     ],
     links: [
       {
@@ -133,7 +136,6 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <Terminal />
-      <Toaster />
     </QueryClientProvider>
   );
 }
