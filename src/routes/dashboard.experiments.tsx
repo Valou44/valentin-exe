@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "motion/react";
 import { EXPERIMENTS } from "../lib/portfolio-content";
 
 export const Route = createFileRoute("/dashboard/experiments")({
@@ -30,12 +29,9 @@ function Experiments() {
       </p>
 
       <div className="mt-8 space-y-4">
-        {EXPERIMENTS.map((e, i) => (
-          <motion.div
+        {EXPERIMENTS.map((e) => (
+          <div
             key={e.name}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.07 }}
             className="glass flex items-start justify-between gap-4 rounded-xl p-5"
           >
             <div>
@@ -47,7 +43,7 @@ function Experiments() {
             >
               {STYLE[e.result].label}
             </span>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>
