@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
 const LINES = [
-  "Initializing...",
-  "Loading experiences...",
-  "Loading products...",
-  "Loading learnings...",
-  "Loading failures...",
-  "Simulation ready.",
+  "Initialisation…",
+  "Chargement des expériences…",
+  "Chargement des produits…",
+  "Chargement des apprentissages…",
+  "Chargement des échecs…",
+  "Simulation prête.",
 ];
 
 export function BootSequence({ onDone }: { onDone: () => void }) {

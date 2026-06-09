@@ -8,7 +8,7 @@ interface Line {
 }
 
 const INTRO: Line[] = [
-  { type: "out", text: "PM.EXE terminal — type 'help' for commands." },
+  { type: "out", text: "Terminal PM.EXE — tapez 'help' pour la liste des commandes." },
 ];
 
 export function Terminal() {
@@ -53,7 +53,7 @@ export function Terminal() {
       { type: "in", text: raw },
       ...(out
         ? out.map((t) => ({ type: "out" as const, text: t }))
-        : [{ type: "out" as const, text: `command not found: ${cmd} — try 'help'` }]),
+        : [{ type: "out" as const, text: `commande introuvable : ${cmd} — essayez 'help'` }]),
     ]);
   }
 
@@ -61,7 +61,7 @@ export function Terminal() {
     <>
       <button
         onClick={() => setOpen(true)}
-        aria-label="Open terminal"
+        aria-label="Ouvrir le terminal"
         className="fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card/70 font-mono text-sm text-muted-foreground backdrop-blur transition-colors hover:text-foreground"
       >
         {">_"}
