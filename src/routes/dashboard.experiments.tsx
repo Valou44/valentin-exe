@@ -34,8 +34,7 @@ function Experiments() {
           <motion.div
             key={e.name}
             initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.07 }}
             className="glass flex items-start justify-between gap-4 rounded-xl p-5"
           >
