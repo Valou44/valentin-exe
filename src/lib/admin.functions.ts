@@ -54,12 +54,12 @@ export const saveScenarios = createServerFn({ method: "POST" })
     const rows = data.scenarios.map((s, i) => ({
       id: s.id,
       position: i,
-      content: s,
+      content: s as unknown as Record<string, unknown>,
     }));
 
     const { error } = await supabaseAdmin
       .from("sim_scenarios")
-      .upsert(rows, { onConflict: "id" });
+      .upsert(rows as never, { onConflict: "id" });
 
     if (error) throw new Error(error.message);
     return { ok: true, count: rows.length };
