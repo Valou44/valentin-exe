@@ -19,8 +19,7 @@ export const Route = createFileRoute("/dashboard")({
 const NAV = [
   { to: "/dashboard", label: "À propos", exact: true },
   { to: "/dashboard/projects", label: "Projets", exact: false },
-  { to: "/dashboard/thinking", label: "Product Thinking", exact: false },
-  { to: "/dashboard/experiments", label: "Expérimentations", exact: false },
+  { to: "/dashboard/thinking", label: "Méthode et approche", exact: false },
   { to: "/dashboard/contact", label: "Contact", exact: false },
 ] as const;
 

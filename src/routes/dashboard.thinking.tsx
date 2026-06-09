@@ -6,7 +6,7 @@ import { FRAMEWORKS } from "../lib/portfolio-content";
 export const Route = createFileRoute("/dashboard/thinking")({
   head: () => ({
     meta: [
-      { title: "Product Thinking — Valentin Renard" },
+      { title: "Méthode et approche — Valentin Renard" },
       { name: "description", content: "Les méthodes et approches que Valentin Renard utilise pour concevoir des produits." },
     ],
   }),
@@ -17,7 +17,7 @@ function Thinking() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <div>
-      <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// PRODUCT THINKING</p>
+      <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// MÉTHODE ET APPROCHE</p>
       <h1 className="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight">
         Méthodes & approches
       </h1>
