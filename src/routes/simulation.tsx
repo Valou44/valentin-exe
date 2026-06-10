@@ -224,7 +224,7 @@ function Simulation() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 24 }}
-            className="sticky bottom-0 z-20 border-t border-border bg-background/80 backdrop-blur"
+            className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/80 backdrop-blur"
           >
             <div className="mx-auto flex max-w-3xl justify-end px-6 py-4">
               <button
