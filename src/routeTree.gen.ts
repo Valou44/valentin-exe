@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SimulationRouteImport } from './routes/simulation'
 import { Route as ResultRouteImport } from './routes/result'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -19,6 +20,11 @@ import { Route as DashboardThinkingRouteImport } from './routes/dashboard.thinki
 import { Route as DashboardProjectsRouteImport } from './routes/dashboard.projects'
 import { Route as DashboardContactRouteImport } from './routes/dashboard.contact'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimulationRoute = SimulationRouteImport.update({
   id: '/simulation',
   path: '/simulation',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteWithChildren
   '/result': typeof ResultRoute
   '/simulation': typeof SimulationRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard/contact': typeof DashboardContactRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/dashboard/thinking': typeof DashboardThinkingRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/result': typeof ResultRoute
   '/simulation': typeof SimulationRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard/contact': typeof DashboardContactRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/dashboard/thinking': typeof DashboardThinkingRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteWithChildren
   '/result': typeof ResultRoute
   '/simulation': typeof SimulationRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard/contact': typeof DashboardContactRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/dashboard/thinking': typeof DashboardThinkingRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/result'
     | '/simulation'
+    | '/sitemap.xml'
     | '/dashboard/contact'
     | '/dashboard/projects'
     | '/dashboard/thinking'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/result'
     | '/simulation'
+    | '/sitemap.xml'
     | '/dashboard/contact'
     | '/dashboard/projects'
     | '/dashboard/thinking'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/result'
     | '/simulation'
+    | '/sitemap.xml'
     | '/dashboard/contact'
     | '/dashboard/projects'
     | '/dashboard/thinking'
@@ -139,10 +151,18 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRouteWithChildren
   ResultRoute: typeof ResultRoute
   SimulationRoute: typeof SimulationRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simulation': {
       id: '/simulation'
       path: '/simulation'
@@ -233,7 +253,18 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRouteWithChildren,
   ResultRoute: ResultRoute,
   SimulationRoute: SimulationRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
