@@ -119,9 +119,16 @@ function Simulation() {
               {chapter.title}
             </h1>
             <div className="mt-6 rounded-2xl border border-border bg-card/40 p-5 backdrop-blur">
-              <p className="whitespace-pre-line text-base leading-relaxed text-foreground/85 sm:text-lg">
-                {chapter.situation}
-              </p>
+              {isHtml(chapter.situation) ? (
+                <div
+                  className="rte-render text-base leading-relaxed text-foreground/85 sm:text-lg"
+                  dangerouslySetInnerHTML={{ __html: chapter.situation }}
+                />
+              ) : (
+                <p className="whitespace-pre-line text-base leading-relaxed text-foreground/85 sm:text-lg">
+                  {chapter.situation}
+                </p>
+              )}
             </div>
 
             <p className="mt-8 text-lg font-semibold text-foreground">{chapter.prompt}</p>
