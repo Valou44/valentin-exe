@@ -531,10 +531,9 @@ function ChapterEditor({
             <input value={chapter.title} onChange={(e) => onChange({ title: e.target.value })} className={inputCls} />
           </Field>
           <Field label="Situation">
-            <textarea
+            <RichTextEditor
               value={chapter.situation}
-              onChange={(e) => onChange({ situation: e.target.value })}
-              className={inputCls + " min-h-[90px]"}
+              onChange={(html) => onChange({ situation: html })}
             />
           </Field>
           <Field label="Question posée">
@@ -599,11 +598,10 @@ function ChapterEditor({
           <Field label="Titre du résultat (reveal)">
             <input value={chapter.revealTitle} onChange={(e) => onChange({ revealTitle: e.target.value })} className={inputCls} />
           </Field>
-          <Field label="Texte du résultat — un paragraphe par ligne">
-            <textarea
-              value={chapter.revealBody.join("\n")}
-              onChange={(e) => onChange({ revealBody: e.target.value.split("\n").filter((l) => l.trim() !== "") })}
-              className={inputCls + " min-h-[110px]"}
+          <Field label="Texte du résultat (reveal)">
+            <RichTextEditor
+              value={bodyToHtml(chapter.revealBody)}
+              onChange={(html) => onChange({ revealBody: [html] })}
             />
           </Field>
 
