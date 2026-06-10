@@ -14,6 +14,7 @@ import { scenariosQueryOptions } from "../lib/scenarios";
 import { caseStudiesQueryOptions, DEFAULT_CASE_STUDIES } from "../lib/case-studies";
 import type { CaseStudy } from "../lib/portfolio-content";
 import { verifyAdminCode, saveScenarios, saveCaseStudies } from "../lib/admin.functions";
+import { RichTextEditor } from "../components/RichTextEditor";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -27,6 +28,19 @@ export const Route = createFileRoute("/admin")({
 
 function clone<T>(v: T): T {
   return JSON.parse(JSON.stringify(v));
+}
+
+function isHtml(s: string): boolean {
+  return /<[a-z][\s\S]*>/i.test(s);
+}
+
+/** Convert a stored revealBody (array of paragraphs OR a single HTML string) to HTML for the editor. */
+function bodyToHtml(parts: string[]): string {
+  if (parts.length === 1 && isHtml(parts[0])) return parts[0];
+  return parts
+    .filter((p) => p.trim() !== "")
+    .map((p) => (isHtml(p) ? p : `<p>${p}</p>`))
+    .join("");
 }
 
 function Admin() {
