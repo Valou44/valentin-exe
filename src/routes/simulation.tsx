@@ -30,6 +30,8 @@ function Simulation() {
   const [step, setStep] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
+  const topRef = useRef<HTMLDivElement | null>(null);
+  const revealRef = useRef<HTMLDivElement | null>(null);
 
   if (!scenarioId) {
     return <ScenarioPicker scenarios={scenarios} onPick={(id) => setScenario(id)} />;
