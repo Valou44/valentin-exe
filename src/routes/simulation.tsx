@@ -214,6 +214,7 @@ function Simulation() {
                 </motion.div>
               )}
             </AnimatePresence>
+            {revealed && <div className="h-24" aria-hidden />}
           </motion.div>
         </AnimatePresence>
       </div>
