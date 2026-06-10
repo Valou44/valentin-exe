@@ -361,6 +361,8 @@ export const TERMINAL_RESPONSES: Record<string, string[]> = {
     "  whoami           biggest_failure",
     "  projects         future",
     "  current_focus    clear",
+    "  coffee           sudo",
+    "  cat secret.txt",
     "",
     "psst… certaines commandes ne sont pas listées ici 👀",
   ],
