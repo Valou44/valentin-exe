@@ -6,7 +6,12 @@ export const Route = createFileRoute("/dashboard/contact")({
     meta: [
       { title: "Contact — Valentin Renard" },
       { name: "description", content: "Contactez Valentin Renard, Product Manager à Nantes." },
+      { property: "og:title", content: "Contact — Valentin Renard" },
+      { property: "og:description", content: "Contactez Valentin Renard, Product Manager à Nantes." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://valentin-exe.lovable.app/dashboard/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/dashboard/contact" }],
   }),
   component: Contact,
 });
