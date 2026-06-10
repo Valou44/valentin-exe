@@ -46,7 +46,12 @@ function Simulation() {
     if (revealed) return;
     setSelected(i);
     setChoice(chapter.id, i);
-    setTimeout(() => setRevealed(true), 350);
+    setTimeout(() => {
+      setRevealed(true);
+      setTimeout(() => {
+        revealRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+    }, 350);
   }
 
   function next() {
@@ -57,6 +62,10 @@ function Simulation() {
     setStep((s) => s + 1);
     setSelected(null);
     setRevealed(false);
+    requestAnimationFrame(() => {
+      topRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
+      window.scrollTo({ top: 0, behavior: "auto" });
+    });
   }
 
   return (
