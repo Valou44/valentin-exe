@@ -84,6 +84,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Valentin.EXE — Valentin Renard, Product Manager" },
       { property: "og:description", content: "Le portfolio interactif de Valentin Renard, Product Manager à Nantes." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Valentin.EXE" },
+      { property: "og:url", content: "https://valentin-exe.lovable.app/" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Valentin.EXE — Valentin Renard, Product Manager" },
