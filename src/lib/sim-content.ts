@@ -320,7 +320,7 @@ export const SCENARIOS: Scenario[] = [
       "Comment simplifier et démocratiser l'entrée dans la vie active des jeunes de 16 à 25 ans ?",
     project: "Premier Pas",
     inspiration: "Inspiré de Premier Pas",
-    accent: "text-amber-400",
+    accent: "text-sky-400",
     intro:
       "Entre dispositifs, aides et démarches, l'entrée dans la vie active est un labyrinthe pour les 16-25 ans. Comment leur rendre ce premier pas simple et accessible ?",
     chapters: [
