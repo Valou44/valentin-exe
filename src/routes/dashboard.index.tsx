@@ -32,7 +32,7 @@ function About() {
           {/* Portrait */}
           <div className="relative mx-auto w-full max-w-[260px]">
             <div className="absolute -inset-2 rounded-3xl bg-[var(--gradient-primary,linear-gradient(135deg,var(--primary),transparent))] opacity-20 blur-xl" />
-            <div className="glass relative aspect-[4/5] overflow-hidden rounded-3xl grayscale transition-all duration-500 hover:grayscale-0">
+            <div className="glass relative aspect-[4/5] overflow-hidden rounded-3xl">
               {PROFILE.photo ? (
                 <img
                   src={PROFILE.photo}
@@ -70,10 +70,14 @@ function About() {
                 </p>
               ))}
             </div>
-        <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm">
-          <span className="h-2 w-2 rounded-full bg-emerald-400" />
-          <span className="text-muted-foreground">Actuellement :</span>
-          <span>{PROFILE.currentFocus}</span>
+        <div className="mt-6 flex items-start gap-3 rounded-2xl border border-border bg-foreground/[0.02] px-4 py-3 text-sm">
+          <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]" />
+          <div className="min-w-0">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              Actuellement
+            </span>
+            <p className="mt-0.5 leading-relaxed">{PROFILE.currentFocus}</p>
+          </div>
         </div>
 
         {/* contacts */}
