@@ -9,7 +9,12 @@ export const Route = createFileRoute("/dashboard/projects")({
     meta: [
       { title: "Projets — Valentin Renard" },
       { name: "description", content: "Études de cas produit sélectionnées par Valentin Renard." },
+      { property: "og:title", content: "Projets — Valentin Renard" },
+      { property: "og:description", content: "Études de cas produit sélectionnées par Valentin Renard." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://valentin-exe.lovable.app/dashboard/projects" },
     ],
+    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/dashboard/projects" }],
   }),
   component: Projects,
 });
