@@ -12,6 +12,7 @@ export const Route = createFileRoute("/result")({
     meta: [
       { title: "Votre score de Product Thinking — Valentin.EXE" },
       { name: "description", content: "Votre score de product thinking, comparé à celui de Valentin Renard." },
+      { name: "robots", content: "noindex, follow" },
     ],
   }),
   component: Result,
