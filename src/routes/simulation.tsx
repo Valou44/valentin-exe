@@ -7,6 +7,10 @@ import { findScenario, DEFAULT_SCENARIOS, type Scenario } from "../lib/sim-conte
 import { scenariosQueryOptions } from "../lib/scenarios";
 import { useSimStore } from "../lib/sim-store";
 
+function isHtml(s: string): boolean {
+  return /<[a-z][\s\S]*>/i.test(s);
+}
+
 export const Route = createFileRoute("/simulation")({
   head: () => ({
     meta: [
