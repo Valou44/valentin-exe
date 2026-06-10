@@ -190,7 +190,7 @@ export const SCENARIOS: Scenario[] = [
       "Comment rendre les patients acteurs et contributeurs de leur parcours de rétablissement en santé mentale ?",
     project: "Mon Retab' d'abord",
     inspiration: "Inspiré de Mon Retab' d'abord",
-    accent: "text-emerald-400",
+    accent: "text-amber-400",
     intro:
       "En santé mentale, le parcours de soin est souvent subi par le patient. Comment lui donner une place active, voire contributive, dans son propre rétablissement ?",
     chapters: [
