@@ -60,7 +60,7 @@ export const SCENARIOS: Scenario[] = [
     question: "Comment démocratiser l'accès à l'emploi pour un public écarté du numérique ?",
     project: "Cibli Jobs",
     inspiration: "Inspiré de Cibli Jobs",
-    accent: "text-sky-400",
+    accent: "text-emerald-400",
     intro:
       "Une partie de la population reste éloignée de l'emploi parce que les plateformes de recrutement supposent l'aisance numérique, un CV, une adresse mail. Comment ramener ces personnes vers le travail ?",
     chapters: [
@@ -190,7 +190,7 @@ export const SCENARIOS: Scenario[] = [
       "Comment rendre les patients acteurs et contributeurs de leur parcours de rétablissement en santé mentale ?",
     project: "Mon Retab' d'abord",
     inspiration: "Inspiré de Mon Retab' d'abord",
-    accent: "text-emerald-400",
+    accent: "text-amber-400",
     intro:
       "En santé mentale, le parcours de soin est souvent subi par le patient. Comment lui donner une place active, voire contributive, dans son propre rétablissement ?",
     chapters: [
@@ -320,7 +320,7 @@ export const SCENARIOS: Scenario[] = [
       "Comment simplifier et démocratiser l'entrée dans la vie active des jeunes de 16 à 25 ans ?",
     project: "Premier Pas",
     inspiration: "Inspiré de Premier Pas",
-    accent: "text-amber-400",
+    accent: "text-sky-400",
     intro:
       "Entre dispositifs, aides et démarches, l'entrée dans la vie active est un labyrinthe pour les 16-25 ans. Comment leur rendre ce premier pas simple et accessible ?",
     chapters: [
