@@ -60,7 +60,7 @@ export const SCENARIOS: Scenario[] = [
     question: "Comment démocratiser l'accès à l'emploi pour un public écarté du numérique ?",
     project: "Cibli Jobs",
     inspiration: "Inspiré de Cibli Jobs",
-    accent: "text-sky-400",
+    accent: "text-emerald-400",
     intro:
       "Une partie de la population reste éloignée de l'emploi parce que les plateformes de recrutement supposent l'aisance numérique, un CV, une adresse mail. Comment ramener ces personnes vers le travail ?",
     chapters: [
