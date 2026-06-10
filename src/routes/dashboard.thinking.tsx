@@ -22,7 +22,12 @@ function Thinking() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <div>
-      <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// MÉTHODE ET APPROCHE</p>
+      <div className="flex items-center gap-4">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          // Méthode et approche
+        </p>
+        <div className="h-px flex-1 bg-border" />
+      </div>
       <h1 className="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight">
         Méthodes & approches
       </h1>
@@ -45,7 +50,7 @@ function Thinking() {
             >
               {/* accent bar */}
               <span
-                className={`absolute inset-y-0 left-0 w-1 origin-top bg-foreground/60 transition-transform duration-300 ${
+                className={`absolute inset-y-0 left-0 w-1 origin-top bg-emerald-400 transition-transform duration-300 ${
                   isOpen ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100"
                 }`}
               />
