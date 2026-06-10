@@ -24,7 +24,12 @@ function Contact() {
   ];
   return (
     <div>
-      <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// CONTACT</p>
+      <div className="flex items-center gap-4">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          // Contact
+        </p>
+        <div className="h-px flex-1 bg-border" />
+      </div>
       <h1 className="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight">
         Travaillons ensemble
       </h1>
@@ -47,7 +52,7 @@ function Contact() {
               </div>
               <div className="mt-1 font-medium">{l.value}</div>
             </div>
-            <span className="text-muted-foreground transition-transform group-hover:translate-x-1">
+            <span className="text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-emerald-400">
               →
             </span>
           </a>
