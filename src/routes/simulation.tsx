@@ -7,6 +7,10 @@ import { findScenario, DEFAULT_SCENARIOS, type Scenario } from "../lib/sim-conte
 import { scenariosQueryOptions } from "../lib/scenarios";
 import { useSimStore } from "../lib/sim-store";
 
+function isHtml(s: string): boolean {
+  return /<[a-z][\s\S]*>/i.test(s);
+}
+
 export const Route = createFileRoute("/simulation")({
   head: () => ({
     meta: [
@@ -119,9 +123,16 @@ function Simulation() {
               {chapter.title}
             </h1>
             <div className="mt-6 rounded-2xl border border-border bg-card/40 p-5 backdrop-blur">
-              <p className="whitespace-pre-line text-base leading-relaxed text-foreground/85 sm:text-lg">
-                {chapter.situation}
-              </p>
+              {isHtml(chapter.situation) ? (
+                <div
+                  className="rte-render text-base leading-relaxed text-foreground/85 sm:text-lg"
+                  dangerouslySetInnerHTML={{ __html: chapter.situation }}
+                />
+              ) : (
+                <p className="whitespace-pre-line text-base leading-relaxed text-foreground/85 sm:text-lg">
+                  {chapter.situation}
+                </p>
+              )}
             </div>
 
             <p className="mt-8 text-lg font-semibold text-foreground">{chapter.prompt}</p>
@@ -191,9 +202,20 @@ function Simulation() {
                       {chapter.revealTitle.toUpperCase()}
                     </p>
                     <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-foreground/80">
-                      {chapter.revealBody.map((p, i) => (
-                        <p key={i}>{p}</p>
-                      ))}
+                      {chapter.revealBody.length === 1 && isHtml(chapter.revealBody[0]) ? (
+                        <div
+                          className="rte-render"
+                          dangerouslySetInnerHTML={{ __html: chapter.revealBody[0] }}
+                        />
+                      ) : (
+                        chapter.revealBody.map((p, i) =>
+                          isHtml(p) ? (
+                            <div key={i} className="rte-render" dangerouslySetInnerHTML={{ __html: p }} />
+                          ) : (
+                            <p key={i}>{p}</p>
+                          ),
+                        )
+                      )}
                     </div>
                     {chapter.meta && (
                       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">

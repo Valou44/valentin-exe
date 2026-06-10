@@ -14,6 +14,7 @@ import { scenariosQueryOptions } from "../lib/scenarios";
 import { caseStudiesQueryOptions, DEFAULT_CASE_STUDIES } from "../lib/case-studies";
 import type { CaseStudy } from "../lib/portfolio-content";
 import { verifyAdminCode, saveScenarios, saveCaseStudies } from "../lib/admin.functions";
+import { RichTextEditor } from "../components/RichTextEditor";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -27,6 +28,19 @@ export const Route = createFileRoute("/admin")({
 
 function clone<T>(v: T): T {
   return JSON.parse(JSON.stringify(v));
+}
+
+function isHtml(s: string): boolean {
+  return /<[a-z][\s\S]*>/i.test(s);
+}
+
+/** Convert a stored revealBody (array of paragraphs OR a single HTML string) to HTML for the editor. */
+function bodyToHtml(parts: string[]): string {
+  if (parts.length === 1 && isHtml(parts[0])) return parts[0];
+  return parts
+    .filter((p) => p.trim() !== "")
+    .map((p) => (isHtml(p) ? p : `<p>${p}</p>`))
+    .join("");
 }
 
 function Admin() {
@@ -517,10 +531,9 @@ function ChapterEditor({
             <input value={chapter.title} onChange={(e) => onChange({ title: e.target.value })} className={inputCls} />
           </Field>
           <Field label="Situation">
-            <textarea
+            <RichTextEditor
               value={chapter.situation}
-              onChange={(e) => onChange({ situation: e.target.value })}
-              className={inputCls + " min-h-[90px]"}
+              onChange={(html) => onChange({ situation: html })}
             />
           </Field>
           <Field label="Question posée">
@@ -585,11 +598,10 @@ function ChapterEditor({
           <Field label="Titre du résultat (reveal)">
             <input value={chapter.revealTitle} onChange={(e) => onChange({ revealTitle: e.target.value })} className={inputCls} />
           </Field>
-          <Field label="Texte du résultat — un paragraphe par ligne">
-            <textarea
-              value={chapter.revealBody.join("\n")}
-              onChange={(e) => onChange({ revealBody: e.target.value.split("\n").filter((l) => l.trim() !== "") })}
-              className={inputCls + " min-h-[110px]"}
+          <Field label="Texte du résultat (reveal)">
+            <RichTextEditor
+              value={bodyToHtml(chapter.revealBody)}
+              onChange={(html) => onChange({ revealBody: [html] })}
             />
           </Field>
 
