@@ -179,9 +179,10 @@ function Simulation() {
             <AnimatePresence>
               {revealed && (
                 <motion.div
+                  ref={revealRef}
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
-                  className="mt-8 overflow-hidden"
+                  className="mt-8 scroll-mt-6 overflow-hidden"
                 >
                   <div className="relative overflow-hidden rounded-2xl border border-border bg-card/70 p-6 backdrop-blur">
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/40 to-transparent" />
