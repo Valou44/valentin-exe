@@ -211,20 +211,32 @@ function Simulation() {
                       </div>
                     )}
                   </div>
-                  <div className="mt-6 flex justify-end">
-                    <button
-                      onClick={next}
-                      className="rounded-full bg-foreground px-8 py-3 font-mono text-sm font-semibold tracking-widest text-background transition-shadow hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-                    >
-                      {step + 1 >= chapters.length ? "VOIR MON SCORE" : "ÉTAPE SUIVANTE"}
-                    </button>
-                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
           </motion.div>
         </AnimatePresence>
       </div>
+      {/* Sticky next-step bar (mobile clarity) */}
+      <AnimatePresence>
+        {revealed && (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 24 }}
+            className="sticky bottom-0 z-20 border-t border-border bg-background/80 backdrop-blur"
+          >
+            <div className="mx-auto flex max-w-3xl justify-end px-6 py-4">
+              <button
+                onClick={next}
+                className="w-full rounded-full bg-foreground px-8 py-3 font-mono text-sm font-semibold tracking-widest text-background transition-shadow hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] sm:w-auto"
+              >
+                {step + 1 >= chapters.length ? "VOIR MON SCORE" : "ÉTAPE SUIVANTE"}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
