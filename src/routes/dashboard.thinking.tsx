@@ -8,7 +8,12 @@ export const Route = createFileRoute("/dashboard/thinking")({
     meta: [
       { title: "Méthode et approche — Valentin Renard" },
       { name: "description", content: "Les méthodes et approches que Valentin Renard utilise pour concevoir des produits." },
+      { property: "og:title", content: "Méthode et approche — Valentin Renard" },
+      { property: "og:description", content: "Les méthodes et approches que Valentin Renard utilise pour concevoir des produits." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://valentin-exe.lovable.app/dashboard/thinking" },
     ],
+    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/dashboard/thinking" }],
   }),
   component: Thinking,
 });
