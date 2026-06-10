@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "motion/react";
 import { Backdrop } from "../components/Noise";
@@ -30,6 +30,8 @@ function Simulation() {
   const [step, setStep] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
+  const topRef = useRef<HTMLDivElement | null>(null);
+  const revealRef = useRef<HTMLDivElement | null>(null);
 
   if (!scenarioId) {
     return <ScenarioPicker scenarios={scenarios} onPick={(id) => setScenario(id)} />;
@@ -44,7 +46,12 @@ function Simulation() {
     if (revealed) return;
     setSelected(i);
     setChoice(chapter.id, i);
-    setTimeout(() => setRevealed(true), 350);
+    setTimeout(() => {
+      setRevealed(true);
+      setTimeout(() => {
+        revealRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+    }, 350);
   }
 
   function next() {
@@ -55,13 +62,17 @@ function Simulation() {
     setStep((s) => s + 1);
     setSelected(null);
     setRevealed(false);
+    requestAnimationFrame(() => {
+      topRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
+      window.scrollTo({ top: 0, behavior: "auto" });
+    });
   }
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <Backdrop />
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-30" />
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-10">
+      <div ref={topRef} className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-10">
         {/* progress */}
         <div className="mb-10">
           <div className="flex items-center justify-between font-mono text-xs tracking-widest text-muted-foreground">
@@ -168,9 +179,10 @@ function Simulation() {
             <AnimatePresence>
               {revealed && (
                 <motion.div
+                  ref={revealRef}
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
-                  className="mt-8 overflow-hidden"
+                  className="mt-8 scroll-mt-6 overflow-hidden"
                 >
                   <div className="relative overflow-hidden rounded-2xl border border-border bg-card/70 p-6 backdrop-blur">
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/40 to-transparent" />
