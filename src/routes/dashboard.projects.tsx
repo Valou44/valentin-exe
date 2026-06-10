@@ -38,7 +38,12 @@ function Projects() {
 
   return (
     <div>
-      <p className="font-mono text-xs tracking-[0.25em] text-muted-foreground">// PROJETS</p>
+      <div className="flex items-center gap-4">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          // Projets
+        </p>
+        <div className="h-px flex-1 bg-border" />
+      </div>
       <h1 className="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight">
         Études de cas
       </h1>
@@ -52,12 +57,20 @@ function Projects() {
             key={proj.slug}
             onClick={() => setActive(i)}
             className={[
-              "group rounded-lg border px-4 py-2 text-sm transition-colors",
+              "group flex items-center gap-2 rounded-lg border px-4 py-2 text-sm transition-colors",
               i === active
-                ? "border-foreground bg-foreground/10 text-foreground"
+                ? "border-foreground/40 bg-foreground/[0.06] text-foreground"
                 : "border-border text-muted-foreground hover:text-foreground",
             ].join(" ")}
           >
+            <span
+              className={[
+                "h-1.5 w-1.5 rounded-full transition-all",
+                i === active
+                  ? "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]"
+                  : "bg-foreground/15 group-hover:bg-foreground/40",
+              ].join(" ")}
+            />
             {proj.name}
             <span className="ml-2 font-mono text-[10px] text-muted-foreground">{proj.year}</span>
           </button>
