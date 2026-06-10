@@ -198,9 +198,20 @@ function Simulation() {
                       {chapter.revealTitle.toUpperCase()}
                     </p>
                     <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-foreground/80">
-                      {chapter.revealBody.map((p, i) => (
-                        <p key={i}>{p}</p>
-                      ))}
+                      {chapter.revealBody.length === 1 && isHtml(chapter.revealBody[0]) ? (
+                        <div
+                          className="rte-render"
+                          dangerouslySetInnerHTML={{ __html: chapter.revealBody[0] }}
+                        />
+                      ) : (
+                        chapter.revealBody.map((p, i) =>
+                          isHtml(p) ? (
+                            <div key={i} className="rte-render" dangerouslySetInnerHTML={{ __html: p }} />
+                          ) : (
+                            <p key={i}>{p}</p>
+                          ),
+                        )
+                      )}
                     </div>
                     {chapter.meta && (
                       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
