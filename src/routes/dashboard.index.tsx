@@ -32,7 +32,7 @@ function About() {
           {/* Portrait */}
           <div className="relative mx-auto w-full max-w-[260px]">
             <div className="absolute -inset-2 rounded-3xl bg-[var(--gradient-primary,linear-gradient(135deg,var(--primary),transparent))] opacity-20 blur-xl" />
-            <div className="glass relative aspect-[4/5] overflow-hidden rounded-3xl">
+            <div className="glass relative aspect-[4/5] overflow-hidden rounded-3xl grayscale transition-all duration-500 hover:grayscale-0">
               {PROFILE.photo ? (
                 <img
                   src={PROFILE.photo}
@@ -60,7 +60,7 @@ function About() {
             <h1 className="font-[var(--font-display)] text-4xl font-extrabold tracking-tight sm:text-5xl">
               {PROFILE.name}
             </h1>
-            <p className="mt-2 text-lg text-muted-foreground">
+            <p className="mt-2 font-mono text-sm uppercase tracking-[0.2em] text-emerald-400">
               {PROFILE.role} · {PROFILE.years} ans d'expérience · {PROFILE.location}
             </p>
             <div className="mt-6 max-w-2xl space-y-4 text-muted-foreground">
@@ -101,9 +101,12 @@ function About() {
       </section>
 
       <section>
-        <p className="mb-5 font-mono text-xs tracking-widest text-muted-foreground">
-          PARCOURS
-        </p>
+        <div className="mb-6 flex items-center gap-4">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            Parcours
+          </p>
+          <div className="h-px flex-1 bg-border" />
+        </div>
         <div className="relative space-y-4 border-l border-border/60 pl-6">
           {TIMELINE.map((t) => (
             <div key={t.title} className="relative">
