@@ -84,6 +84,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Valentin.EXE — Valentin Renard, Product Manager" },
       { property: "og:description", content: "Le portfolio interactif de Valentin Renard, Product Manager à Nantes." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Valentin.EXE" },
+      { property: "og:url", content: "https://valentin-exe.lovable.app/" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Valentin.EXE — Valentin Renard, Product Manager" },
@@ -96,6 +98,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
@@ -105,6 +110,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Valentin Renard",
+          jobTitle: "Product Manager",
+          url: "https://valentin-exe.lovable.app/",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Nantes",
+            addressCountry: "FR",
+          },
+        }),
       },
     ],
   }),

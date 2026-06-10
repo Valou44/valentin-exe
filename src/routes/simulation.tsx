@@ -19,7 +19,15 @@ export const Route = createFileRoute("/simulation")({
         name: "description",
         content: "Choisissez une problématique produit et prenez 5 vraies décisions face à Valentin Renard.",
       },
+      { property: "og:title", content: "Simulation — Valentin.EXE" },
+      {
+        property: "og:description",
+        content: "Choisissez une problématique produit et prenez 5 vraies décisions face à Valentin Renard.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://valentin-exe.lovable.app/simulation" },
     ],
+    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/simulation" }],
   }),
   component: Simulation,
 });

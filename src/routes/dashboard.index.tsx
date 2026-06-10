@@ -2,6 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PROFILE, TIMELINE } from "../lib/portfolio-content";
 
 export const Route = createFileRoute("/dashboard/")({
+  head: () => ({
+    meta: [
+      { title: "À propos — Valentin Renard, Product Manager" },
+      { name: "description", content: "À propos de Valentin Renard, Product Manager à Nantes : parcours, expertise et approche produit." },
+      { property: "og:title", content: "À propos — Valentin Renard, Product Manager" },
+      { property: "og:description", content: "À propos de Valentin Renard, Product Manager à Nantes : parcours, expertise et approche produit." },
+      { property: "og:type", content: "profile" },
+      { property: "og:url", content: "https://valentin-exe.lovable.app/dashboard" },
+    ],
+    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/dashboard" }],
+  }),
   component: About,
 });
 
