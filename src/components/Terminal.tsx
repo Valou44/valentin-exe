@@ -15,6 +15,7 @@ export function Terminal() {
   const [open, setOpen] = useState(false);
   const [lines, setLines] = useState<Line[]>(INTRO);
   const [value, setValue] = useState("");
+  const [matrix, setMatrix] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
 
@@ -46,6 +47,10 @@ export function Terminal() {
     if (cmd === "clear") {
       setLines(INTRO);
       return;
+    }
+    if (cmd === "matrix") {
+      setMatrix(true);
+      setTimeout(() => setMatrix(false), 4000);
     }
     const out = TERMINAL_RESPONSES[cmd];
     setLines((l) => [
@@ -124,6 +129,54 @@ export function Terminal() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <AnimatePresence>{matrix && <MatrixRain />}</AnimatePresence>
     </>
+  );
+}
+
+function MatrixRain() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const chars = "アイウエオカキクケコｱｲｳ0123456789VALENTINEXE</>";
+    const fontSize = 16;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = new Array(columns).fill(0).map(() => Math.random() * -50);
+
+    let raf = 0;
+    function draw() {
+      if (!ctx || !canvas) return;
+      ctx.fillStyle = "rgba(0,0,0,0.08)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#34d399";
+      ctx.font = `${fontSize}px monospace`;
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    draw();
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  return (
+    <motion.canvas
+      ref={canvasRef}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="pointer-events-none fixed inset-0 z-[60] bg-black"
+    />
   );
 }

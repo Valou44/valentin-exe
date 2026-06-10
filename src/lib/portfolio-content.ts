@@ -361,5 +361,25 @@ export const TERMINAL_RESPONSES: Record<string, string[]> = {
     "  whoami           biggest_failure",
     "  projects         future",
     "  current_focus    clear",
+    "",
+    "psst… certaines commandes ne sont pas listées ici 👀",
   ],
+  // --- commandes cachées (easter eggs) ---
+  secret: [
+    "🥚 Bien joué — tu as trouvé l'easter egg.",
+    "Si tu cherches jusqu'ici, c'est qu'on est faits pour bosser ensemble.",
+    "Tape 'sudo hire' pour la suite, ou 'matrix' pour le spectacle.",
+  ],
+  "sudo hire": [
+    "[sudo] mot de passe pour recruteur : ********",
+    "✅ Accès accordé. Valentin a été ajouté à ton équipe (enfin, presque).",
+    "→ renard.valentin49@gmail.com",
+  ],
+  sudo: ["Nice try 😏 — précise : 'sudo hire'."],
+  coffee: ["☕ Café lancé. Productivité +200%.", "C'est aussi comme ça que naissent les bons produits."],
+  ls: ["about/   projets/   methode/   contact/   secret.txt"],
+  "cat secret.txt": ["Le meilleur produit, c'est celui qu'on ose retirer.", "— note perso, 03:14 du matin"],
+  matrix: ["Wake up… 🟢", "Lancement de la pluie de code…"],
+  "42": ["La réponse à la grande question sur la vie, l'univers et le reste."],
+  exit: ["Tu ne peux pas vraiment partir. (Échap pour fermer)"],
 };
