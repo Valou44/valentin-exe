@@ -101,6 +101,15 @@ function Index() {
             >
               astuce : appuyez sur <span className="text-muted-foreground">`</span> à tout moment pour ouvrir le terminal
             </motion.p>
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1 }}
+              onClick={() => navigate({ to: "/dashboard" })}
+              className="relative mt-4 font-mono text-[11px] tracking-widest text-muted-foreground/60 underline-offset-4 transition-colors hover:text-foreground hover:underline"
+            >
+              passer la simulation et accéder directement au portfolio →
+            </motion.button>
           </motion.section>
         )}
       </AnimatePresence>
