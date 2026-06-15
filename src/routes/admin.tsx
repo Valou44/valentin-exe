@@ -106,6 +106,30 @@ function Admin() {
     setCsDraft((d) => d.map((c, idx) => (idx === i ? { ...c, ...patch } : c)));
   }
 
+  function addCaseStudy() {
+    const newCs: CaseStudy = {
+      slug: `nouvelle-etude-${Date.now()}`,
+      name: "Nouvelle étude de cas",
+      oneLiner: "",
+      year: String(new Date().getFullYear()),
+      tags: [],
+      image: "",
+      gallery: [],
+      problem: "",
+      discovery: "",
+      decision: "",
+      solution: "",
+      impact: [],
+      lessons: "",
+      differently: "",
+    };
+    setCsDraft((d) => [newCs, ...d]);
+  }
+
+  function removeCaseStudy(i: number) {
+    setCsDraft((d) => d.filter((_, idx) => idx !== i));
+  }
+
   function updateScenario(i: number, patch: Partial<Scenario>) {
     setDraft((d) => d.map((s, idx) => (idx === i ? { ...s, ...patch } : s)));
   }
