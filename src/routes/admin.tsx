@@ -106,6 +106,30 @@ function Admin() {
     setCsDraft((d) => d.map((c, idx) => (idx === i ? { ...c, ...patch } : c)));
   }
 
+  function addCaseStudy() {
+    const newCs: CaseStudy = {
+      slug: `nouvelle-etude-${Date.now()}`,
+      name: "Nouvelle étude de cas",
+      oneLiner: "",
+      year: String(new Date().getFullYear()),
+      tags: [],
+      image: "",
+      gallery: [],
+      problem: "",
+      discovery: "",
+      decision: "",
+      solution: "",
+      impact: [],
+      lessons: "",
+      differently: "",
+    };
+    setCsDraft((d) => [newCs, ...d]);
+  }
+
+  function removeCaseStudy(i: number) {
+    setCsDraft((d) => d.filter((_, idx) => idx !== i));
+  }
+
   function updateScenario(i: number, patch: Partial<Scenario>) {
     setDraft((d) => d.map((s, idx) => (idx === i ? { ...s, ...patch } : s)));
   }
@@ -252,11 +276,20 @@ function Admin() {
 
       {tab === "cases" && (
         <div className="mx-auto max-w-4xl space-y-10 px-6 py-10">
+          <div className="flex justify-end">
+            <button
+              onClick={addCaseStudy}
+              className="rounded-full border border-border px-5 py-2 font-mono text-xs tracking-widest text-muted-foreground hover:border-foreground/40 hover:text-foreground"
+            >
+              + AJOUTER UNE ÉTUDE DE CAS
+            </button>
+          </div>
           {csDraft.map((c, ci) => (
             <CaseStudyEditor
               key={c.slug}
               cs={c}
               onChange={(patch) => updateCaseStudy(ci, patch)}
+              onRemove={() => removeCaseStudy(ci)}
             />
           ))}
           <div className="flex justify-end pb-16">
@@ -342,9 +375,11 @@ function ImageField({
 function CaseStudyEditor({
   cs,
   onChange,
+  onRemove,
 }: {
   cs: CaseStudy;
   onChange: (patch: Partial<CaseStudy>) => void;
+  onRemove: () => void;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -374,6 +409,15 @@ function CaseStudyEditor({
               <input value={cs.year} onChange={(e) => onChange({ year: e.target.value })} className={inputCls} />
             </Field>
           </div>
+          <Field label="Identifiant (slug, unique)">
+            <input
+              value={cs.slug}
+              onChange={(e) =>
+                onChange({ slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "") })
+              }
+              className={inputCls}
+            />
+          </Field>
           <Field label="Accroche (one-liner)">
             <textarea
               value={cs.oneLiner}
@@ -426,22 +470,22 @@ function CaseStudyEditor({
           </div>
 
           <Field label="Le problème">
-            <textarea value={cs.problem} onChange={(e) => onChange({ problem: e.target.value })} className={inputCls + " min-h-[80px]"} />
+            <RichTextEditor value={cs.problem} onChange={(html) => onChange({ problem: html })} />
           </Field>
           <Field label="Discovery">
-            <textarea value={cs.discovery} onChange={(e) => onChange({ discovery: e.target.value })} className={inputCls + " min-h-[80px]"} />
+            <RichTextEditor value={cs.discovery} onChange={(html) => onChange({ discovery: html })} />
           </Field>
           <Field label="Prise de décision">
-            <textarea value={cs.decision} onChange={(e) => onChange({ decision: e.target.value })} className={inputCls + " min-h-[80px]"} />
+            <RichTextEditor value={cs.decision} onChange={(html) => onChange({ decision: html })} />
           </Field>
           <Field label="Solution">
-            <textarea value={cs.solution} onChange={(e) => onChange({ solution: e.target.value })} className={inputCls + " min-h-[80px]"} />
+            <RichTextEditor value={cs.solution} onChange={(html) => onChange({ solution: html })} />
           </Field>
           <Field label="Ce que j'en retiens">
-            <textarea value={cs.lessons} onChange={(e) => onChange({ lessons: e.target.value })} className={inputCls + " min-h-[60px]"} />
+            <RichTextEditor value={cs.lessons} onChange={(html) => onChange({ lessons: html })} />
           </Field>
           <Field label="Ce que je ferais différemment">
-            <textarea value={cs.differently} onChange={(e) => onChange({ differently: e.target.value })} className={inputCls + " min-h-[60px]"} />
+            <RichTextEditor value={cs.differently} onChange={(html) => onChange({ differently: html })} />
           </Field>
 
           <div className="mt-5">
@@ -482,6 +526,15 @@ function CaseStudyEditor({
                 + ajouter un indicateur
               </button>
             </div>
+          </div>
+
+          <div className="mt-8 flex justify-end border-t border-border pt-5">
+            <button
+              onClick={onRemove}
+              className="rounded-full border border-rose-400/40 px-5 py-2 font-mono text-xs tracking-widest text-rose-400/90 hover:bg-rose-400/10"
+            >
+              ✕ SUPPRIMER CETTE ÉTUDE DE CAS
+            </button>
           </div>
         </div>
       )}

@@ -106,5 +106,14 @@ export const saveCaseStudies = createServerFn({ method: "POST" })
       .upsert(rows as never, { onConflict: "id" });
 
     if (error) throw new Error(error.message);
+
+    // Supprime les études de cas qui ne sont plus présentes dans le brouillon
+    const keepIds = rows.map((r) => r.id);
+    const { error: delError } = await supabaseAdmin
+      .from("case_studies")
+      .delete()
+      .not("id", "in", `(${keepIds.map((id) => `"${id}"`).join(",")})`);
+    if (delError) throw new Error(delError.message);
+
     return { ok: true, count: rows.length };
   });

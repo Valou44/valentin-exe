@@ -171,7 +171,14 @@ function Projects() {
                     <p className="font-mono text-xs tracking-widest text-muted-foreground">
                       {s.label.toUpperCase()}
                     </p>
-                    <p className="mt-2 leading-relaxed text-foreground/90">{p[s.key]}</p>
+                    {/<[a-z][\s\S]*>/i.test(p[s.key]) ? (
+                      <div
+                        className="rte-content mt-2 leading-relaxed text-foreground/90"
+                        dangerouslySetInnerHTML={{ __html: p[s.key] }}
+                      />
+                    ) : (
+                      <p className="mt-2 leading-relaxed text-foreground/90">{p[s.key]}</p>
+                    )}
                   </div>
                 ))}
               </div>
