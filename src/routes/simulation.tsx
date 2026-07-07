@@ -11,6 +11,17 @@ function isHtml(s: string): boolean {
   return /<[a-z][\s\S]*>/i.test(s);
 }
 
+/** Map a `text-*` accent class to its `bg-*` equivalent (Tailwind needs static classes). */
+function accentBg(accent: string): string {
+  const map: Record<string, string> = {
+    "text-amber-400": "bg-amber-400",
+    "text-sky-400": "bg-sky-400",
+    "text-emerald-400": "bg-emerald-400",
+    "text-foreground": "bg-foreground",
+  };
+  return map[accent] ?? "bg-foreground";
+}
+
 export const Route = createFileRoute("/simulation")({
   head: () => ({
     meta: [
@@ -84,6 +95,9 @@ function Simulation() {
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <Backdrop />
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-30" />
+      <div
+        className={`pointer-events-none absolute -top-24 left-1/2 h-72 w-[40rem] max-w-full -translate-x-1/2 rounded-full opacity-[0.12] blur-[100px] ${accentBg(scenario.accent)}`}
+      />
       <div ref={topRef} className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-10">
         {/* progress */}
         <div className="mb-10">
@@ -103,15 +117,26 @@ function Simulation() {
               ← CHANGER DE PARCOURS
             </button>
           </div>
-          <div className="mt-3 h-px w-full bg-border">
-            <motion.div
-              className="h-px bg-foreground"
-              animate={{ width: `${progress}%` }}
-              transition={{ type: "spring", stiffness: 120, damping: 20 }}
-            />
+          {/* stepped progress */}
+          <div className="mt-4 flex items-center gap-2">
+            {chapters.map((c, i) => {
+              const done = i < step || (i === step && revealed);
+              const current = i === step;
+              return (
+                <div key={c.id} className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
+                  <motion.div
+                    className={`h-full rounded-full ${accentBg(scenario.accent)}`}
+                    initial={false}
+                    animate={{ width: done ? "100%" : current ? "50%" : "0%" }}
+                    transition={{ type: "spring", stiffness: 120, damping: 20 }}
+                  />
+                </div>
+              );
+            })}
           </div>
-          <div className="mt-2 text-right font-mono text-[10px] tracking-widest text-muted-foreground">
-            {Math.round(progress)}%
+          <div className="mt-2 flex items-center justify-between font-mono text-[10px] tracking-widest text-muted-foreground">
+            <span>PROGRESSION</span>
+            <span>{Math.round(progress)}%</span>
           </div>
         </div>
 
@@ -124,20 +149,24 @@ function Simulation() {
             transition={{ duration: 0.4 }}
             className="flex flex-1 flex-col"
           >
-            <p className={`font-mono text-xs tracking-[0.25em] ${scenario.accent}`}>
+            <span
+              className={`inline-flex items-center gap-2 self-start rounded-full border border-border glass px-3 py-1 font-mono text-[11px] tracking-[0.25em] ${scenario.accent}`}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-current" />
               {chapter.tag}
-            </p>
-            <h1 className="mt-3 font-[var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
+            </span>
+            <h1 className="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
               {chapter.title}
             </h1>
-            <div className="mt-6 rounded-2xl border border-border bg-card/40 p-5 backdrop-blur">
+            <div className="relative mt-6 overflow-hidden rounded-2xl border border-border bg-card/40 p-6 backdrop-blur">
+              <div className={`absolute inset-y-0 left-0 w-1 ${accentBg(scenario.accent)} opacity-70`} />
               {isHtml(chapter.situation) ? (
                 <div
-                  className="rte-render text-base leading-relaxed text-foreground/85 sm:text-lg"
+                  className="rte-render pl-3 text-base leading-relaxed text-foreground/85 sm:text-lg"
                   dangerouslySetInnerHTML={{ __html: chapter.situation }}
                 />
               ) : (
-                <p className="whitespace-pre-line text-base leading-relaxed text-foreground/85 sm:text-lg">
+                <p className="whitespace-pre-line pl-3 text-base leading-relaxed text-foreground/85 sm:text-lg">
                   {chapter.situation}
                 </p>
               )}
@@ -279,11 +308,6 @@ function ScenarioPicker({
   scenarios: Scenario[];
   onPick: (id: string) => void;
 }) {
-  const glowMap: Record<string, string> = {
-    "text-amber-400": "bg-amber-400",
-    "text-sky-400": "bg-sky-400",
-    "text-emerald-400": "bg-emerald-400",
-  };
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <Backdrop />
@@ -322,7 +346,7 @@ function ScenarioPicker({
             >
               {/* accent glow */}
               <div
-                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40 ${glowMap[s.accent] ?? "bg-foreground"}`}
+                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40 ${accentBg(s.accent)}`}
               />
               <div className="relative flex items-center justify-between">
                 <span
