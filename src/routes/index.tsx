@@ -55,18 +55,6 @@ function Index() {
           >
             <div className="pointer-events-none absolute inset-0 grid-bg opacity-40" />
             <div className="pointer-events-none absolute left-1/2 top-1/3 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-foreground/5 blur-[120px]" />
-            <motion.button
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => navigate({ to: "/dashboard" })}
-              className="fixed right-4 top-4 z-20 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-2 font-mono text-xs font-medium tracking-wider text-foreground backdrop-blur transition-colors hover:border-emerald-400/50 hover:bg-foreground/[0.06] sm:right-6 sm:top-6"
-            >
-              Accéder au portfolio
-              <span aria-hidden="true">→</span>
-            </motion.button>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
