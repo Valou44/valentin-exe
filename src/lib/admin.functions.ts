@@ -81,6 +81,7 @@ const caseStudySchema = z.object({
   lessons: z.string(),
   differently: z.string(),
   link: z.string().optional(),
+  published: z.boolean().optional(),
 });
 
 export const saveCaseStudies = createServerFn({ method: "POST" })

@@ -76,6 +76,8 @@ export interface CaseStudy {
   lessons: string;
   differently: string;
   link?: string;
+  /** Brouillon quand false ; publié (visible) quand true ou absent. */
+  published?: boolean;
 }
 
 export const PROJECTS: CaseStudy[] = [

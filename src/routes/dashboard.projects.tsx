@@ -31,7 +31,9 @@ const SECTIONS: { key: StringKey; label: string }[] = [
 
 function Projects() {
   const [active, setActive] = useState(0);
-  const { data: PROJECTS = DEFAULT_CASE_STUDIES } = useQuery(caseStudiesQueryOptions);
+  const { data: ALL = DEFAULT_CASE_STUDIES } = useQuery(caseStudiesQueryOptions);
+  // Les brouillons (published === false) ne sont jamais visibles publiquement.
+  const PROJECTS = ALL.filter((c) => c.published !== false);
   const p = PROJECTS[active] ?? PROJECTS[0];
 
   if (!p) return null;

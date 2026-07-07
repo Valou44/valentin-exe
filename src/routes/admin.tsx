@@ -122,6 +122,7 @@ function Admin() {
       impact: [],
       lessons: "",
       differently: "",
+      published: false,
     };
     setCsDraft((d) => [newCs, ...d]);
   }
@@ -387,20 +388,56 @@ function CaseStudyEditor({
     onChange({ gallery: (cs.gallery ?? []).map((g, idx) => (idx === i ? v : g)) });
   }
 
+  const isPublished = cs.published !== false;
+
   return (
     <section className="glass rounded-2xl border border-border">
       <button
         onClick={() => setOpen((o) => !o)}
         className="flex w-full items-center justify-between px-6 py-4 text-left"
       >
-        <span className="font-[var(--font-display)] font-semibold">
+        <span className="flex items-center gap-3 font-[var(--font-display)] font-semibold">
           {cs.name} <span className="font-mono text-xs text-muted-foreground">· {cs.year}</span>
+          <span
+            className={[
+              "rounded-full px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-widest",
+              isPublished
+                ? "bg-emerald-400/15 text-emerald-400"
+                : "bg-amber-400/15 text-amber-400",
+            ].join(" ")}
+          >
+            {isPublished ? "Publié" : "Brouillon"}
+          </span>
         </span>
         <span className="font-mono text-muted-foreground">{open ? "−" : "+"}</span>
       </button>
 
       {open && (
         <div className="border-t border-border px-6 py-5">
+          <div className="mb-2 flex items-center justify-between rounded-xl border border-border bg-card/40 px-4 py-3">
+            <div>
+              <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                Visibilité
+              </span>
+              <span className="text-sm text-muted-foreground">
+                {isPublished
+                  ? "Cette étude de cas est visible sur le portfolio."
+                  : "Brouillon — masqué du portfolio le temps de la rédaction."}
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={() => onChange({ published: !isPublished })}
+              className={[
+                "shrink-0 rounded-full px-4 py-2 font-mono text-xs font-semibold tracking-widest transition-colors",
+                isPublished
+                  ? "border border-border text-muted-foreground hover:border-amber-400/50 hover:text-amber-400"
+                  : "bg-emerald-400 text-background hover:bg-emerald-300",
+              ].join(" ")}
+            >
+              {isPublished ? "REPASSER EN BROUILLON" : "PUBLIER"}
+            </button>
+          </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Nom du projet">
               <input value={cs.name} onChange={(e) => onChange({ name: e.target.value })} className={inputCls} />
