@@ -279,6 +279,11 @@ function ScenarioPicker({
   scenarios: Scenario[];
   onPick: (id: string) => void;
 }) {
+  const glowMap: Record<string, string> = {
+    "text-amber-400": "bg-amber-400",
+    "text-sky-400": "bg-sky-400",
+    "text-emerald-400": "bg-emerald-400",
+  };
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <Backdrop />
@@ -317,7 +322,7 @@ function ScenarioPicker({
             >
               {/* accent glow */}
               <div
-                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40 ${s.accent.replace("text-", "bg-")}`}
+                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40 ${glowMap[s.accent] ?? "bg-foreground"}`}
               />
               <div className="relative flex items-center justify-between">
                 <span
