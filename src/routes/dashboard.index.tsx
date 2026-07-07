@@ -164,6 +164,48 @@ function About() {
           ))}
         </div>
       </section>
+
+      <section>
+        <div className="mb-6 flex items-center gap-4">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            Ils m'ont fait confiance
+          </p>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {COMPANIES.map((c) => (
+            <div
+              key={c.name}
+              className="glass flex h-24 items-center justify-center rounded-xl px-6 transition-colors hover:border-foreground/30"
+            >
+              <img
+                src={c.logo}
+                alt={`Logo ${c.name}`}
+                className="max-h-8 w-auto max-w-[70%] object-contain opacity-70 transition-opacity hover:opacity-100"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <div className="mb-6 flex items-center gap-4">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            Compétences
+          </p>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {SKILLS.map((s) => (
+            <span
+              key={s}
+              className="rounded-lg border border-border bg-foreground/[0.02] px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+            >
+              {s}
+            </span>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
