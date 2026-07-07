@@ -104,6 +104,20 @@ function About() {
 
         {/* contacts */}
         <div className="mt-6 flex flex-wrap gap-2">
+          <a
+            href={cvAsset.url}
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex items-center gap-2 rounded-lg border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-sm transition-colors hover:border-emerald-400/70 hover:bg-emerald-400/20"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-400">
+              CV
+            </span>
+            <span>Télécharger le CV</span>
+            <span className="text-emerald-400 transition-transform group-hover:translate-y-0.5">
+              ↓
+            </span>
+          </a>
           {contacts.map((c) => (
             <a
               key={c.label}
