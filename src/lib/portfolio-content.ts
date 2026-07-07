@@ -3,8 +3,6 @@
 // Contenu réel de Valentin Renard, extrait de son CV et de son ancien site.
 // ============================================================================
 
-import cibliImg from "../assets/projects/cibli.jpg.asset.json";
-import cibli2Img from "../assets/projects/cibli2.jpg.asset.json";
 import naonairImg from "../assets/projects/naonair.png.asset.json";
 import evappImg from "../assets/projects/evapp.png.asset.json";
 import kitMetiersImg from "../assets/projects/kitmetiers.png.asset.json";
