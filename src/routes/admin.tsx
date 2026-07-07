@@ -122,6 +122,7 @@ function Admin() {
       impact: [],
       lessons: "",
       differently: "",
+      published: false,
     };
     setCsDraft((d) => [newCs, ...d]);
   }
