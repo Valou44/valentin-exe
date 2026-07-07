@@ -130,21 +130,38 @@ function Projects() {
               </div>
 
               {/* impact */}
-              <div className="mt-6 grid grid-cols-3 gap-3">
-                {p.impact.map((m) => (
-                  <div
-                    key={m.label}
-                    className="rounded-xl border border-border bg-foreground/[0.02] p-4 text-center"
-                  >
-                    <div className="font-[var(--font-display)] text-lg font-bold sm:text-2xl">
-                      {m.value}
-                    </div>
-                    <div className="mt-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                      {m.label}
-                    </div>
+              {p.impact.length > 0 && (
+                <div className="mt-8">
+                  <div className="flex items-center gap-3">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-emerald-400">
+                      Impact
+                    </p>
+                    <div className="h-px flex-1 bg-border" />
                   </div>
-                ))}
-              </div>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                    {p.impact.map((m, i) => (
+                      <motion.div
+                        key={m.label + i}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 + i * 0.08 }}
+                        className="group relative overflow-hidden rounded-xl border border-border bg-foreground/[0.02] p-5 transition-colors hover:border-emerald-400/40"
+                      >
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                        <div className="font-[var(--font-display)] text-3xl font-bold tracking-tight text-glow sm:text-4xl">
+                          {m.value}
+                        </div>
+                        <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-400/90">
+                          {m.label}
+                        </div>
+                        {m.sub && (
+                          <p className="mt-2 text-xs leading-snug text-muted-foreground">{m.sub}</p>
+                        )}
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* gallery */}
               {p.gallery && p.gallery.length > 1 && (

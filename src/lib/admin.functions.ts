@@ -77,7 +77,7 @@ const caseStudySchema = z.object({
   discovery: z.string(),
   decision: z.string(),
   solution: z.string(),
-  impact: z.array(z.object({ label: z.string(), value: z.string() })),
+  impact: z.array(z.object({ label: z.string(), value: z.string(), sub: z.string().optional() })),
   lessons: z.string(),
   differently: z.string(),
   link: z.string().optional(),

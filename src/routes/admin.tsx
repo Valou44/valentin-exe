@@ -490,25 +490,33 @@ function CaseStudyEditor({
 
           <div className="mt-5">
             <span className="mb-1 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-              Indicateurs d'impact — label : valeur
+              Indicateurs d'impact — valeur · label · contexte
             </span>
             <div className="space-y-2">
               {cs.impact.map((m, i) => (
-                <div key={i} className="grid grid-cols-[1fr_1fr_32px] gap-2">
-                  <input
-                    value={m.label}
-                    onChange={(e) =>
-                      onChange({ impact: cs.impact.map((x, idx) => (idx === i ? { ...x, label: e.target.value } : x)) })
-                    }
-                    placeholder="Label"
-                    className={inputCls}
-                  />
+                <div key={i} className="grid grid-cols-[1fr_1fr_1.4fr_32px] gap-2">
                   <input
                     value={m.value}
                     onChange={(e) =>
                       onChange({ impact: cs.impact.map((x, idx) => (idx === i ? { ...x, value: e.target.value } : x)) })
                     }
-                    placeholder="Valeur"
+                    placeholder="Valeur (ex : +32%)"
+                    className={inputCls}
+                  />
+                  <input
+                    value={m.label}
+                    onChange={(e) =>
+                      onChange({ impact: cs.impact.map((x, idx) => (idx === i ? { ...x, label: e.target.value } : x)) })
+                    }
+                    placeholder="Label (ex : Rétention)"
+                    className={inputCls}
+                  />
+                  <input
+                    value={m.sub ?? ""}
+                    onChange={(e) =>
+                      onChange({ impact: cs.impact.map((x, idx) => (idx === i ? { ...x, sub: e.target.value } : x)) })
+                    }
+                    placeholder="Contexte (optionnel)"
                     className={inputCls}
                   />
                   <button
@@ -520,7 +528,7 @@ function CaseStudyEditor({
                 </div>
               ))}
               <button
-                onClick={() => onChange({ impact: [...cs.impact, { label: "", value: "" }] })}
+                onClick={() => onChange({ impact: [...cs.impact, { label: "", value: "", sub: "" }] })}
                 className="font-mono text-xs text-muted-foreground hover:text-foreground"
               >
                 + ajouter un indicateur

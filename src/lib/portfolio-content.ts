@@ -72,7 +72,7 @@ export interface CaseStudy {
   discovery: string;
   decision: string;
   solution: string;
-  impact: { label: string; value: string }[];
+  impact: { label: string; value: string; sub?: string }[];
   lessons: string;
   differently: string;
   link?: string;
