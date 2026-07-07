@@ -308,11 +308,6 @@ function ScenarioPicker({
   scenarios: Scenario[];
   onPick: (id: string) => void;
 }) {
-  const glowMap: Record<string, string> = {
-    "text-amber-400": "bg-amber-400",
-    "text-sky-400": "bg-sky-400",
-    "text-emerald-400": "bg-emerald-400",
-  };
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <Backdrop />
