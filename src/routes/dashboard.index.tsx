@@ -1,5 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PROFILE, TIMELINE } from "../lib/portfolio-content";
+import cvAsset from "../assets/cv-valentin.pdf.asset.json";
+import lonestoneLogo from "../assets/logos/lonestone.png.asset.json";
+import liveeLogo from "../assets/logos/livee.png.asset.json";
+import deux37Logo from "../assets/logos/deux37.png.asset.json";
+
+const COMPANIES = [
+  { name: "Lonestone", logo: lonestoneLogo.url },
+  { name: "LiveE", logo: liveeLogo.url },
+  { name: "37DEUX", logo: deux37Logo.url },
+];
+
+const SKILLS = [
+  "Interviews & tests utilisateurs",
+  "Spécifications fonctionnelles & techniques",
+  "Roadmap & backlog (JIRA · ClickUp · Notion · Linear)",
+  "Figma · Wireframing",
+  "Management d'équipe de dev",
+  "A/B testing",
+  "Développement produit",
+  "Analyse de performance",
+  "Documentation produit",
+];
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({
@@ -82,6 +104,20 @@ function About() {
 
         {/* contacts */}
         <div className="mt-6 flex flex-wrap gap-2">
+          <a
+            href={cvAsset.url}
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex items-center gap-2 rounded-lg border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-sm transition-colors hover:border-emerald-400/70 hover:bg-emerald-400/20"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-400">
+              CV
+            </span>
+            <span>Télécharger le CV</span>
+            <span className="text-emerald-400 transition-transform group-hover:translate-y-0.5">
+              ↓
+            </span>
+          </a>
           {contacts.map((c) => (
             <a
               key={c.label}
@@ -125,6 +161,48 @@ function About() {
                 <p className="mt-2 text-sm text-muted-foreground">{t.description}</p>
               </div>
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <div className="mb-6 flex items-center gap-4">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            Ils m'ont fait confiance
+          </p>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {COMPANIES.map((c) => (
+            <div
+              key={c.name}
+              className="glass flex h-24 items-center justify-center rounded-xl px-6 transition-colors hover:border-foreground/30"
+            >
+              <img
+                src={c.logo}
+                alt={`Logo ${c.name}`}
+                className="max-h-8 w-auto max-w-[70%] object-contain opacity-70 transition-opacity hover:opacity-100"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <div className="mb-6 flex items-center gap-4">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            Compétences
+          </p>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {SKILLS.map((s) => (
+            <span
+              key={s}
+              className="rounded-lg border border-border bg-foreground/[0.02] px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+            >
+              {s}
+            </span>
           ))}
         </div>
       </section>
