@@ -11,6 +11,17 @@ function isHtml(s: string): boolean {
   return /<[a-z][\s\S]*>/i.test(s);
 }
 
+/** Map a `text-*` accent class to its `bg-*` equivalent (Tailwind needs static classes). */
+function accentBg(accent: string): string {
+  const map: Record<string, string> = {
+    "text-amber-400": "bg-amber-400",
+    "text-sky-400": "bg-sky-400",
+    "text-emerald-400": "bg-emerald-400",
+    "text-foreground": "bg-foreground",
+  };
+  return map[accent] ?? "bg-foreground";
+}
+
 export const Route = createFileRoute("/simulation")({
   head: () => ({
     meta: [
