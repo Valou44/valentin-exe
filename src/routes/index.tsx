@@ -84,7 +84,7 @@ function Index() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45 }}
-              className="relative mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
+              className="relative mt-8 max-w-xl text-lg leading-relaxed text-foreground/85 sm:text-xl"
             >
               Ne lisez pas mon CV — <span className="font-medium text-foreground">vivez</span> ma
               façon de penser produit. Prenez 5 décisions sur un vrai projet, puis comparez vos
