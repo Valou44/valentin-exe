@@ -49,10 +49,22 @@ function Result() {
     navigate({ to: "/dashboard" });
   }
 
+  const verdict = getVerdict(target, vScore);
+  const maxAbsDelta = Math.max(1, ...deltas.map((d) => Math.abs(d.delta)));
+
+  // gauge geometry
+  const R = 84;
+  const C = 2 * Math.PI * R;
+  const dash = (display / 100) * C;
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <Backdrop />
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-6 py-16 text-center">
+      <div className="pointer-events-none absolute inset-0 grid-bg opacity-20" />
+      <div
+        className={`pointer-events-none absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full opacity-20 blur-[100px] ${accentBg(scenario.accent)}`}
+      />
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center px-6 py-20 text-center">
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -60,64 +72,123 @@ function Result() {
         >
           SIMULATION TERMINÉE
         </motion.p>
-        <h1 className="mt-4 font-[var(--font-display)] text-2xl font-bold">
+        <h1 className="mt-4 font-[var(--font-display)] text-2xl font-bold sm:text-3xl">
           Score de Product Thinking
         </h1>
         <p className={`mt-2 font-mono text-xs uppercase tracking-widest ${scenario.accent}`}>
           {scenario.project}
         </p>
+
+        {/* Score gauge */}
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="mt-8 text-glow"
+          className="relative mt-10 grid place-items-center"
         >
-          <span className="font-[var(--font-display)] text-8xl font-extrabold tracking-tight sm:text-9xl">
-            {display}
-          </span>
-          <span className="text-3xl text-muted-foreground"> / 100</span>
+          <svg width="220" height="220" viewBox="0 0 220 220" className="-rotate-90">
+            <circle
+              cx="110"
+              cy="110"
+              r={R}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="10"
+              className="text-border"
+            />
+            <circle
+              cx="110"
+              cy="110"
+              r={R}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="10"
+              strokeLinecap="round"
+              strokeDasharray={`${dash} ${C}`}
+              className={scenario.accent}
+            />
+          </svg>
+          <div className="absolute inset-0 grid place-items-center text-glow">
+            <div className="flex items-baseline">
+              <span className="font-[var(--font-display)] text-7xl font-extrabold tracking-tight">
+                {display}
+              </span>
+              <span className="ml-1 text-xl text-muted-foreground">/100</span>
+            </div>
+          </div>
         </motion.div>
 
-        <p className="mt-6 text-muted-foreground">
-          Valentin a obtenu <span className="text-foreground">{vScore}</span> sur les mêmes décisions.
-        </p>
+        {/* Verdict */}
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className={`mt-6 inline-flex items-center gap-2 rounded-full border border-border glass px-4 py-1.5 font-mono text-xs tracking-widest ${scenario.accent}`}
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-current" />
+          {verdict.label}
+        </motion.p>
 
-        <div className="mt-10 w-full max-w-md">
+        {/* You vs Valentin bars */}
+        <div className="mt-10 w-full max-w-md space-y-4">
+          <ScoreBar label="Vous" value={target} delay={0.7} colorClass={scenario.accent} />
+          <ScoreBar label="Valentin" value={vScore} delay={0.85} colorClass="text-foreground" />
+        </div>
+
+        {/* Dimension comparison */}
+        <div className="mt-12 w-full max-w-md">
           <p className="mb-4 font-mono text-xs tracking-widest text-muted-foreground">
-            COMPARAISON AVEC VALENTIN
+            DÉTAIL PAR DIMENSION
           </p>
-          <div className="space-y-3">
-            {deltas.map((d, i) => (
-              <motion.div
-                key={d.dimension}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 + i * 0.12 }}
-                className="flex items-center justify-between rounded-lg border border-border px-4 py-3 text-left"
-              >
-                <span className="text-sm">{d.dimension}</span>
-                <span
-                  className={[
-                    "font-mono text-sm",
-                    d.delta > 0
-                      ? "text-emerald-400"
-                      : d.delta < 0
-                        ? "text-rose-400"
-                        : "text-muted-foreground",
-                  ].join(" ")}
+          <div className="space-y-2.5">
+            {deltas.map((d, i) => {
+              const pct = (Math.abs(d.delta) / maxAbsDelta) * 50;
+              const positive = d.delta > 0;
+              const neutral = d.delta === 0;
+              return (
+                <motion.div
+                  key={d.dimension}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1 + i * 0.1 }}
+                  className="glass rounded-xl border border-border px-4 py-3 text-left"
                 >
-                  {d.delta > 0 ? "+" : ""}
-                  {d.delta}
-                </span>
-              </motion.div>
-            ))}
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">{d.dimension}</span>
+                    <span
+                      className={[
+                        "font-mono text-sm",
+                        positive ? "text-emerald-400" : neutral ? "text-muted-foreground" : "text-rose-400",
+                      ].join(" ")}
+                    >
+                      {neutral ? "= identique" : `${positive ? "+" : ""}${d.delta}`}
+                    </span>
+                  </div>
+                  {/* diverging bar */}
+                  <div className="relative mt-2 h-1.5 w-full rounded-full bg-muted">
+                    <div className="absolute left-1/2 top-0 h-full w-px bg-border" />
+                    {!neutral && (
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${pct}%` }}
+                        transition={{ delay: 1.1 + i * 0.1, duration: 0.5 }}
+                        className={[
+                          "absolute top-0 h-full rounded-full",
+                          positive ? "left-1/2 bg-emerald-400" : "right-1/2 bg-rose-400",
+                        ].join(" ")}
+                      />
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
+          transition={{ delay: 1.4 }}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
           onClick={enter}
@@ -128,4 +199,54 @@ function Result() {
       </div>
     </main>
   );
+}
+
+function ScoreBar({
+  label,
+  value,
+  delay,
+  colorClass,
+}: {
+  label: string;
+  value: number;
+  delay: number;
+  colorClass: string;
+}) {
+  return (
+    <div className="text-left">
+      <div className="mb-1.5 flex items-center justify-between">
+        <span className="font-mono text-xs tracking-widest text-muted-foreground">
+          {label.toUpperCase()}
+        </span>
+        <span className="font-mono text-sm">{value}</span>
+      </div>
+      <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: `${value}%` }}
+          transition={{ delay, duration: 0.8, ease: "easeOut" }}
+          className={`h-full rounded-full ${accentBg(colorClass)}`}
+        />
+      </div>
+    </div>
+  );
+}
+
+function getVerdict(score: number, vScore: number): { label: string } {
+  const gap = vScore - score;
+  if (gap <= 0) return { label: "PRODUCT THINKING D'ÉLITE" };
+  if (gap <= 10) return { label: "TRÈS BON INSTINCT PRODUIT" };
+  if (gap <= 25) return { label: "BON POTENTIEL PRODUIT" };
+  return { label: "EN ROUTE VERS LE PRODUCT THINKING" };
+}
+
+/** Map a `text-*` accent class to its `bg-*` equivalent (Tailwind needs static classes). */
+function accentBg(accent: string): string {
+  const map: Record<string, string> = {
+    "text-amber-400": "bg-amber-400",
+    "text-sky-400": "bg-sky-400",
+    "text-emerald-400": "bg-emerald-400",
+    "text-foreground": "bg-foreground",
+  };
+  return map[accent] ?? "bg-foreground";
 }
