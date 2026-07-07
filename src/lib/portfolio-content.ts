@@ -80,34 +80,6 @@ export interface CaseStudy {
 
 export const PROJECTS: CaseStudy[] = [
   {
-    slug: "cibli",
-    name: "Cibli Jobs",
-    oneLiner:
-      "Cabine de recrutement physique guidée par une IA vocale bienveillante, pour démocratiser l'accès à l'emploi.",
-    year: "2024",
-    tags: ["IA conversationnelle", "0→1", "Emploi", "Hardware"],
-    image: cibliImg.url,
-    gallery: [cibliImg.url, cibli2Img.url],
-    link: "https://lonestone.io/realisations/cibli-job",
-    problem:
-      "Le recrutement traditionnel exclut : CV formatés, processus longs, ghosting massif. Des milliers de profils compétents passent entre les mailles du filet faute de maîtriser les codes du digital.",
-    discovery:
-      "Partir d'une page blanche autour d'une conviction forte de la fondatrice : un bon recrutement, c'est d'abord une bonne rencontre. Cadrage du parcours candidat pour qu'un profil de tout horizon se sente accompagné dès la première minute.",
-    decision:
-      "Miser sur une logique conversationnelle orale plutôt qu'un formulaire : interview guidée par IA, génération automatique d'un CV éditable et matching d'offres en 10 minutes, dans une cabine physique en libre accès.",
-    solution:
-      "Pilotage produit de bout en bout : parcours UX, orchestration de plusieurs modèles IA (speech-to-text, conversationnel, génération de CV), matching via le référentiel ROME, intégrations ATS et notifications Brevo/Twilio, jusqu'au choix du matériel embarqué.",
-    impact: [
-      { label: "Durée", value: "6 mois" },
-      { label: "Parcours", value: "10 min" },
-      { label: "Cabines", value: "Atlantis · La Poste" },
-    ],
-    lessons:
-      "Quand la technologie sert vraiment l'humain, elle disparaît : la valeur perçue, c'est la rencontre, pas l'IA derrière.",
-    differently:
-      "J'industrialiserais plus tôt le suivi d'usage en conditions réelles pour accélérer les itérations sur le prompting.",
-  },
-  {
     slug: "naonair",
     name: "Naonair",
     oneLiner: "Application mobile d'analyse de la qualité de l'air, conçue avec Air Pays de la Loire.",
