@@ -52,6 +52,17 @@ export function BootSequence({ onDone }: { onDone: () => void }) {
           <span className="inline-block h-4 w-2 bg-foreground caret-blink align-middle" />
         )}
       </div>
+      {shown < LINES.length && (
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          onClick={onDone}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 rounded-full border border-border bg-card/40 px-5 py-2 text-[11px] tracking-[0.2em] text-muted-foreground backdrop-blur transition-colors hover:border-foreground/40 hover:text-foreground"
+        >
+          PASSER L'INTRO →
+        </motion.button>
+      )}
     </div>
   );
 }

@@ -62,44 +62,65 @@ function Index() {
               className="relative inline-flex items-center gap-2 rounded-full border border-border bg-card/40 px-4 py-1.5 font-mono text-[11px] tracking-[0.3em] text-muted-foreground backdrop-blur"
             >
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-              Valentin.EXE — ENVIRONNEMENT DE SIMULATION
+              OUVERT AUX OPPORTUNITÉS — PRODUCT MANAGER
             </motion.p>
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
-              className="relative mt-8 font-[var(--font-display)] text-6xl font-extrabold leading-[0.95] tracking-tight text-glow sm:text-8xl"
+              className="relative mt-8 font-[var(--font-display)] text-5xl font-extrabold leading-[0.95] tracking-tight text-glow sm:text-7xl"
             >
-              BIENVENUE.
+              Valentin Renard
             </motion.h1>
-            <motion.div
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+              className="relative mt-4 font-mono text-sm tracking-[0.25em] text-emerald-400 sm:text-base"
+            >
+              PRODUCT MANAGER · 10 ANS D'EXPÉRIENCE · NANTES
+            </motion.p>
+            <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45 }}
-              className="relative mt-8 space-y-1.5 text-lg text-muted-foreground sm:text-xl"
+              className="relative mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
             >
-              <p>Aujourd'hui, c'est vous le Product Manager.</p>
-              <p>Vous avez 10 minutes.</p>
-              <p className="font-medium text-foreground">Bonne chance.</p>
+              Ne lisez pas mon CV — <span className="font-medium text-foreground">vivez</span> ma
+              façon de penser produit. Prenez 5 décisions sur un vrai projet, puis comparez vos
+              choix aux miens.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.65 }}
+              className="relative mt-12 flex flex-col items-center gap-4 sm:flex-row"
+            >
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={start}
+                className="rounded-full bg-foreground px-10 py-4 font-mono text-sm font-semibold tracking-[0.2em] text-background transition-shadow hover:shadow-[0_0_40px_rgba(255,255,255,0.25)]"
+              >
+                DÉMARRER LA SIMULATION
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate({ to: "/dashboard" })}
+                className="rounded-full border border-border bg-card/40 px-10 py-4 font-mono text-sm font-semibold tracking-[0.2em] text-foreground backdrop-blur transition-colors hover:border-foreground/40 hover:bg-card/70"
+              >
+                VOIR LE PORTFOLIO
+              </motion.button>
             </motion.div>
-            <motion.button
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.7 }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={start}
-              className="relative mt-12 rounded-full bg-foreground px-10 py-4 font-mono text-sm font-semibold tracking-[0.2em] text-background transition-shadow hover:shadow-[0_0_40px_rgba(255,255,255,0.25)]"
-            >
-              DÉMARRER LA SIMULATION
-            </motion.button>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
               className="relative mt-10 font-mono text-[11px] tracking-widest text-muted-foreground/60"
             >
-              astuce : appuyez sur <span className="text-muted-foreground">`</span> à tout moment pour ouvrir le terminal
+              5 décisions · ~5 minutes · astuce : appuyez sur{" "}
+              <span className="text-muted-foreground">`</span> pour ouvrir le terminal
             </motion.p>
           </motion.section>
         )}
