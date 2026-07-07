@@ -277,11 +277,6 @@ export interface Experiment {
 
 export const EXPERIMENTS: Experiment[] = [
   {
-    name: "IA vocale bienveillante (Cibli Jobs)",
-    result: "win",
-    description: "Remplacer le formulaire par un entretien oral guidé a rendu le recrutement accessible à tous les profils.",
-  },
-  {
     name: "Itinéraires « air sain » (Naonair)",
     result: "win",
     description: "Calculer des trajets optimisés selon la pollution a rendu la donnée actionnable au quotidien.",
