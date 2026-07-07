@@ -3,8 +3,6 @@
 // Contenu réel de Valentin Renard, extrait de son CV et de son ancien site.
 // ============================================================================
 
-import cibliImg from "../assets/projects/cibli.jpg.asset.json";
-import cibli2Img from "../assets/projects/cibli2.jpg.asset.json";
 import naonairImg from "../assets/projects/naonair.png.asset.json";
 import evappImg from "../assets/projects/evapp.png.asset.json";
 import kitMetiersImg from "../assets/projects/kitmetiers.png.asset.json";
@@ -81,34 +79,6 @@ export interface CaseStudy {
 }
 
 export const PROJECTS: CaseStudy[] = [
-  {
-    slug: "cibli",
-    name: "Cibli Jobs",
-    oneLiner:
-      "Cabine de recrutement physique guidée par une IA vocale bienveillante, pour démocratiser l'accès à l'emploi.",
-    year: "2024",
-    tags: ["IA conversationnelle", "0→1", "Emploi", "Hardware"],
-    image: cibliImg.url,
-    gallery: [cibliImg.url, cibli2Img.url],
-    link: "https://lonestone.io/realisations/cibli-job",
-    problem:
-      "Le recrutement traditionnel exclut : CV formatés, processus longs, ghosting massif. Des milliers de profils compétents passent entre les mailles du filet faute de maîtriser les codes du digital.",
-    discovery:
-      "Partir d'une page blanche autour d'une conviction forte de la fondatrice : un bon recrutement, c'est d'abord une bonne rencontre. Cadrage du parcours candidat pour qu'un profil de tout horizon se sente accompagné dès la première minute.",
-    decision:
-      "Miser sur une logique conversationnelle orale plutôt qu'un formulaire : interview guidée par IA, génération automatique d'un CV éditable et matching d'offres en 10 minutes, dans une cabine physique en libre accès.",
-    solution:
-      "Pilotage produit de bout en bout : parcours UX, orchestration de plusieurs modèles IA (speech-to-text, conversationnel, génération de CV), matching via le référentiel ROME, intégrations ATS et notifications Brevo/Twilio, jusqu'au choix du matériel embarqué.",
-    impact: [
-      { label: "Durée", value: "6 mois" },
-      { label: "Parcours", value: "10 min" },
-      { label: "Cabines", value: "Atlantis · La Poste" },
-    ],
-    lessons:
-      "Quand la technologie sert vraiment l'humain, elle disparaît : la valeur perçue, c'est la rencontre, pas l'IA derrière.",
-    differently:
-      "J'industrialiserais plus tôt le suivi d'usage en conditions réelles pour accélérer les itérations sur le prompting.",
-  },
   {
     slug: "naonair",
     name: "Naonair",
@@ -307,11 +277,6 @@ export interface Experiment {
 
 export const EXPERIMENTS: Experiment[] = [
   {
-    name: "IA vocale bienveillante (Cibli Jobs)",
-    result: "win",
-    description: "Remplacer le formulaire par un entretien oral guidé a rendu le recrutement accessible à tous les profils.",
-  },
-  {
     name: "Itinéraires « air sain » (Naonair)",
     result: "win",
     description: "Calculer des trajets optimisés selon la pollution a rendu la donnée actionnable au quotidien.",
@@ -344,8 +309,8 @@ export const TERMINAL_RESPONSES: Record<string, string[]> = {
     "Je conçois, pilote et optimise des produits digitaux que les gens utilisent.",
   ],
   projects: [
-    "cibli      naonair    premier-pas",
-    "mon-retab  evapp      kit-metiers    salto",
+    "naonair    premier-pas    mon-retab",
+    "evapp      kit-metiers    salto",
     "Tape un nom ou ouvre la section Projets pour explorer.",
   ],
   current_focus: ["Product Manager chez Lonestone, à Nantes — du cadrage jusqu'à la mise en production."],

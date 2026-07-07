@@ -279,14 +279,20 @@ function ScenarioPicker({
   scenarios: Scenario[];
   onPick: (id: string) => void;
 }) {
+  const glowMap: Record<string, string> = {
+    "text-amber-400": "bg-amber-400",
+    "text-sky-400": "bg-sky-400",
+    "text-emerald-400": "bg-emerald-400",
+  };
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <Backdrop />
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-16">
+      <div className="pointer-events-none absolute inset-0 grid-bg opacity-20" />
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-6 py-16">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="font-mono text-xs tracking-[0.3em] text-muted-foreground"
+          className="text-center font-mono text-xs tracking-[0.3em] text-muted-foreground"
         >
           CHOISISSEZ VOTRE MISSION
         </motion.p>
@@ -294,33 +300,48 @@ function ScenarioPicker({
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mt-4 font-[var(--font-display)] text-3xl font-extrabold tracking-tight sm:text-4xl"
+          className="mt-4 text-center font-[var(--font-display)] text-3xl font-extrabold tracking-tight sm:text-4xl"
         >
           Quelle problématique voulez-vous résoudre&nbsp;?
         </motion.h1>
-        <p className="mt-4 text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground">
           Vous prendrez ensuite 5 décisions produit, puis comparerez vos choix à ceux de Valentin sur un vrai projet.
         </p>
 
-        <div className="mt-10 grid gap-4">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {scenarios.map((s, i) => (
             <motion.button
               key={s.id}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 + i * 0.1 }}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
+              transition={{ delay: 0.2 + i * 0.12 }}
+              whileHover={{ y: -6 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onPick(s.id)}
-              className="group glass flex flex-col rounded-2xl border border-border p-6 text-left transition-colors hover:border-foreground/40"
+              className="group glass relative flex h-full flex-col overflow-hidden rounded-3xl border border-border p-7 text-left transition-colors hover:border-foreground/40"
             >
-              <span className={`font-mono text-[11px] uppercase tracking-widest ${s.accent}`}>
-                {s.inspiration}
+              {/* accent glow */}
+              <div
+                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40 ${glowMap[s.accent] ?? "bg-foreground"}`}
+              />
+              <div className="relative flex items-center justify-between">
+                <span
+                  className={`flex h-10 w-10 items-center justify-center rounded-xl border border-border font-[var(--font-display)] text-lg font-bold ${s.accent}`}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className={`font-mono text-[10px] uppercase tracking-widest ${s.accent}`}>
+                  {s.inspiration}
+                </span>
+              </div>
+              <span className="relative mt-6 text-xl font-semibold leading-snug">{s.question}</span>
+              <span className="relative mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                {s.intro}
               </span>
-              <span className="mt-3 text-lg font-semibold leading-snug">{s.question}</span>
-              <span className="mt-2 text-sm text-muted-foreground">{s.intro}</span>
-              <span className="mt-4 inline-flex items-center font-mono text-xs tracking-widest text-muted-foreground transition-transform group-hover:translate-x-1">
-                DÉMARRER →
+              <span
+                className={`relative mt-6 inline-flex items-center gap-2 font-mono text-xs tracking-widest transition-transform group-hover:translate-x-1 ${s.accent}`}
+              >
+                DÉMARRER LA MISSION →
               </span>
             </motion.button>
           ))}
