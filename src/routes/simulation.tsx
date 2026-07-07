@@ -346,7 +346,7 @@ function ScenarioPicker({
             >
               {/* accent glow */}
               <div
-                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40 ${glowMap[s.accent] ?? "bg-foreground"}`}
+                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40 ${accentBg(s.accent)}`}
               />
               <div className="relative flex items-center justify-between">
                 <span
