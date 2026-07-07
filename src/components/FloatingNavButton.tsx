@@ -7,7 +7,8 @@ export function FloatingNavButton() {
 
   const isDashboard = pathname === "/dashboard" || pathname.startsWith("/dashboard/");
 
-  const label = isDashboard ? "Revenir à la simulation" : "Accéder au portfolio";
+  const fullLabel = isDashboard ? "Revenir à la simulation" : "Accéder au portfolio";
+  const shortLabel = isDashboard ? "Simulation" : "Portfolio";
   const target = isDashboard ? "/simulation" : "/dashboard";
 
   return (
@@ -21,7 +22,8 @@ export function FloatingNavButton() {
       className="fixed right-4 top-4 z-50 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-2 font-mono text-xs font-medium tracking-wider text-foreground backdrop-blur transition-colors hover:border-emerald-400/50 hover:bg-foreground/[0.06] sm:right-6 sm:top-6"
     >
       {isDashboard ? <span aria-hidden="true">←</span> : null}
-      {label}
+      <span className="sm:hidden">{shortLabel}</span>
+      <span className="hidden sm:inline">{fullLabel}</span>
       {isDashboard ? null : <span aria-hidden="true">→</span>}
     </motion.button>
   );
