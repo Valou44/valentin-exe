@@ -1,5 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PROFILE, TIMELINE } from "../lib/portfolio-content";
+import cvAsset from "../assets/cv-valentin.pdf.asset.json";
+import lonestoneLogo from "../assets/logos/lonestone.png.asset.json";
+import liveeLogo from "../assets/logos/livee.png.asset.json";
+import deux37Logo from "../assets/logos/deux37.png.asset.json";
+
+const COMPANIES = [
+  { name: "Lonestone", logo: lonestoneLogo.url },
+  { name: "LiveE", logo: liveeLogo.url },
+  { name: "37DEUX", logo: deux37Logo.url },
+];
+
+const SKILLS = [
+  "Interviews & tests utilisateurs",
+  "Spécifications fonctionnelles & techniques",
+  "Roadmap & backlog (JIRA · ClickUp · Notion · Linear)",
+  "Figma · Wireframing",
+  "Management d'équipe de dev",
+  "A/B testing",
+  "Développement produit",
+  "Analyse de performance",
+  "Documentation produit",
+];
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({
