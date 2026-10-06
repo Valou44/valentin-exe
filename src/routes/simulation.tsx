@@ -6,6 +6,7 @@ import { Backdrop } from "../components/Noise";
 import { findScenario, DEFAULT_SCENARIOS, type Scenario } from "../lib/sim-content";
 import { scenariosQueryOptions } from "../lib/scenarios";
 import { useSimStore } from "../lib/sim-store";
+import { SITE_URL } from "../lib/site";
 
 function isHtml(s: string): boolean {
   return /<[a-z][\s\S]*>/i.test(s);
@@ -36,9 +37,9 @@ export const Route = createFileRoute("/simulation")({
         content: "Choisissez une problématique produit et prenez 5 vraies décisions face à Valentin Renard.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://valentin-exe.lovable.app/simulation" },
+      { property: "og:url", content: `${SITE_URL}/simulation` },
     ],
-    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/simulation" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/simulation` }],
   }),
   component: Simulation,
 });

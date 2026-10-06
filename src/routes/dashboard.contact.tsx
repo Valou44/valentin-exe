@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PROFILE } from "../lib/portfolio-content";
+import { SITE_URL } from "../lib/site";
 
 export const Route = createFileRoute("/dashboard/contact")({
   head: () => ({
@@ -9,9 +10,9 @@ export const Route = createFileRoute("/dashboard/contact")({
       { property: "og:title", content: "Contact — Valentin Renard" },
       { property: "og:description", content: "Contactez Valentin Renard, Product Manager à Nantes." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://valentin-exe.lovable.app/dashboard/contact" },
+      { property: "og:url", content: `${SITE_URL}/dashboard/contact` },
     ],
-    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/dashboard/contact" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/dashboard/contact` }],
   }),
   component: Contact,
 });

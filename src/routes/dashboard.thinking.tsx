@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { FRAMEWORKS } from "../lib/portfolio-content";
+import { SITE_URL } from "../lib/site";
 
 export const Route = createFileRoute("/dashboard/thinking")({
   head: () => ({
@@ -11,9 +12,9 @@ export const Route = createFileRoute("/dashboard/thinking")({
       { property: "og:title", content: "Méthode et approche — Valentin Renard" },
       { property: "og:description", content: "Les méthodes et approches que Valentin Renard utilise pour concevoir des produits." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://valentin-exe.lovable.app/dashboard/thinking" },
+      { property: "og:url", content: `${SITE_URL}/dashboard/thinking` },
     ],
-    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/dashboard/thinking" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/dashboard/thinking` }],
   }),
   component: Thinking,
 });

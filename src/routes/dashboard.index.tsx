@@ -4,6 +4,7 @@ import cvAsset from "../assets/cv-valentin.pdf.asset.json";
 import lonestoneLogo from "../assets/logos/lonestone.png.asset.json";
 import liveeLogo from "../assets/logos/livee.png.asset.json";
 import deux37Logo from "../assets/logos/deux37.png.asset.json";
+import { SITE_URL } from "../lib/site";
 
 const COMPANIES = [
   { name: "Lonestone", logo: lonestoneLogo.url },
@@ -31,9 +32,9 @@ export const Route = createFileRoute("/dashboard/")({
       { property: "og:title", content: "À propos — Valentin Renard, Product Manager" },
       { property: "og:description", content: "À propos de Valentin Renard, Product Manager à Nantes : parcours, expertise et approche produit." },
       { property: "og:type", content: "profile" },
-      { property: "og:url", content: "https://valentin-exe.lovable.app/dashboard" },
+      { property: "og:url", content: `${SITE_URL}/dashboard` },
     ],
-    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/dashboard" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/dashboard` }],
   }),
   component: About,
 });

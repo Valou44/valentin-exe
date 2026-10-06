@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useQuery } from "@tanstack/react-query";
 import { caseStudiesQueryOptions, DEFAULT_CASE_STUDIES } from "../lib/case-studies";
+import { SITE_URL } from "../lib/site";
 
 export const Route = createFileRoute("/dashboard/projects")({
   head: () => ({
@@ -12,9 +13,9 @@ export const Route = createFileRoute("/dashboard/projects")({
       { property: "og:title", content: "Projets — Valentin Renard" },
       { property: "og:description", content: "Études de cas produit sélectionnées par Valentin Renard." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://valentin-exe.lovable.app/dashboard/projects" },
+      { property: "og:url", content: `${SITE_URL}/dashboard/projects` },
     ],
-    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/dashboard/projects" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/dashboard/projects` }],
   }),
   component: Projects,
 });

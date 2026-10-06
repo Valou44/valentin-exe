@@ -1,387 +1,101 @@
-# PM Playground
-
-Je suis Product Manager depuis 10 ans maintenant et je souhaite créer mon site personnel CV pour présenter mon parcours des projets que j'ai pu réaliser . je m'appel Valentin Renard, je vais te partager mon CV et le lien vers mon Linkedin ( https://www.linkedin.com/in/valentin-renard-149200a9/) . Je voudrais créer un site esthétique, moderne et pas exactement comme la plupart des sites CV . Voici mon concept : Build a premium interactive portfolio website called "PM.EXE"
-
-Create a highly immersive and modern personal portfolio website for a Product Manager.
-
-The goal is NOT to build a traditional portfolio website.
-
-The goal is to create an interactive experience where visitors become a Product Manager and go through real product decisions before discovering my profile and projects.
-
-The experience should feel memorable, premium, playful and unique.
-
-Think of a mix between:
-
-Linear
-
-Stripe
-
-Notion
-
-Playdead
-
-Apple product storytelling
-
-Narrative video games
-
-The design must feel minimalistic, elegant and immersive.
-
-Core Concept
-
-The visitor does not immediately see my portfolio.
-
-Instead, they enter a Product Management simulation.
-
-The website should make them experience how I think before showing what I have done.
-
-Tagline:
-
-"Experience Product Management through real decisions."
-
-Visual Direction
-
-Dark mode only.
-
-Colors:
-
-Background: near black (#080808)
-
-White typography
-
-Subtle gray accents
-
-Soft gradients
-
-Premium glassmorphism effects
-
-Minimal use of color
-
-Typography:
-
-Inter
-
-Geist
-
-Clean modern typography
-
-Animations:
-
-Smooth transitions
-
-Framer Motion style animations
-
-Slight parallax effects
-
-Progressively revealed content
-
-The website should feel like a modern operating system or simulation environment.
-
-Landing Experience
-
-Full screen hero.
-
-Black screen.
-
-Boot sequence animation:
-
-Initializing...
-Loading experiences...
-Loading products...
-Loading learnings...
-Loading failures...
-Simulation ready.
-
-After the boot sequence:
-
-WELCOME.
-
-Today, you're the Product Manager.
-
-You have 10 minutes.
-
-Good luck.
-
-Large CTA button:
-
-START SIMULATION
-
-No navigation menu visible initially.
-
-Simulation Flow
-
-The simulation is divided into 5 chapters.
-
-Each chapter represents a real Product Management phase.
-
-The visitor progresses one step at a time.
-
-Display a progress indicator:
-
-Mission 1/5
-Mission 2/5
-etc.
-
-Chapter 1 — The Problem
-
-Present a real user problem.
-
-Example:
-
-"70% of young adults abandon administrative procedures because they don't know where to start."
-
-Ask:
-
-What would you do first?
-
-Options:
-
-Build a feature
-
-Run user interviews
-
-Launch marketing campaigns
-
-After selection:
-
-Reveal my actual approach.
-
-Explain why.
-
-Show product thinking.
-
-Chapter 2 — Discovery
-
-Show realistic user interview snippets.
-
-Allow the visitor to identify the main user pain point.
-
-After the choice:
-
-Reveal the insight I discovered.
-
-Display a clear explanation of my reasoning.
-
-Chapter 3 — Prioritization
-
-Present multiple possible solutions.
-
-Example:
-
-AI assistant
-
-Guided journeys
-
-Knowledge base
-
-Human coaching
-
-Allow the visitor to choose.
-
-Then reveal:
-
-What I selected
-
-Why
-
-Trade-offs
-
-Risks
-
-Constraints
-
-This section should demonstrate strong product strategy thinking.
-
-Chapter 4 — Delivery
-
-Present delivery constraints.
-
-Example:
-
-"You only have 4 weeks."
-
-Possible choices:
-
-MVP
-
-Full Product
-
-Prototype
-
-Landing Page
-
-Reveal:
-
-What was actually built
-
-Screenshots
-
-Wireframes
-
-Product decisions
-
-Use visual storytelling.
-
-Chapter 5 — Results
-
-Reveal impact metrics.
-
-Show:
-
-Users reached
-
-Engagement
-
-Product outcomes
-
-Then display:
-
-What worked
-
-What failed
-
-What I would do differently today
-
-This section is extremely important.
-
-Demonstrate product maturity and self-reflection.
-
-End of Simulation
-
-Generate a Product Thinking Score based on visitor choices.
-
-Example:
-
-83 / 100
-
-Then show:
-
-Comparison with Valentin
-
-Discovery +10
-Prioritization +4
-Delivery -3
-
-Add subtle animations and gamification.
-
-Unlock Portfolio
-
-After finishing the simulation, reveal the full portfolio.
-
-Display a modern dashboard with 5 sections:
-
-About Me
-
-Projects
-
-Product Thinking
-
-Experiments
-
-Contact
-
-Use a futuristic operating system style interface.
-
-Projects Section
-
-Each project should be displayed as a premium case study.
-
-Structure:
-
-The Problem
-
-Discovery
-
-Decision Making
-
-Solution
-
-Impact
-
-Lessons Learned
-
-What I Would Do Differently Today
-
-Allow smooth navigation between projects.
-
-Product Thinking Section
-
-Show my frameworks and methods.
-
-Examples:
-
-Product Discovery
-
-Prioritization
-
-User Research
-
-Roadmapping
-
-Metrics
-
-Display them as interactive cards.
-
-Easter Eggs
-
-Add a hidden terminal interface.
-
-Users can type commands.
-
-Examples:
-
-whoami
-
-projects
-
-current_focus
-
-biggest_failure
-
-future
-
-The terminal should respond with relevant content.
-
-Technical Requirements
-
-Responsive desktop and mobile
-
-Next.js
-
-TypeScript
-
-Tailwind CSS
-
-Framer Motion
-
-Clean component architecture
-
-Fast loading
-
-SEO optimized
-
-The website should feel like a premium product experience rather than a personal portfolio.
-
-Every interaction should reinforce the feeling that the visitor is inside a Product Management simulation.
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://valentin-exe.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/c7ac5a1c-fef6-4ae3-8f8c-fc469e78deba).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+# Valentin.EXE
+
+Portfolio interactif de **Valentin Renard**, Product Manager à Nantes.
+
+Au lieu d'un CV classique, le visiteur _devient_ PM : il traverse une simulation de décisions produit, obtient un score de « Product Thinking », puis débloque le portfolio (parcours, études de cas, méthode, contact). Un terminal caché propose quelques easter eggs.
+
+## Stack
+
+| Couche        | Outil                                                        |
+| ------------- | ------------------------------------------------------------ |
+| Framework     | [TanStack Start](https://tanstack.com/start) (React 19, SSR) |
+| Build         | Vite 7 + [Nitro](https://nitro.build) (preset Cloudflare)    |
+| UI            | Tailwind CSS 4, shadcn/ui (Radix), Motion                    |
+| Données       | Supabase (Postgres)                                          |
+| Hébergement   | Cloudflare Workers                                           |
+| Gestionnaire  | [Bun](https://bun.sh)                                        |
+
+## Démarrage
+
+Prérequis : [Bun](https://bun.sh) ≥ 1.2.
+
+```bash
+bun install
+bun run dev        # http://localhost:8080
+```
+
+| Commande          | Rôle                                          |
+| ----------------- | --------------------------------------------- |
+| `bun run dev`     | Serveur de développement                      |
+| `bun run build`   | Build de production (Worker dans `.output/`)  |
+| `bun run lint`    | ESLint                                        |
+| `bun run format`  | Prettier                                      |
+
+## Variables d'environnement
+
+**Publiques** — dans `.env` (versionné). Elles sont injectées dans le bundle et visibles côté navigateur :
+
+| Variable                        | Rôle                          |
+| ------------------------------- | ----------------------------- |
+| `VITE_SUPABASE_URL`             | URL du projet Supabase        |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Clé publique (anon) Supabase  |
+| `VITE_SUPABASE_PROJECT_ID`      | ID du projet Supabase         |
+
+**Secrètes** — à définir dans les _Settings → Variables and Secrets_ du Worker Cloudflare (et dans `.dev.vars`, non versionné, pour le dev local) :
+
+| Variable                    | Rôle                                                    |
+| --------------------------- | ------------------------------------------------------- |
+| `SUPABASE_URL`              | URL Supabase, lue côté serveur                          |
+| `SUPABASE_SERVICE_ROLE_KEY` | Clé service role — utilisée par l'admin pour écrire     |
+| `ADMIN_ACCESS_CODE`         | Code d'accès à la page `/admin`                         |
+
+> ⚠️ Ne jamais préfixer un secret par `VITE_` : il finirait dans le bundle client.
+
+## Structure
+
+```text
+src/
+├── routes/                  Pages (routing par fichiers TanStack)
+│   ├── index.tsx            /             Séquence de boot + accueil
+│   ├── simulation.tsx       /simulation   Simulation en chapitres
+│   ├── result.tsx           /result       Score + comparaison
+│   ├── dashboard*.tsx       /dashboard/…  Portfolio (à propos, projets, méthode, contact)
+│   ├── admin.tsx            /admin        Éditeur de contenu (protégé par code)
+│   ├── sitemap[.]xml.ts     /sitemap.xml
+│   └── robots[.]txt.ts      /robots.txt
+├── components/              Composants (Terminal, BootSequence, ui/ shadcn…)
+├── lib/
+│   ├── site.ts              URL publique du site (SEO, sitemap, robots)
+│   ├── portfolio-content.ts Profil, parcours, études de cas par défaut
+│   ├── sim-content.ts       Contenu par défaut de la simulation
+│   ├── case-studies.ts      Lecture des études de cas depuis Supabase
+│   └── admin.functions.ts   Server functions de l'admin (vérif. du code, sauvegarde)
+├── integrations/supabase/   Clients Supabase (navigateur + serveur) et types
+└── server.ts                Entrée serveur : page d'erreur propre en cas de crash SSR
+public/
+├── assets/                  Images (projets, logos, portrait) et CV
+└── og-image.png             Image de partage réseaux sociaux
+supabase/migrations/         Schéma de la base
+```
+
+## Modifier le contenu
+
+- **Études de cas et scénarios de la simulation** : depuis `/admin`. Les modifications sont enregistrées dans Supabase (tables `case_studies` et `sim_scenarios`). Si la base est vide, le site retombe sur le contenu par défaut de `src/lib/portfolio-content.ts` et `src/lib/sim-content.ts`.
+- **Profil, parcours, compétences, logos** : directement dans `src/lib/portfolio-content.ts` et `src/routes/dashboard.index.tsx`.
+- **Images** : déposer le fichier dans `public/assets/` et le référencer par `/assets/<fichier>`.
+- **Domaine du site** : changer `SITE_URL` dans `src/lib/site.ts` — c'est la seule source pour les balises canonical / Open Graph, le sitemap et `robots.txt`.
+
+## Déploiement
+
+Le repo est connecté à **Cloudflare Workers Builds** : chaque push sur `main` lance un build et déploie le Worker `valentin-exe`. Les autres branches génèrent une preview.
+
+Le statut du build apparaît directement sur le commit dans GitHub.
+
+## Base de données
+
+Le schéma est versionné dans `supabase/migrations/`. Pour l'appliquer à un nouveau projet Supabase :
+
+```bash
+supabase link --project-ref <project-id>
+supabase db push
 ```

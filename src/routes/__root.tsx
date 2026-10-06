@@ -5,14 +5,15 @@ import {
   createRootRouteWithContext,
   useRouter,
   HeadContent,
+  type ErrorComponentProps,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Terminal } from "../components/Terminal";
 import { FloatingNavButton } from "../components/FloatingNavButton";
+import { SITE_URL } from "../lib/site";
 
 function NotFoundComponent() {
   return (
@@ -36,12 +37,9 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -86,13 +84,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "Vivez le Product Management à travers de vraies décisions. Le portfolio interactif de Valentin Renard, Product Manager à Nantes." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Valentin.EXE" },
-      { property: "og:url", content: "https://valentin-exe.lovable.app/" },
+      { property: "og:url", content: `${SITE_URL}/` },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Valentin.EXE — Valentin Renard, Product Manager" },
       { name: "twitter:description", content: "Vivez le Product Management à travers de vraies décisions. Le portfolio interactif de Valentin Renard, Product Manager à Nantes." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/133da2cc-13a4-4e41-8be7-e8c3f16bb0db" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/133da2cc-13a4-4e41-8be7-e8c3f16bb0db" },
+      { property: "og:image", content: `${SITE_URL}/og-image.png` },
+      { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
     ],
     links: [
       {
@@ -121,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "Person",
           name: "Valentin Renard",
           jobTitle: "Product Manager",
-          url: "https://valentin-exe.lovable.app/",
+          url: `${SITE_URL}/`,
           address: {
             "@type": "PostalAddress",
             addressLocality: "Nantes",

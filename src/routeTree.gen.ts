@@ -9,35 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SimulationRouteImport } from './routes/simulation'
-import { Route as ResultRouteImport } from './routes/result'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ResultRouteImport } from './routes/result'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SimulationRouteImport } from './routes/simulation'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
-import { Route as DashboardThinkingRouteImport } from './routes/dashboard.thinking'
-import { Route as DashboardProjectsRouteImport } from './routes/dashboard.projects'
 import { Route as DashboardContactRouteImport } from './routes/dashboard.contact'
+import { Route as DashboardProjectsRouteImport } from './routes/dashboard.projects'
+import { Route as DashboardThinkingRouteImport } from './routes/dashboard.thinking'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SimulationRoute = SimulationRouteImport.update({
-  id: '/simulation',
-  path: '/simulation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResultRoute = ResultRouteImport.update({
-  id: '/result',
-  path: '/result',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -45,9 +31,29 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultRoute = ResultRouteImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SimulationRoute = SimulationRouteImport.update({
+  id: '/simulation',
+  path: '/simulation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -55,9 +61,9 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
-const DashboardThinkingRoute = DashboardThinkingRouteImport.update({
-  id: '/thinking',
-  path: '/thinking',
+const DashboardContactRoute = DashboardContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardProjectsRoute = DashboardProjectsRouteImport.update({
@@ -65,9 +71,9 @@ const DashboardProjectsRoute = DashboardProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => DashboardRoute,
 } as any)
-const DashboardContactRoute = DashboardContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
+const DashboardThinkingRoute = DashboardThinkingRouteImport.update({
+  id: '/thinking',
+  path: '/thinking',
   getParentRoute: () => DashboardRoute,
 } as any)
 
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/result': typeof ResultRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/simulation': typeof SimulationRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard/contact': typeof DashboardContactRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/result': typeof ResultRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/simulation': typeof SimulationRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard/contact': typeof DashboardContactRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/result': typeof ResultRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/simulation': typeof SimulationRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard/contact': typeof DashboardContactRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/dashboard'
     | '/result'
+    | '/robots.txt'
     | '/simulation'
     | '/sitemap.xml'
     | '/dashboard/contact'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/result'
+    | '/robots.txt'
     | '/simulation'
     | '/sitemap.xml'
     | '/dashboard/contact'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/dashboard'
     | '/result'
+    | '/robots.txt'
     | '/simulation'
     | '/sitemap.xml'
     | '/dashboard/contact'
@@ -150,38 +162,18 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   ResultRoute: typeof ResultRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   SimulationRoute: typeof SimulationRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/simulation': {
-      id: '/simulation'
-      path: '/simulation'
-      fullPath: '/simulation'
-      preLoaderRoute: typeof SimulationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/result': {
-      id: '/result'
-      path: '/result'
-      fullPath: '/result'
-      preLoaderRoute: typeof ResultRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -191,11 +183,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/result': {
+      id: '/result'
+      path: '/result'
+      fullPath: '/result'
+      preLoaderRoute: typeof ResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/simulation': {
+      id: '/simulation'
+      path: '/simulation'
+      fullPath: '/simulation'
+      preLoaderRoute: typeof SimulationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -205,11 +225,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/dashboard/thinking': {
-      id: '/dashboard/thinking'
-      path: '/thinking'
-      fullPath: '/dashboard/thinking'
-      preLoaderRoute: typeof DashboardThinkingRouteImport
+    '/dashboard/contact': {
+      id: '/dashboard/contact'
+      path: '/contact'
+      fullPath: '/dashboard/contact'
+      preLoaderRoute: typeof DashboardContactRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/dashboard/projects': {
@@ -219,11 +239,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardProjectsRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/dashboard/contact': {
-      id: '/dashboard/contact'
-      path: '/contact'
-      fullPath: '/dashboard/contact'
-      preLoaderRoute: typeof DashboardContactRouteImport
+    '/dashboard/thinking': {
+      id: '/dashboard/thinking'
+      path: '/thinking'
+      fullPath: '/dashboard/thinking'
+      preLoaderRoute: typeof DashboardThinkingRouteImport
       parentRoute: typeof DashboardRoute
     }
   }
@@ -252,6 +272,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   DashboardRoute: DashboardRouteWithChildren,
   ResultRoute: ResultRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   SimulationRoute: SimulationRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }

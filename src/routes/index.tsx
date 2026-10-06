@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { BootSequence } from "../components/BootSequence";
 import { Backdrop } from "../components/Noise";
 import { useSimStore } from "../lib/sim-store";
+import { SITE_URL } from "../lib/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,9 +23,9 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:url", content: "https://valentin-exe.lovable.app/" },
+      { property: "og:url", content: `${SITE_URL}/` },
     ],
-    links: [{ rel: "canonical", href: "https://valentin-exe.lovable.app/" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
   }),
   component: Index,
 });
