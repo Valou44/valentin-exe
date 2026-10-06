@@ -17,7 +17,23 @@ export async function fetchCaseStudies(): Promise<CaseStudy[]> {
   if (error || !data || data.length === 0) {
     return DEFAULT_CASE_STUDIES;
   }
-  return data.map((row) => row.content as unknown as CaseStudy);
+  return data.map((row) => {
+    const cs = row.content as unknown as CaseStudy;
+    return {
+      ...cs,
+      image: localizeAssetUrl(cs.image),
+      gallery: cs.gallery?.map(localizeAssetUrl),
+    };
+  });
+}
+
+/**
+ * Les images enregistrées en base pointent vers le proxy d'assets Lovable
+ * (/__l5e/assets-v1/<id>/<fichier>), indisponible hors hébergement Lovable.
+ * On les redirige vers la copie servie depuis public/assets/.
+ */
+function localizeAssetUrl(url: string): string {
+  return url?.replace(/^\/__l5e\/assets-v1\/[^/]+\//, "/assets/") ?? url;
 }
 
 export const caseStudiesQueryOptions = queryOptions({
