@@ -87,9 +87,14 @@ supabase/migrations/         Schéma de la base
 
 ## Déploiement
 
-Le repo est connecté à **Cloudflare Workers Builds** : chaque push sur `main` lance un build et déploie le Worker `valentin-exe`. Les autres branches génèrent une preview.
+Le repo est connecté à **Cloudflare Workers Builds** :
 
-Le statut du build apparaît directement sur le commit dans GitHub.
+- push sur `main` → build + déploiement en production sur https://valentin-exe.premier-pas-app.workers.dev ;
+- push sur une autre branche → build + **preview** (URL dédiée, visible dans le statut du commit sur GitHub).
+
+La config Wrangler est générée au build par Nitro (`.output/server/wrangler.json`) à partir de `vite.config.ts`. Les variables publiques du `.env` y sont injectées à l'identique pour la production (`vars`) et les previews (`previews.vars`) : il n'y a rien à dupliquer dans le dashboard.
+
+Les **secrets** (`SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_ACCESS_CODE`) ne sont jamais versionnés : ils se définissent dans le dashboard Cloudflare, séparément pour la production et pour les previews. Sans eux, une preview fonctionne mais l'admin ne peut pas enregistrer.
 
 ## Base de données
 

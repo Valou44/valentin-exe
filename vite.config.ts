@@ -11,6 +11,8 @@ export default defineConfig(({ command, mode }) => {
   const envDefine = Object.fromEntries(
     Object.entries(env).map(([key, value]) => [`import.meta.env.${key}`, JSON.stringify(value)]),
   );
+  // Variables exposées au Worker (process.env côté serveur) : tout le .env, qui ne contient que des valeurs publiques.
+  const workerVars = loadEnv(mode, process.cwd(), ["VITE_", "SUPABASE_"]);
 
   return {
     define: envDefine,
@@ -27,7 +29,20 @@ export default defineConfig(({ command, mode }) => {
         server: { entry: "server" },
       }),
       // Build uniquement : génère un Worker Cloudflare dans .output/
-      command === "build" && nitro({ preset: "cloudflare-module" }),
+      command === "build" &&
+        nitro({
+          preset: "cloudflare-module",
+          cloudflare: {
+            wrangler: {
+              name: "valentin-exe",
+              // Variables publiques (.env) identiques en production et en preview.
+              // Les secrets restent gérés dans le dashboard Cloudflare.
+              vars: workerVars,
+              previews: { vars: workerVars },
+              keep_vars: true,
+            },
+          },
+        }),
       viteReact(),
     ],
     resolve: {
