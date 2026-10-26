@@ -33,6 +33,8 @@ export default defineConfig(({ command, mode }) => {
           cloudflare: {
             wrangler: {
               name: "valentin-exe",
+              // `wrangler preview` (builds des branches) exige un bloc previews, même vide.
+              previews: { vars: {} },
               // Conserve les variables éventuellement définies dans le dashboard Cloudflare.
               keep_vars: true,
             },
