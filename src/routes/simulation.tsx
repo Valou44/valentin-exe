@@ -1,10 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "motion/react";
 import { Backdrop } from "../components/Noise";
-import { findScenario, DEFAULT_SCENARIOS, type Scenario } from "../lib/sim-content";
-import { scenariosQueryOptions } from "../lib/scenarios";
+import { findScenario, SCENARIOS, type Scenario } from "../lib/sim-content";
 import { useSimStore } from "../lib/sim-store";
 import { SITE_URL } from "../lib/site";
 
@@ -46,7 +44,6 @@ export const Route = createFileRoute("/simulation")({
 
 function Simulation() {
   const navigate = useNavigate();
-  const { data: scenarios = DEFAULT_SCENARIOS } = useQuery(scenariosQueryOptions);
   const scenarioId = useSimStore((s) => s.scenarioId);
   const setScenario = useSimStore((s) => s.setScenario);
   const setChoice = useSimStore((s) => s.setChoice);
@@ -58,10 +55,10 @@ function Simulation() {
   const revealRef = useRef<HTMLDivElement | null>(null);
 
   if (!scenarioId) {
-    return <ScenarioPicker scenarios={scenarios} onPick={(id) => setScenario(id)} />;
+    return <ScenarioPicker scenarios={SCENARIOS} onPick={(id) => setScenario(id)} />;
   }
 
-  const scenario = findScenario(scenarios, scenarioId);
+  const scenario = findScenario(SCENARIOS, scenarioId);
   const chapters = scenario.chapters;
   const chapter = chapters[step];
   const progress = ((step + (revealed ? 1 : 0.5)) / chapters.length) * 100;

@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { useQuery } from "@tanstack/react-query";
-import { caseStudiesQueryOptions, DEFAULT_CASE_STUDIES } from "../lib/case-studies";
+import { PROJECTS as CASE_STUDIES } from "../lib/portfolio-content";
 import { SITE_URL } from "../lib/site";
 
 export const Route = createFileRoute("/dashboard/projects")({
@@ -32,9 +31,8 @@ const SECTIONS: { key: StringKey; label: string }[] = [
 
 function Projects() {
   const [active, setActive] = useState(0);
-  const { data: ALL = DEFAULT_CASE_STUDIES } = useQuery(caseStudiesQueryOptions);
   // Les brouillons (published === false) ne sont jamais visibles publiquement.
-  const PROJECTS = ALL.filter((c) => c.published !== false);
+  const PROJECTS = CASE_STUDIES.filter((c) => c.published !== false);
   const p = PROJECTS[active] ?? PROJECTS[0];
 
   if (!p) return null;

@@ -11,8 +11,6 @@ export default defineConfig(({ command, mode }) => {
   const envDefine = Object.fromEntries(
     Object.entries(env).map(([key, value]) => [`import.meta.env.${key}`, JSON.stringify(value)]),
   );
-  // Variables exposées au Worker (process.env côté serveur) : tout le .env, qui ne contient que des valeurs publiques.
-  const workerVars = loadEnv(mode, process.cwd(), ["VITE_", "SUPABASE_"]);
 
   return {
     define: envDefine,
@@ -35,10 +33,9 @@ export default defineConfig(({ command, mode }) => {
           cloudflare: {
             wrangler: {
               name: "valentin-exe",
-              // Variables publiques (.env) identiques en production et en preview.
-              // Les secrets restent gérés dans le dashboard Cloudflare.
-              vars: workerVars,
-              previews: { vars: workerVars },
+              // `wrangler preview` (builds des branches) exige un bloc previews, même vide.
+              previews: { vars: {} },
+              // Conserve les variables éventuellement définies dans le dashboard Cloudflare.
               keep_vars: true,
             },
           },
