@@ -42,271 +42,545 @@ export interface Scenario {
 
 export const VALENTIN = "Valentin";
 
-// Les libellés de la trame, communs à tous les scénarios
-const TRAME = [
-  { id: "problem", dimension: "Cadrage du problème", tag: "ÉTAPE 01 — LE PROBLÈME", base: "Le problème réel à cadrer" },
-  { id: "discovery", dimension: "Discovery", tag: "ÉTAPE 02 — DISCOVERY", base: "La discovery" },
-  { id: "prioritization", dimension: "Priorisation", tag: "ÉTAPE 03 — PRIORISATION", base: "La priorisation" },
-  { id: "delivery", dimension: "Delivery", tag: "ÉTAPE 04 — DELIVERY", base: "Le delivery" },
-  { id: "results", dimension: "Recul", tag: "ÉTAPE 05 — RÉSULTATS", base: "Les résultats" },
-] as const;
-
+// Les champs texte (situation, revealBody) acceptent du HTML simple.
 export const SCENARIOS: Scenario[] = [
-  // ==========================================================================
-  // SCÉNARIO 1 — MON RETAB' D'ABORD
-  // ==========================================================================
   {
     id: "monretab",
     question:
       "Comment rendre les patients acteurs et contributeurs de leur parcours de rétablissement en santé mentale ?",
     project: "Mon Retab' d'abord",
-    inspiration: "Inspiré de Mon Retab' d'abord",
+    inspiration: "E-santé",
     accent: "text-amber-400",
     intro:
       "En santé mentale, le parcours de soin est souvent subi par le patient. Comment lui donner une place active, voire contributive, dans son propre rétablissement ?",
     chapters: [
       {
-        ...TRAME[0], index: 1,
-        title: "Un problème réel à cadrer",
+        id: "problem",
+        index: 1,
+        dimension: "Cadrage du problème",
+        tag: "ÉTAPE 01 — LE PROBLÈME",
+        title: "Comment rendre le patient acteur de son rétablissement ?",
         situation:
-          "Les patients en santé mentale sont souvent placés en position passive : on décide pour eux. Or le rétablissement repose justement sur l'engagement et le pouvoir d'agir de la personne.",
-        prompt: "Tu arrives sur le projet. Par quoi commences-tu ?",
+          "<p>Dans les structures de santé mentale, les patients sont accompagnés par des professionnels du rétablissement à travers différents outils papier : objectifs, auto-évaluations, plans d'action, prévention des rechutes... </p><p>Pourtant, une grande partie des informations est dispersée et difficile à suivre dans le temps. Les patients ont parfois du mal à visualiser leur progression et les coordonnateurs à avoir une vision globale du parcours.</p>",
+        prompt: "Tu démarres le projet. Par quoi commences-tu ?",
         options: [
-          { label: "Numériser le dossier de soin existant", hint: "Digitaliser l'existant", points: 6 },
-          { label: "Comprendre ce que « être acteur » veut dire", hint: "Cadrer avec les concernés", points: 18 },
-          { label: "Ajouter un suivi d'humeur", hint: "Feature avant besoin", points: 5 },
+          {
+            label: "Numériser les documents papier existants",
+            hint: "Faciliter l'accès aux informations",
+            points: 12,
+          },
+          {
+            label: "Développer un dossier médical partagé",
+            hint: "Centraliser les données de santé",
+            points: 15,
+          },
+          {
+            label:
+              "Comprendre ce qui empêche les patients de devenir pleinement acteurs de leur rétablissement",
+            hint: "Identifier les freins à l'autonomie",
+            points: 20,
+          },
         ],
-        valentinChoice: 1,
+        valentinChoice: 2,
         revealTitle: "Ce que j'ai fait",
         revealBody: [
-          "Le sujet est sensible : foncer sur des features aurait reproduit la logique descendante du soin. J'ai d'abord cadré ce que « rendre le patient acteur » signifie concrètement, avec patients et professionnels.",
-          "Le vrai problème n'était pas un manque d'outils, mais un manque de pouvoir d'agir donné à la personne.",
+          "<p>Avant de réfléchir à la solution, j'ai voulu comprendre ce que le numérique pouvait réellement apporter au dispositif existant.</p><ul><li><p>Le problème n'était pas l'absence d'outils.</p></li><li><p>Le dispositif papier fonctionnait déjà.</p></li></ul><p>Le véritable enjeu était de permettre au patient de mieux suivre sa progression, de gagner en autonomie et de partager une vision commune de son parcours avec son coordonnateur.</p><p>Cette réflexion a orienté tout le projet : ne pas simplement numériser un support, mais renforcer le pouvoir d'agir du patient.</p>",
         ],
         meta: [
-          { label: "Domaine", value: "Santé mentale" },
-          { label: "Approche", value: "Co-cadrage" },
-          { label: "Enjeu", value: "Pouvoir d'agir" },
+          {
+            label: "Public",
+            value: "Patients en rétablissement",
+          },
+          {
+            label: "Problème",
+            value: "Manque de visibilité du parcours",
+          },
+          {
+            label: "Objectif",
+            value: "Renforcer l'autonomie",
+          },
         ],
       },
       {
-        ...TRAME[1], index: 2,
-        title: "Écouter les personnes concernées",
+        id: "discovery",
+        index: 2,
+        dimension: "Discovery",
+        tag: "ÉTAPE 02 — DISCOVERY",
+        title: "Que cherches-tu à comprendre en premier ?",
         situation:
-          "Les retours des patients et pairs-aidants :\n\n« On décide à ma place. »\n« J'aimerais suivre mes propres objectifs, pas seulement ceux du protocole. »\n« Mon expérience pourrait aider d'autres. »",
-        prompt: "Quel est le vrai point de douleur ?",
+          "Le dispositif de rétablissement existe déjà.\n\nLes patients utilisent des supports papier pour suivre leurs objectifs, leurs progrès et leurs réflexions.\n\nPourtant, les professionnels constatent des difficultés dans le suivi au quotidien.",
+        prompt: "Que cherches-tu à comprendre en premier ?",
         options: [
-          { label: "Le manque d'informations médicales", hint: "Plus de contenu", points: 7 },
-          { label: "L'absence de prise sur son propre parcours", hint: "Manque d'agentivité", points: 18 },
-          { label: "Une interface peu moderne", hint: "Esthétique", points: 5 },
-          { label: "Le manque de rendez-vous", hint: "Hors périmètre produit", points: 6 },
+          {
+            label:
+              "Comment le patient et le coordonnateur collaborent réellement autour du parcours de rétablissement",
+            hint: "Comprendre les interactions",
+            points: 20,
+          },
+          {
+            label: "Pourquoi les patients remplissent peu les supports",
+            hint: "Comprendre l'engagement",
+            points: 12,
+          },
+          {
+            label: "Pourquoi les professionnels manquent de temps",
+            hint: "Comprendre les contraintes métier",
+            points: 12,
+          },
         ],
-        valentinChoice: 1,
-        revealTitle: "L'insight clé",
+        valentinChoice: 0,
+        revealTitle: "Ce que j'ai fait",
         revealBody: [
-          "La douleur centrale : le patient n'a pas de prise sur son parcours, et son vécu — précieux pour les autres — n'est pas valorisé.",
-          "J'ai reformulé l'objectif : passer d'un patient suivi à un patient acteur et contributeur, capable de fixer ses objectifs et de partager son expérience.",
+          "Je ne voulais pas simplement numériser un document.",
+          "J'ai cherché à comprendre comment le patient et son coordonnateur travaillaient ensemble autour du rétablissement.",
+          "Très vite, un constat est apparu : l'information était dispersée, difficile à suivre dans le temps et rarement accessible au bon moment.",
+          "L'enjeu n'était donc pas seulement la digitalisation mais la création d'un espace partagé autour du parcours du patient.",
         ],
         meta: [
-          { label: "Signal", value: "Manque d'agentivité" },
-          { label: "Recadrage", value: "Acteur + contributeur" },
+          {
+            label: "Discovery",
+            value: "Parcours patient/coordonnateur",
+          },
+          {
+            label: "Observation",
+            value: "Information fragmentée",
+          },
+          {
+            label: "Insight",
+            value: "Besoin d'un référentiel commun",
+          },
         ],
       },
       {
-        ...TRAME[2], index: 3,
-        title: "Choisir le pari",
+        id: "prioritization",
+        index: 3,
+        dimension: "Priorisation",
+        tag: "ÉTAPE 03 — PRIORISATION",
+        title: "Que numérises-tu en premier ?",
         situation:
-          "Plusieurs directions se défendent. Tu ne peux en pousser sérieusement qu'une seule pour le premier cycle.",
-        prompt: "Sur quoi paries-tu ?",
+          "<p>Le dispositif papier comporte de nombreux éléments : </p><ul><li><p>Objectifs court terme </p></li><li><p>Objectifs long terme </p></li><li><p>Auto-évaluations </p></li><li><p>Prévention des rechutes </p></li><li><p>Carnet de santé </p></li><li><p>Notes de suivi </p></li></ul><p>Tu ne peux pas tout construire immédiatement.</p><p></p>",
+        prompt: "Quelle brique priorises-tu ?",
         options: [
-          { label: "Un dossier médical numérique complet", hint: "Outil pro", points: 8 },
-          { label: "Des objectifs personnels pilotés par le patient", hint: "Donner la main", points: 18 },
-          { label: "Une messagerie avec le soignant", hint: "Utile mais secondaire", points: 9 },
-          { label: "Une bibliothèque d'articles", hint: "Contenu passif", points: 6 },
+          {
+            label: "Le carnet de santé",
+            hint: "Centraliser les informations médicales",
+            points: 11,
+          },
+          {
+            label: "La messagerie",
+            hint: "Fluidifier les échanges",
+            points: 8,
+          },
+          {
+            label: "Les objectifs et le suivi du rétablissement",
+            hint: "Structurer la progression",
+            points: 20,
+          },
+          {
+            label: "Les statistiques et indicateurs",
+            hint: "Mesurer davantage",
+            points: 4,
+          },
         ],
-        valentinChoice: 1,
+        valentinChoice: 2,
         revealTitle: "Mon choix et pourquoi",
         revealBody: [
-          "J'ai parié sur un espace où le patient définit et suit ses propres objectifs de rétablissement, et peut partager son expérience. C'est ce qui matérialise le pouvoir d'agir.",
-          "Arbitrage : un dossier médical complet aurait servi surtout les professionnels, pas l'engagement du patient.",
+          "J'ai choisi de commencer par le cœur du dispositif.",
+          "Le rétablissement repose avant tout sur la capacité à définir des objectifs, les suivre dans le temps et visualiser sa progression.",
+          "Les fiches ACTION et PARI étaient déjà utilisées sur papier.",
+          "Je les ai placées au centre du produit afin de préserver la logique du dispositif tout en facilitant son utilisation quotidienne.",
         ],
         meta: [
-          { label: "Pari", value: "Objectifs du patient" },
-          { label: "Levier", value: "Contribution par les pairs" },
+          {
+            label: "Priorité",
+            value: "Objectifs",
+          },
+          {
+            label: "Support",
+            value: "ACTION / PARI",
+          },
+          {
+            label: "Vision",
+            value: "Structurer le rétablissement",
+          },
         ],
       },
       {
-        ...TRAME[3], index: 4,
-        title: "Livrer dans le cadre",
+        id: "delivery",
+        index: 4,
+        dimension: "Delivery",
+        tag: "ÉTAPE 04 — DELIVERY",
+        title: "Comment éviter une simple numérisation du papier ?",
         situation:
-          "Le produit touche un public fragile : la livraison doit être prudente, testée et co-construite. Les soignants suivent de près.",
-        prompt: "Comment organises-tu la livraison ?",
+          "Tu pourrais simplement reproduire les formulaires existants à l'identique.\n\nMais le numérique permet aussi d'aller plus loin.",
+        prompt: "Quelle approche choisis-tu ?",
         options: [
-          { label: "Tout livrer d'un coup", hint: "Effet tunnel", points: 5 },
-          { label: "Itérations co-construites avec patients & soignants", hint: "Sécuriser et ajuster", points: 18 },
-          { label: "Un prototype non testé auprès des patients", hint: "Risqué ici", points: 6 },
-          { label: "Une démo de vente uniquement", hint: "Pas d'usage réel", points: 7 },
+          {
+            label: "Repenser entièrement la méthode",
+            hint: "Créer un nouveau cadre",
+            points: 5,
+          },
+          {
+            label: "Ajouter un maximum de fonctionnalités",
+            hint: "Exploiter le numérique",
+            points: 11,
+          },
+          {
+            label: "Reproduire fidèlement le dispositif papier",
+            hint: "Minimiser les changements",
+            points: 6,
+          },
+          {
+            label:
+              "Conserver les principes du dispositif tout en apportant de nouveaux leviers de suivi",
+            hint: "Respecter le métier et améliorer l'usage",
+            points: 20,
+          },
         ],
-        valentinChoice: 1,
-        revealTitle: "Ce que nous avons construit",
+        valentinChoice: 3,
+        revealTitle: "Ce que j'ai fait",
         revealBody: [
-          "Nous avons livré par itérations, en co-construisant avec patients et professionnels pour garantir que l'outil renforce vraiment le pouvoir d'agir sans fragiliser.",
-          "Dans un contexte de santé, tester en continu auprès des concernés est non négociable.",
+          "<p>Je ne voulais pas dénaturer un dispositif déjà éprouvé sur le terrain. L'objectif n'était pas de remplacer la méthode mais de l'augmenter.</p><p>Le numérique a permis d'ajouter des fonctionnalités impossibles sur papier :</p><ul><li><p>Historique des évolutions</p></li><li><p>Visualisation des indicateurs</p></li><li><p>Alertes sur les facteurs de rechute</p></li><li><p>Vision consolidée du parcours</p></li></ul><p>tout en conservant les pratiques des professionnels.</p>",
         ],
         meta: [
-          { label: "Cadence", value: "Itérations co-construites" },
-          { label: "Garde-fou", value: "Soignants impliqués" },
+          {
+            label: "Delivery",
+            value: "Augmentation du dispositif",
+          },
+          {
+            label: "Principe",
+            value: "Ne pas casser les usages",
+          },
+          {
+            label: "Valeur",
+            value: "Visibilité dans le temps",
+          },
         ],
       },
       {
-        ...TRAME[4], index: 5,
-        title: "Lire le résultat avec honnêteté",
+        id: "results",
+        index: 5,
+        dimension: "Recul",
+        tag: "ÉTAPE 05 — RÉSULTATS",
+        title: "Quel est le principal apport du numérique ?",
         situation:
-          "Mon Retab' d'abord est utilisé dans des parcours de rétablissement. Comment juges-tu le succès ?",
-        prompt: "Comment l'évalues-tu ?",
+          "Le dispositif papier fonctionnait déjà avant la plateforme.\n\nLe produit n'avait donc pas pour objectif d'inventer une nouvelle méthode.",
+        prompt: "Avec le recul, qu'est-ce que le numérique a réellement apporté ?",
         options: [
-          { label: "Célébrer le lancement", hint: "On a livré", points: 6 },
-          { label: "Engagement réel + sentiment de pouvoir d'agir", hint: "Vision complète", points: 18 },
-          { label: "Ne suivre que les téléchargements", hint: "Métrique de vanité", points: 5 },
+          {
+            label: "Une meilleure capacité à rendre visibles les progrès et les signaux faibles",
+            hint: "Mieux accompagner le rétablissement",
+            points: 20,
+          },
+          {
+            label: "Une réduction du temps administratif",
+            hint: "Gagner en efficacité",
+            points: 18,
+          },
+          {
+            label: "Davantage de fonctionnalités",
+            hint: "Étendre le périmètre",
+            points: 5,
+          },
+          {
+            label: "Davantage de données",
+            hint: "Mesurer plus",
+            points: 0,
+          },
         ],
-        valentinChoice: 1,
-        revealTitle: "Résultats, et ce que je ferais différemment",
+        valentinChoice: 0,
+        revealTitle: "Ce que j'en ai tiré",
         revealBody: [
-          "Le bon indicateur : l'engagement réel des patients dans leurs objectifs et le sentiment retrouvé d'agir sur leur parcours — pas le nombre d'installations.",
-          "Ce que je ferais différemment : outiller encore mieux la dimension contributive entre pairs dès le départ.",
+          "<p>Le principal bénéfice n'a pas été la digitalisation elle-même.</p><p>La vraie valeur a été de rendre visibles des informations qui étaient auparavant dispersées ou oubliées :</p><ul><li><p>Progression des objectifs</p></li><li><p>Evolution de l'humeur</p></li><li><p>Facteurs fragilisants</p></li><li><p>Signes annonciateurs de crise</p></li><li><p>Ressources mobilisables</p></li></ul><p>Le numérique a permis au patient comme au coordonnateur d'avoir une lecture beaucoup plus claire du parcours de rétablissement.</p>",
         ],
         meta: [
-          { label: "Impact", value: "Patient acteur" },
-          { label: "Mesure", value: "Engagement réel" },
+          {
+            label: "Learning",
+            value: "Visibilité",
+          },
+          {
+            label: "Impact",
+            value: "Anticipation",
+          },
+          {
+            label: "Conviction",
+            value: "Mieux voir pour mieux agir",
+          },
         ],
       },
     ],
   },
-
-  // ==========================================================================
-  // SCÉNARIO 3 — PREMIER PAS
-  // ==========================================================================
   {
     id: "premierpas",
     question:
       "Comment simplifier et démocratiser l'entrée dans la vie active des jeunes de 16 à 25 ans ?",
     project: "Premier Pas",
-    inspiration: "Inspiré de Premier Pas",
+    inspiration: "Ed-Tech",
     accent: "text-sky-400",
     intro:
       "Entre dispositifs, aides et démarches, l'entrée dans la vie active est un labyrinthe pour les 16-25 ans. Comment leur rendre ce premier pas simple et accessible ?",
     chapters: [
       {
-        ...TRAME[0], index: 1,
-        title: "Un problème réel à cadrer",
+        id: "problem",
+        index: 1,
+        dimension: "Cadrage du problème",
+        tag: "ÉTAPE 01 — LE PROBLÈME",
+        title: "Tu démarres le projet. Par quoi commences-tu ?",
         situation:
-          "Les jeunes de 16 à 25 ans font face à une jungle de dispositifs, d'aides et d'interlocuteurs. L'information existe mais est éclatée, complexe et peu engageante pour eux.",
-        prompt: "Tu démarres le projet. Par quoi commences-tu ?",
+          "<p>Au fil des années, tu constates toujours les mêmes difficultés. Des jeunes ne savent pas : </p><ul><li><p>Comment trouver un logement </p></li><li><p>Comment comprendre leurs droits </p></li><li><p>Quelles aides existent </p></li><li><p>Comment décrocher leur premier emploi Ils ont l'impression d'être \"lâchés dans la vie adulte\" sans mode d'emploi.</p></li></ul><p></p>",
+        prompt: "Tu identifies un besoin chez les jeunes. Par quoi commences-tu ?",
         options: [
-          { label: "Lister tous les dispositifs sur un site", hint: "Annuaire de plus", points: 6 },
-          { label: "Comprendre comment les jeunes cherchent vraiment", hint: "Partir de leurs usages", points: 18 },
-          { label: "Refaire la com' institutionnelle", hint: "Surface", points: 4 },
+          {
+            label: "Créer une plateforme recensant toutes les aides existantes",
+            hint: "Centraliser l'information",
+            points: 14,
+          },
+          {
+            label: "Comprendre les moments où les jeunes se sentent réellement bloqués",
+            hint: "Identifier les situations les plus difficiles",
+            points: 20,
+          },
+          {
+            label: "Développer directement des outils d'accompagnement",
+            hint: "Passer rapidement à l'action",
+            points: 10,
+          },
         ],
         valentinChoice: 1,
         revealTitle: "Ce que j'ai fait",
         revealBody: [
-          "Un annuaire de plus aurait ajouté de la complexité. J'ai cadré le vrai problème : l'information est là, mais illisible et décourageante pour un jeune.",
-          "Je suis parti de la façon dont les 16-25 ans cherchent réellement de l'info — mobile, rapide, sans jargon — avant de décider du produit.",
+          "Avant de penser aux fonctionnalités, j'ai cherché à comprendre les situations qui généraient le plus d'anxiété.",
+          "Les discussions menées auprès de jeunes et d'associations ont révélé un sentiment récurrent :",
+          '"On nous demande d\'être autonomes sans nous expliquer les règles du jeu."',
+          "Le problème n'était pas uniquement le manque d'information mais surtout le manque de repères et de compréhension.",
         ],
         meta: [
-          { label: "Cible", value: "16-25 ans" },
-          { label: "Approche", value: "Usages réels" },
-          { label: "Constat", value: "Info illisible" },
+          {
+            label: "Public",
+            value: "Jeunes 16-25 ans",
+          },
+          {
+            label: "Insight",
+            value: "Manque de repères",
+          },
+          {
+            label: "Méthode",
+            value: "Observation terrain",
+          },
         ],
       },
       {
-        ...TRAME[1], index: 2,
-        title: "Écouter les jeunes",
+        id: "discovery",
+        index: 2,
+        dimension: "Discovery",
+        tag: "ÉTAPE 02 — DISCOVERY",
+        title: "Quel problème cherches-tu à résoudre ?",
         situation:
-          "Ce que disent les jeunes :\n\n« Je ne sais même pas à quoi j'ai droit. »\n« C'est trop compliqué, j'abandonne. »\n« Je veux une réponse claire, pas dix pages. »",
-        prompt: "Quel est le vrai point de douleur ?",
+          "<p>Les échanges terrain font émerger plusieurs constats : </p><ul><li><p>Les aides sont mal connues </p></li><li><p>Le langage administratif est complexe </p></li><li><p>Les démarches paraissent intimidantes </p></li><li><p>Les jeunes ne savent pas toujours par où commencer </p></li></ul><p>Tu dois identifier le problème central.</p><p></p>",
+        prompt: "Quel sujet décides-tu d'approfondir ?",
         options: [
-          { label: "Le manque d'aides disponibles", hint: "Volume", points: 6 },
-          { label: "La complexité et l'illisibilité de l'info", hint: "Friction cognitive", points: 18 },
-          { label: "Un manque de notifications", hint: "Feature", points: 5 },
-          { label: "Une marque pas assez connue", hint: "Notoriété", points: 7 },
+          {
+            label: "Le manque d'accompagnement humain",
+            hint: "Les jeunes ont besoin d'être guidés",
+            points: 14,
+          },
+          {
+            label: "Le manque d'information",
+            hint: "Les ressources sont difficiles à trouver",
+            points: 14,
+          },
+          {
+            label: "La difficulté à transformer l'information en action",
+            hint: "Comprendre ne signifie pas savoir faire",
+            points: 20,
+          },
+          {
+            label: "Le manque de dispositifs publics",
+            hint: "Créer davantage d'aides",
+            points: 7,
+          },
         ],
         valentinChoice: 1,
-        revealTitle: "L'insight clé",
+        revealTitle: "Ce que j'ai fait",
         revealBody: [
-          "Le problème n'était pas le manque d'aides mais leur illisibilité : trop d'étapes, trop de jargon, aucun parcours personnalisé.",
-          "J'ai recadré l'objectif : passer d'« exposer les dispositifs » à « dire à chaque jeune ce qui le concerne, simplement ».",
+          "Au départ, je pensais que l'information était le problème principal.",
+          "Mais en observant les usages, j'ai réalisé que les ressources existaient déjà.",
+          "Le vrai problème était ailleurs : beaucoup de jeunes savaient qu'une aide ou une démarche existait mais ne savaient pas comment passer à l'action.",
+          "Comprendre n'était pas suffisant.",
+          "Il fallait rendre les choses actionnables.",
         ],
         meta: [
-          { label: "Signal", value: "Friction cognitive" },
-          { label: "Recadrage", value: "Réponse personnalisée" },
+          {
+            label: "Discovery",
+            value: "Compréhension des usages",
+          },
+          {
+            label: "Insight",
+            value: "Information ≠ Passage à l'action",
+          },
+          {
+            label: "Apprentissage",
+            value: "Simplifier les premières étapes",
+          },
         ],
       },
       {
-        ...TRAME[2], index: 3,
-        title: "Choisir le pari",
+        id: "prioritization",
+        index: 3,
+        dimension: "Priorisation",
+        tag: "ÉTAPE 03 — PRIORISATION",
+        title: "Comment aider les jeunes à apprendre ?",
         situation:
-          "Plusieurs pistes se défendent. Tu ne peux en pousser sérieusement qu'une seule pour le premier cycle.",
-        prompt: "Sur quoi paries-tu ?",
+          "<p>Après plusieurs mois, tu dois choisir une direction produit. Plusieurs pistes sont possibles :</p><ul><li><p>Guides pratiques </p></li><li><p>Articles</p></li><li><p>Fiches explicatives </p></li><li><p>Parcours interactifs </p></li><li><p>Quizz</p></li></ul><p></p>",
+        prompt: "Quelle approche priorises-tu ?",
         options: [
-          { label: "Un moteur de recherche d'aides", hint: "Toujours un annuaire", points: 8 },
-          { label: "Un parcours guidé et personnalisé", hint: "Simplifier la décision", points: 18 },
-          { label: "Une appli de messagerie", hint: "Hors besoin", points: 6 },
-          { label: "Une chaîne de contenus", hint: "Acquisition avant produit", points: 7 },
+          {
+            label: "Produire davantage de contenu",
+            hint: "Couvrir plus de sujets",
+            points: 14,
+          },
+          {
+            label: "Développer une base documentaire exhaustive",
+            hint: "Répondre à toutes les questions",
+            points: 8,
+          },
+          {
+            label: "Mettre en avant les contenus les plus populaires",
+            hint: "Faire apprendre par l'action",
+            points: 8,
+          },
+          {
+            label: "Créer des parcours pédagogiques interactifs",
+            hint: "Faire apprendre par l'action",
+            points: 20,
+          },
         ],
-        valentinChoice: 1,
-        revealTitle: "Mon choix et pourquoi",
+        valentinChoice: 3,
+        revealTitle: "Ce que j'ai fait",
         revealBody: [
-          "J'ai parié sur un parcours simple et personnalisé qui, en quelques questions, dit au jeune ce qui le concerne et comment agir. C'est ce qui lève la barrière de complexité.",
-          "Arbitrage : un moteur de recherche d'aides aurait reproduit la surcharge d'information au lieu de la réduire.",
+          "<p>Mon hypothèse initiale était que du contenu de qualité suffirait.</p><p>Pendant plusieurs mois, les utilisateurs consultaient les guides puis disparaissaient.</p><p>Les données racontaient une histoire claire :</p><ul><li><p>Les jeunes lisaient.</p></li><li><p>Mais ils ne revenaient pas.</p></li></ul><p>J'ai alors décidé de changer complètement d'approche.</p><p>Plutôt que de transmettre de l'information, j'ai commencé à construire des expériences d'apprentissage.</p><p>C'est la naissance des parcours pédagogiques et des quiz gamifiés.</p>",
         ],
         meta: [
-          { label: "Pari", value: "Parcours guidé" },
-          { label: "Levier", value: "Personnalisation" },
+          {
+            label: "Pivot",
+            value: "Éditorial → Gamification",
+          },
+          {
+            label: "Signal",
+            value: "Faible rétention",
+          },
+          {
+            label: "Décision",
+            value: "Apprentissage actif",
+          },
         ],
       },
       {
-        ...TRAME[3], index: 4,
-        title: "Livrer dans le cadre",
+        id: "delivery",
+        index: 4,
+        dimension: "Delivery",
+        tag: "ÉTAPE 04 — DELIVERY",
+        title: "Que fais-tu quand les données contredisent ton intuition ?",
         situation:
-          "Le produit doit toucher un public jeune et exigeant sur l'expérience. Les partenaires attendent de l'usage réel rapidement.",
-        prompt: "Comment organises-tu la livraison ?",
+          "<p>Après plusieurs mois de lancement : </p><ul><li><p>Les guides sont consultés</p></li><li><p>L'acquisition progresse </p></li><li><p>La rétention reste faible </p></li></ul><p>Ton hypothèse de départ est fragilisée.</p><p></p>",
+        prompt: "Comment réagis-tu ?",
         options: [
-          { label: "Tout livrer d'un coup", hint: "Effet tunnel", points: 5 },
-          { label: "Itérations courtes testées avec des jeunes", hint: "Boucle de feedback", points: 18 },
-          { label: "Un prototype non confronté aux usagers", hint: "Pas de réel", points: 7 },
-          { label: "Une landing de présentation", hint: "Tester la demande", points: 8 },
+          {
+            label: "Repenser le produit autour de l'engagement utilisateur",
+            hint: "Accepter de remettre en question son hypothèse",
+            points: 20,
+          },
+          {
+            label: "Produire encore plus de contenu",
+            hint: "Renforcer la stratégie actuelle",
+            points: 12,
+          },
+          {
+            label: "Investir davantage dans l'acquisition",
+            hint: "Augmenter le trafic",
+            points: 10,
+          },
+          {
+            label: "Attendre davantage de données",
+            hint: "Reporter la décision",
+            points: 5,
+          },
         ],
-        valentinChoice: 1,
-        revealTitle: "Ce que nous avons construit",
+        valentinChoice: 0,
+        revealTitle: "Ce que j'ai fait",
         revealBody: [
-          "Nous avons livré par itérations courtes, en testant chaque version avec de vrais jeunes pour garder le parcours simple, mobile et engageant.",
-          "Confronter tôt le produit au public a évité un parcours « logique pour nous » mais décourageant pour eux.",
+          "J'ai accepté que mon intuition de départ était incomplète.",
+          "Les utilisateurs obtenaient une réponse puis quittaient définitivement l'application.",
+          "J'ai choisi de reconstruire une partie importante du produit autour d'une logique de progression, de récompenses et d'apprentissage continu.",
+          "Ce changement représentait un risque important mais il répondait directement au problème observé.",
         ],
         meta: [
-          { label: "Cadence", value: "Itérations courtes" },
-          { label: "Test", value: "Avec des jeunes" },
+          {
+            label: "Delivery",
+            value: "Product Pivot",
+          },
+          {
+            label: "Décision",
+            value: "Suivre les données",
+          },
+          {
+            label: "Risque",
+            value: "Refonte de l'expérience",
+          },
         ],
       },
       {
-        ...TRAME[4], index: 5,
-        title: "Lire le résultat avec honnêteté",
+        id: "results",
+        index: 5,
+        dimension: "Recul",
+        tag: "ÉTAPE 05 — RÉSULTATS",
+        title: "Quel a été le principal apprentissage ?",
         situation:
-          "Premier Pas aide des jeunes à y voir clair et à agir. Comment juges-tu le succès ?",
-        prompt: "Comment l'évalues-tu ?",
+          "<p>Un an après le lancement :</p><ul><li><p>Plus de 500 utilisateurs </p></li><li><p>Plus de 20 % de rétention hebdomadaire </p></li><li><p>Des parcours pédagogiques utilisés régulièrement </p></li></ul><p>Le produit a beaucoup évolué depuis sa première version.</p><p></p>",
+        prompt: "Avec le recul, quel enseignement retiens-tu ?",
         options: [
-          { label: "Célébrer le lancement", hint: "On a livré", points: 6 },
-          { label: "Parcours complétés + passage à l'action", hint: "Vision complète", points: 18 },
-          { label: "Ne suivre que les visites", hint: "Métrique de vanité", points: 5 },
+          {
+            label: "L'engagement se construit plus par l'expérience que par l'information",
+            hint: "Faire vivre plutôt que transmettre",
+            points: 20,
+          },
+          {
+            label: "L'acquisition est le principal levier",
+            hint: "Faire croître l'audience",
+            points: 15,
+          },
+          {
+            label: "Les jeunes ont surtout besoin de davantage d'informations",
+            hint: "Miser sur la quantité",
+            points: 5,
+          },
+          {
+            label: "Produire beaucoup de contenu est la clé",
+            hint: "Miser sur l'expertise",
+            points: 5,
+          },
         ],
-        valentinChoice: 1,
-        revealTitle: "Résultats, et ce que je ferais différemment",
+        valentinChoice: 0,
+        revealTitle: "Ce que j'en ai tiré ",
         revealBody: [
-          "Le bon indicateur : les parcours réellement complétés et les jeunes qui passent à l'action — pas le simple trafic.",
-          "Ce que je ferais différemment : personnaliser encore davantage selon la situation de chaque jeune dès le premier écran.",
+          "Premier Pas m'a appris qu'informer et faire apprendre sont deux choses très différentes.",
+          "Les utilisateurs ne reviennent pas pour consulter une bibliothèque de contenus.",
+          "Ils reviennent lorsqu'ils ont le sentiment de progresser.",
+          "Le passage d'une logique éditoriale à une logique d'apprentissage gamifié a profondément changé les performances du produit et ma façon de concevoir l'engagement.",
         ],
         meta: [
-          { label: "Impact", value: "Passage à l'action" },
-          { label: "Mesure", value: "Parcours complétés" },
+          {
+            label: "Résultat",
+            value: "+500 utilisateurs",
+          },
+          {
+            label: "Rétention",
+            value: "→ +20% hebdomadaire",
+          },
+          {
+            label: "Learning",
+            value: "Expérience > Contenu",
+          },
         ],
       },
     ],
@@ -317,9 +591,6 @@ export const POINTS_PER_CHAPTER = 20;
 export const CHAPTERS_PER_SCENARIO = 5;
 export const MAX_POINTS = CHAPTERS_PER_SCENARIO * POINTS_PER_CHAPTER;
 
-/** Liste par défaut, utilisée comme repli si la base est vide. */
-export const DEFAULT_SCENARIOS = SCENARIOS;
-
 function maxPointsOf(scenario: Scenario): number {
   return scenario.chapters.length * POINTS_PER_CHAPTER;
 }
@@ -329,14 +600,17 @@ export function findScenario(list: Scenario[], id: string | null | undefined): S
 }
 
 export function valentinScore(scenario: Scenario): number {
-  const pts = scenario.chapters.reduce((sum, c) => sum + (c.options[c.valentinChoice]?.points ?? 0), 0);
+  const pts = scenario.chapters.reduce(
+    (sum, c) => sum + (c.options[c.valentinChoice]?.points ?? 0),
+    0,
+  );
   return Math.round((pts / maxPointsOf(scenario)) * 100);
 }
 
 export function computeScore(scenario: Scenario, choices: Record<string, number>): number {
   const pts = scenario.chapters.reduce((sum, c) => {
     const idx = choices[c.id];
-    return sum + (idx != null ? c.options[idx]?.points ?? 0 : 0);
+    return sum + (idx != null ? (c.options[idx]?.points ?? 0) : 0);
   }, 0);
   return Math.round((pts / maxPointsOf(scenario)) * 100);
 }
@@ -346,9 +620,12 @@ export interface DimensionDelta {
   delta: number;
 }
 
-export function computeDeltas(scenario: Scenario, choices: Record<string, number>): DimensionDelta[] {
+export function computeDeltas(
+  scenario: Scenario,
+  choices: Record<string, number>,
+): DimensionDelta[] {
   return scenario.chapters.map((c) => {
-    const userPts = choices[c.id] != null ? c.options[choices[c.id]]?.points ?? 0 : 0;
+    const userPts = choices[c.id] != null ? (c.options[choices[c.id]]?.points ?? 0) : 0;
     const valPts = c.options[c.valentinChoice]?.points ?? 0;
     return { dimension: c.dimension, delta: userPts - valPts };
   });

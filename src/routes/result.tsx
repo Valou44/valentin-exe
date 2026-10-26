@@ -1,11 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import { Backdrop } from "../components/Noise";
 import { useSimStore } from "../lib/sim-store";
-import { computeScore, computeDeltas, valentinScore, findScenario, DEFAULT_SCENARIOS } from "../lib/sim-content";
-import { scenariosQueryOptions } from "../lib/scenarios";
+import { computeScore, computeDeltas, valentinScore, findScenario, SCENARIOS } from "../lib/sim-content";
 
 export const Route = createFileRoute("/result")({
   head: () => ({
@@ -20,11 +18,10 @@ export const Route = createFileRoute("/result")({
 
 function Result() {
   const navigate = useNavigate();
-  const { data: scenarios = DEFAULT_SCENARIOS } = useQuery(scenariosQueryOptions);
   const choices = useSimStore((s) => s.choices);
   const unlock = useSimStore((s) => s.unlock);
   const scenarioId = useSimStore((s) => s.scenarioId);
-  const scenario = findScenario(scenarios, scenarioId);
+  const scenario = findScenario(SCENARIOS, scenarioId);
   const target = computeScore(scenario, choices);
   const deltas = computeDeltas(scenario, choices);
   const vScore = valentinScore(scenario);

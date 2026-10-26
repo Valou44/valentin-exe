@@ -11,7 +11,7 @@ Au lieu d'un CV classique, le visiteur _devient_ PM : il traverse une simulation
 | Framework     | [TanStack Start](https://tanstack.com/start) (React 19, SSR) |
 | Build         | Vite 7 + [Nitro](https://nitro.build) (preset Cloudflare)    |
 | UI            | Tailwind CSS 4, shadcn/ui (Radix), Motion                    |
-| Données       | Supabase (Postgres)                                          |
+| Contenu       | Fichiers TypeScript versionnés (`src/lib/*-content.ts`)      |
 | Hébergement   | Cloudflare Workers                                           |
 | Gestionnaire  | [Bun](https://bun.sh)                                        |
 
@@ -31,25 +31,7 @@ bun run dev        # http://localhost:8080
 | `bun run lint`    | ESLint                                        |
 | `bun run format`  | Prettier                                      |
 
-## Variables d'environnement
-
-**Publiques** — dans `.env` (versionné). Elles sont injectées dans le bundle et visibles côté navigateur :
-
-| Variable                        | Rôle                          |
-| ------------------------------- | ----------------------------- |
-| `VITE_SUPABASE_URL`             | URL du projet Supabase        |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | Clé publique (anon) Supabase  |
-| `VITE_SUPABASE_PROJECT_ID`      | ID du projet Supabase         |
-
-**Secrètes** — à définir dans les _Settings → Variables and Secrets_ du Worker Cloudflare (et dans `.dev.vars`, non versionné, pour le dev local) :
-
-| Variable                    | Rôle                                                    |
-| --------------------------- | ------------------------------------------------------- |
-| `SUPABASE_URL`              | URL Supabase, lue côté serveur                          |
-| `SUPABASE_SERVICE_ROLE_KEY` | Clé service role — utilisée par l'admin pour écrire     |
-| `ADMIN_ACCESS_CODE`         | Code d'accès à la page `/admin`                         |
-
-> ⚠️ Ne jamais préfixer un secret par `VITE_` : il finirait dans le bundle client.
+Aucune variable d'environnement n'est nécessaire : le site n'a ni base de données ni service externe.
 
 ## Structure
 
@@ -60,28 +42,27 @@ src/
 │   ├── simulation.tsx       /simulation   Simulation en chapitres
 │   ├── result.tsx           /result       Score + comparaison
 │   ├── dashboard*.tsx       /dashboard/…  Portfolio (à propos, projets, méthode, contact)
-│   ├── admin.tsx            /admin        Éditeur de contenu (protégé par code)
 │   ├── sitemap[.]xml.ts     /sitemap.xml
 │   └── robots[.]txt.ts      /robots.txt
 ├── components/              Composants (Terminal, BootSequence, ui/ shadcn…)
 ├── lib/
 │   ├── site.ts              URL publique du site (SEO, sitemap, robots)
-│   ├── portfolio-content.ts Profil, parcours, études de cas par défaut
-│   ├── sim-content.ts       Contenu par défaut de la simulation
-│   ├── case-studies.ts      Lecture des études de cas depuis Supabase
-│   └── admin.functions.ts   Server functions de l'admin (vérif. du code, sauvegarde)
-├── integrations/supabase/   Clients Supabase (navigateur + serveur) et types
+│   ├── portfolio-content.ts Profil, parcours, études de cas
+│   └── sim-content.ts       Scénarios de la simulation et calcul du score
 └── server.ts                Entrée serveur : page d'erreur propre en cas de crash SSR
 public/
 ├── assets/                  Images (projets, logos, portrait) et CV
 └── og-image.png             Image de partage réseaux sociaux
-supabase/migrations/         Schéma de la base
 ```
 
 ## Modifier le contenu
 
-- **Études de cas et scénarios de la simulation** : depuis `/admin`. Les modifications sont enregistrées dans Supabase (tables `case_studies` et `sim_scenarios`). Si la base est vide, le site retombe sur le contenu par défaut de `src/lib/portfolio-content.ts` et `src/lib/sim-content.ts`.
-- **Profil, parcours, compétences, logos** : directement dans `src/lib/portfolio-content.ts` et `src/routes/dashboard.index.tsx`.
+Tout le contenu vit dans le code : on modifie le fichier, on pousse, Cloudflare redéploie.
+
+- **Études de cas** : tableau `PROJECTS` de `src/lib/portfolio-content.ts`. L'ordre du tableau est l'ordre d'affichage ; `published: false` masque une étude de cas.
+- **Scénarios de la simulation** : tableau `SCENARIOS` de `src/lib/sim-content.ts`.
+- Les champs texte longs acceptent du HTML simple (`<p>`, `<ul>`, `<strong>`…).
+- **Profil, parcours, compétences, logos** : `src/lib/portfolio-content.ts` et `src/routes/dashboard.index.tsx`.
 - **Images** : déposer le fichier dans `public/assets/` et le référencer par `/assets/<fichier>`.
 - **Domaine du site** : changer `SITE_URL` dans `src/lib/site.ts` — c'est la seule source pour les balises canonical / Open Graph, le sitemap et `robots.txt`.
 
@@ -92,15 +73,4 @@ Le repo est connecté à **Cloudflare Workers Builds** :
 - push sur `main` → build + déploiement en production sur https://valentin-exe.premier-pas-app.workers.dev ;
 - push sur une autre branche → build + **preview** (URL dédiée, visible dans le statut du commit sur GitHub).
 
-La config Wrangler est générée au build par Nitro (`.output/server/wrangler.json`) à partir de `vite.config.ts`. Les variables publiques du `.env` y sont injectées à l'identique pour la production (`vars`) et les previews (`previews.vars`) : il n'y a rien à dupliquer dans le dashboard.
-
-Les **secrets** (`SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_ACCESS_CODE`) ne sont jamais versionnés : ils se définissent dans le dashboard Cloudflare, séparément pour la production et pour les previews. Sans eux, une preview fonctionne mais l'admin ne peut pas enregistrer.
-
-## Base de données
-
-Le schéma est versionné dans `supabase/migrations/`. Pour l'appliquer à un nouveau projet Supabase :
-
-```bash
-supabase link --project-ref <project-id>
-supabase db push
-```
+La config Wrangler est générée au build par Nitro (`.output/server/wrangler.json`) à partir de `vite.config.ts`.
